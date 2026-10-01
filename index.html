@@ -282,6 +282,34 @@ table.t td:first-child{color:var(--text);font-weight:600;white-space:nowrap}
 .scrim.on{opacity:1;pointer-events:auto}
 
 [hidden]{display:none!important}
+.tr-party{grid-column:1/-1;display:grid;gap:5px}
+.pm{display:grid;grid-template-columns:60px 1fr 52px 84px;gap:10px;align-items:center;font-size:13px}
+.pm .pn{color:var(--text)}
+.pm.tank .pn{color:#c69b6d}.pm.heal .pn{color:#3ddc84}
+.pm .pb{height:14px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+.pm .pb i{display:block;height:100%;transition:width .3s}
+.pm .pv{color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+
+.slot.bis{cursor:default}
+.slot.bis a.whn{font-size:13.5px;font-weight:600;text-decoration:none}
+.slot.bis a.whn:hover{text-decoration:underline}
+.slot.bis a.whn [class^="icon"]{margin-right:6px;vertical-align:middle}
+.doll .col.r .slot.bis{justify-content:flex-end}
+.bosses{display:grid;gap:8px}
+details.boss{border:1px solid rgba(255,255,255,.07);border-radius:10px;background:rgba(255,255,255,.02);padding:10px 14px}
+details.boss summary{cursor:pointer;font-weight:600;list-style:none;display:flex;gap:10px;align-items:center}
+details.boss summary::-webkit-details-marker{display:none}
+details.boss .bn{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;background:rgba(var(--accent-rgb),.2);color:var(--gold-2);flex:none}
+details.boss[open] summary{margin-bottom:8px}
+details.boss p{color:#d3ccba;font-size:14px}
+.roles{display:grid;gap:6px;margin-top:8px}
+.role{font-size:13.5px;color:#d3ccba;padding:7px 10px;border-radius:8px;background:rgba(0,0,0,.25);border-left:3px solid}
+.role b{margin-right:6px}
+.role.tank{border-color:#c69b6d}.role.heal{border-color:#3ddc84}.role.dps{border-color:#e05b4d}
+.dg{padding:12px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+.dg-h{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.dg-h b{font-family:Cinzel;color:var(--gold-2)}
+
 ol.lvl{list-style:none;display:grid;gap:0;position:relative}
 ol.lvl>li{display:grid;grid-template-columns:86px 1fr;gap:14px;padding:12px 0;border-left:2px solid rgba(var(--accent-rgb),.35);margin-left:42px;padding-left:0;position:relative}
 ol.lvl>li .lv{margin-left:-44px;align-self:start;text-align:center;font:700 13px Inter;color:#111;background:var(--accent);border-radius:999px;padding:4px 8px;box-shadow:0 0 0 4px #0e101c}
@@ -393,7 +421,7 @@ footer a{color:var(--muted)}
 </style>
 <script>
   /* Wowhead tooltips – přidají k odkazům na kouzla ikony a popisky přímo ze hry */
-  const whTooltips = {colorLinks:false, iconizeLinks:false, renameLinks:false, iconSize:'medium'};
+  const whTooltips = {colorLinks:true, iconizeLinks:true, renameLinks:false, iconSize:'medium'};
 </script>
 </head>
 <body>
@@ -410,6 +438,7 @@ footer a{color:var(--muted)}
   <nav class="topnav">
     <button class="navb" data-search title="Hledat (klávesa /)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M10 2a8 8 0 0 1 6.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1 1 10 2zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/></svg><span class="lbl">Hledat</span><kbd class="lbl">/</kbd></button>
     <button class="navb" data-go="leveling" id="nav-lvl"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M3 17h4v4H3zm7-6h4v10h-4zm7-8h4v18h-4z"/></svg><span class="lbl">Levelování</span></button>
+    <button class="navb" data-go="dungeons"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M12 2 3 6v6c0 5 3.8 9.4 9 10 5.2-.6 9-5 9-10V6zm0 2.2L19 7.3V12c0 3.9-2.9 7.4-7 8-4.1-.6-7-4.1-7-8V7.3z"/><path fill="currentColor" d="M8 11h8v2H8zm3-3h2v8h-2z"/></svg><span class="lbl">Dungeony</span></button>
     <button class="navb" data-go="glossary"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h12V4zm2 3h8v2H8zm0 4h8v2H8zm0 4h5v2H8z"/></svg><span class="lbl">Slovníček</span></button>
   </nav>
   <button class="toggle" id="t-video" aria-pressed="false" title="Filmové pozadí z oficiálního traileru"><i class="dot"></i><span class="lbl">Filmové pozadí</span></button>
@@ -1863,6 +1892,801 @@ const LEVELING = {
   sources:[["Accountshark – Midnight leveling 80–90","https://accountshark.net/blog/wow-midnight-leveling-guide-80-90-complete"],["MMOBuilds – Midnight leveling 80–90","https://mmobuilds.com/world-of-warcraft/midnight/leveling-80-90/"]],
 };
 
+/* ============================================================
+   VLNA 1 (patch 12.1): Fury Warrior, Retribution Paladin,
+   Shadow Priest, Restoration Druid, Holy Paladin, Blood DK
+   Zdroje: Method.gg (rotace, talenty, staty, rasy, consumables,
+   gear), Wowhead (tooltipy kouzel).
+   ============================================================ */
+
+/* obecnější texty u kouzel sdílených více paladinskými specy */
+Object.assign(SPELL_TT["Judgment"], {desc:"Způsobí Holy poškození. U Holy a Retribution cíl dostane víc poškození od tvé další Holy Power schopnosti. Dá 1 Holy Power.", cz:"Generátor Holy Power na cooldown."});
+Object.assign(SPELL_TT["Avenging Wrath"], {desc:"Na 20 s se staneš avatarem Světla: vyšší poškození, léčení a šance na kritický zásah. Judgment dává Holy Power navíc.", cz:"Hlavní cooldown – na cooldown."});
+Object.assign(SPELL_TT["Divine Toll"], {desc:"Okamžitě sešle na až 5 cílů: Holy Shock (Holy), Avenger's Shield (Protection) nebo Judgment (Retribution).", cz:"Velký generátor Holy Power."});
+Object.assign(SPELL_TT["Word of Glory"], {desc:"Za 3 Holy Power vyléčí spřátelený cíl. Protection: na sebe až o 300 % silnější podle chybějícího života.", cz:"Léčení jednoho cíle za Holy Power."});
+
+Object.assign(SPELL_TT, {
+  /* FURY */
+  "Rampage":{cost:"80 Rage", range:"na blízko", cast:"Okamžité", desc:"Série 4 brutálních úderů. Dá ti Enrage. S Improved Whirlwind zasáhne poslední úder i nepřátele kolem cíle.", cz:"Hlavní spender Rage – drž Enrage."},
+  "Bloodthirst":{range:"na blízko", cast:"Okamžité", cd:"cooldown 4,5 s", desc:"Krvežíznivý útok, který vyléčí 3 % tvého života a má 30% šanci dát Enrage. Generuje Rage.", cz:"Generátor Rage a Enrage."},
+  "Raging Blow":{range:"na blízko", cast:"Okamžité", cd:"cooldown 8 s", desc:"Mocný úder oběma zbraněmi. 25% šance obnovit cooldown. Generuje Rage.", cz:"Generátor Rage."},
+  "Execute":{cost:"20–40 Rage", range:"na blízko", cast:"Okamžité", cd:"cooldown 6 s", desc:"Pokus dorazit zraněného nepřítele. Jen na cíle pod 20 % života (se Sudden Death kdykoli).", cz:"Execute – pod 20 % a se Sudden Death."},
+  "Whirlwind":{range:"okolní nepřátelé", cast:"Okamžité", desc:"Vír oceli zasáhne všechny okolní nepřátele. Improved Whirlwind: další 4 útoky na jeden cíl zasáhnou i 4 další cíle za 65 %.", cz:"Na AoE nejdřív Whirlwind – pak útoky cleavují."},
+  "Recklessness":{cast:"Okamžité", cd:"cooldown 1,5 min", desc:"Na 12 s generuješ o 50 % víc Rage a schopnosti mají o 20 % vyšší šanci na krit.", cz:"Hlavní cooldown – na cooldown, s Avatar."},
+  "Avatar":{cast:"Okamžité", cd:"cooldown 1,5 min", desc:"Na 20 s se změníš v kolosa a dáváš o 20 % víc poškození.", cz:"Cooldown spolu s Recklessness."},
+  "Bladestorm":{range:"okolní nepřátelé", cast:"Okamžité", cd:"cooldown 1,5 min", desc:"Na 4 s se staneš smrští, která zasahuje všechny okolní nepřátele. Jsi imunní vůči ovládání. Generuje Rage.", cz:"Slayer – silné AoE."},
+  "Thunder Clap":{range:"okolní nepřátelé", cast:"Okamžité", desc:"Úder do země poškodí a zpomalí okolní nepřátele. S Thunder Blast se mění na silnější Thunder Blast.", cz:"Mountain Thane – AoE filler."},
+  "Thunder Blast":{cast:"Okamžité", cd:"až 2 nabití", desc:"Bloodthirst má 35% šanci dát Thunder Blast (max 2). Tvůj další Thunder Clap se změní na silný Thunder Blast.", cz:"Mountain Thane – utrať, než přeteče."},
+  "Enraged Regeneration":{cast:"Okamžité", cd:"cooldown 2 min", desc:"Na 8 s snižuje přijaté poškození o 30 % a Bloodthirst léčí o 20 % víc. Jde použít i omráčený.", cz:"Obranný cooldown."},
+  "Pummel":{range:"na blízko", cast:"Okamžité", cd:"cooldown 15 s", desc:"Přeruší sesílání a na 5 s zakáže kouzla stejné školy.", cz:"Interrupt."},
+  "Battle Shout":{range:"100 yd", cast:"Okamžité", desc:"Zvýší útočnou sílu všech členů skupiny a raidu o 5 % na 1 hodinu.", cz:"Buff pro skupinu – drž ho pořád."},
+  "Enrage":{kind:"Buff", desc:"Zuřivost – víc poškození a rychlejší útoky. Dává ji Rampage (a šance z Bloodthirst).", cz:"Drž Enrage co nejvíc aktivní."},
+  "Charge":{cast:"Okamžité", desc:"Vrhneš se k nepříteli, krátce ho znehybníš a vygeneruješ Rage.", cz:"Začátek boje."},
+  /* RETRIBUTION */
+  "Final Verdict":{cost:"3 Holy Power", range:"dosah 12 yd", cast:"Okamžité", desc:"Mocný úder zbraní s Holy poškozením. 15% šance obnovit cooldown Judgmentu.", cz:"Spender na 1 cíl."},
+  "Divine Storm":{cost:"3 Holy Power", range:"okolní nepřátelé", cast:"Okamžité", desc:"Vír božské energie zasáhne všechny okolní nepřátele (snížené nad 5 cílů).", cz:"Spender na 2+ cíle."},
+  "Blade of Justice":{range:"dosah 12 yd", cast:"Okamžité", cd:"cooldown 12 s", desc:"Probodne nepřátele čepelí světla – poškodí cíl i okolní nepřátele. Dá Holy Power.", cz:"Generátor Holy Power."},
+  "Hammer of Wrath":{cost:"0,6 % základní many", range:"dosah 30 yd", cast:"Okamžité", cd:"cooldown 7,5 s", desc:"Vrhne božské kladivo, které zasáhne nepřítele Holy poškozením. Dá 1 Holy Power.", cz:"Generátor Holy Power."},
+  "Wake of Ashes":{cost:"3 Holy Power", range:"14 yd před tebou", cast:"Okamžité", cd:"cooldown 30 s", desc:"Zasáhne nepřátele před tebou Radiant poškozením a zapálí je. Démony a nemrtvé omráčí na 5 s.", cz:"Velký útok – Templar po něm dostane Hammer of Light."},
+  "Execution Sentence":{range:"dosah 30 yd", cast:"Okamžité", cd:"cooldown 1 min", desc:"Nebeský výbuch kolem cíle a pak kladivo, které po 10 s způsobí 20 % Holy poškození, které jsi cílům mezitím dal.", cz:"Cooldown s Avenging Wrath."},
+  "Hammer of Light":{cost:"3 Holy Power", range:"dosah 14 yd", cast:"Okamžité", desc:"Templar: obrovské Holy poškození cíli a až 7 okolním nepřátelům a k tomu Empyrean Hammers.", cz:"Templar – hned po Wake of Ashes."},
+  "Divine Shield":{cast:"Okamžité", cd:"cooldown 5 min", desc:"Na 8 s imunita vůči všemu poškození a škodlivým efektům. Způsobí Forbearance.", cz:"Paladinův „Ice Block“."},
+  "Shield of Vengeance":{cast:"Okamžité", desc:"Štít, který 10 s pohlcuje poškození a pak vybuchne Holy poškozením podle pohlceného množství.", cz:"Obrana i poškození."},
+  /* SHADOW */
+  "Shadow Word: Madness":{cost:"50 Insanity", range:"dosah 40 yd", cast:"Okamžité", desc:"Okamžité Shadow poškození a další během 6 s. Vyléčí tě o 30 % způsobeného poškození.", cz:"Hlavní spender Insanity."},
+  "Tentacle Slam":{range:"dosah 40 yd", cast:"Okamžité", cd:"obnova 15 s · 2 nabití", desc:"Obří stínové chapadlo udeří do země, poškodí nepřátele a nahodí Vampiric Touch na až 6 nepřátel. Dá 6 Insanity.", cz:"Rychlé Vampiric Touch na víc cílů."},
+  "Vampiric Touch":{range:"dosah 40 yd", cast:"sesílání 1,5 s", desc:"Shadow poškození během 21 s. Vyléčí tě o 30 % způsobeného poškození.", cz:"DoT – drž ho na cíli."},
+  "Shadow Word: Pain":{cost:"2 % many", range:"dosah 40 yd", cast:"Okamžité", desc:"Okamžité Shadow poškození a další během 16 s. Dá 3 Insanity.", cz:"DoT (jen s talentem Invoked Nightmare)."},
+  "Mind Blast":{cost:"4 % základní many", range:"dosah 40 yd", cast:"sesílání 1,5 s", cd:"cooldown 9 s", desc:"Zasáhne mysl cíle Shadow poškozením. Dá 6 Insanity.", cz:"Generátor Insanity na cooldown."},
+  "Mind Flay":{range:"dosah 40 yd", cast:"Kanálované (4,5 s)", desc:"Útočí na mysl cíle Shadow energií a zpomalí ho o 50 %. Během trvání dá 18 Insanity.", cz:"Filler – přeruš ho, když jde něco důležitějšího."},
+  "Voidform":{range:"dosah 40 yd", cast:"sesílání 1,5 s", cd:"cooldown 2 min", desc:"Vypustí Void Volley a na 20 s zvýší poškození kouzel o 20 %. Během Voidform se mění na Void Volley (až 3×).", cz:"Hlavní cooldown."},
+  "Void Volley":{range:"dosah 40 yd", cast:"Okamžité", desc:"Salva 10 střel prázdnoty na cíl a 1 na každého nepřítele do 10 yd. Dá 10 Insanity.", cz:"Během Voidform – utrať všechna použití."},
+  "Halo":{cost:"4 % základní many", range:"dosah 40 yd", cast:"sesílání 1,5 s", cd:"cooldown 1 min", desc:"Rozpínající se kruh stínové energie léčí spojence a poškozuje nepřátele. Dá 5 Insanity.", cz:"Archon – na cooldown."},
+  "Power Infusion":{range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 2 min", desc:"Na 15 s zvýší cíli Haste o 20 %.", cz:"S Voidform (na sebe nebo spoluhráče)."},
+  "Shadow Word: Death":{cost:"0,5 % základní many", range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 10 s", desc:"Shadow poškození. Na cíle pod 20 % života o 150 % silnější.", cz:"Execute pod 20 %."},
+  "Dispersion":{cast:"Okamžité", cd:"cooldown 2 min", desc:"Na 6 s sníží přijaté poškození o 75 % a léčí tě. Rychlejší pohyb, nemůžeš útočit.", cz:"Záchrana života."},
+  "Silence":{range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 30 s", desc:"Umlčí cíl na 5 s, u nepřátel (ne hráčů) přeruší sesílání.", cz:"Interrupt."},
+  "Power Word: Fortitude":{cost:"1 % základní many", range:"dosah 40 yd", cast:"Okamžité", desc:"Zvýší Stamina o 5 % na 1 hodinu celé skupině.", cz:"Buff pro skupinu."},
+  "Insanity":{kind:"Zdroj", desc:"Generuješ ji Mind Blastem, Mind Flay, Tentacle Slam a Void Volley. Utrácíš ji Shadow Word: Madness.", cz:"Nenech ji přetéct."},
+  /* RESTO DRUID */
+  "Rejuvenation":{cost:"5 % základní many", range:"dosah 40 yd", cast:"Okamžité", desc:"Léčí cíl během 12 s.", cz:"Základní HoT. S 5+ aktivními máš Abundance."},
+  "Lifebloom":{cost:"1,28 % základní many", range:"dosah 40 yd", cast:"Okamžité", desc:"Léčí během 15 s a na konci (nebo při obnovení) vyléčí ještě jednou. Jen na 1 cíl najednou.", cz:"Drž 100 % času – na tanka nebo na sebe."},
+  "Swiftmend":{cost:"10 % základní many", range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 15 s", desc:"Spotřebuje Regrowth, Wild Growth nebo Rejuvenation a okamžitě silně vyléčí spojence.", cz:"Rychlé velké léčení."},
+  "Wild Growth":{cost:"15 % základní many", range:"dosah 40 yd", cast:"sesílání 1,5 s", cd:"cooldown 10 s", desc:"Během 7 s léčí až 5 zraněných spojenců do 30 yd.", cz:"Skupinové léčení – často."},
+  "Regrowth":{cost:"10 % základní many", range:"dosah 40 yd", cast:"sesílání 1,5 s", desc:"Okamžitě vyléčí cíl a ještě 6 s léčí.", cz:"Rychlé léčení jednoho cíle – hlavně s Clearcasting."},
+  "Efflorescence":{cost:"3,4 % základní many", range:"dosah 40 yd", cast:"Okamžité", desc:"Léčivý květ na zemi 30 s léčí 3 zraněné spojence do 10 yd. Jen 1 najednou.", cz:"Polož ho tam, kde stojí skupina."},
+  "Tranquility":{range:"40 yd", cast:"Kanálované (6 s)", cd:"cooldown 3 min", desc:"Během 6 s silně léčí všechny spojence v dosahu. Kořeny tě chrání štítem.", cz:"Nejsilnější cooldown – na velké skupinové poškození."},
+  "Convoke the Spirits":{cast:"Kanálované (4 s)", cd:"cooldown 2 min", desc:"Během 4 s rychle sešle sérii druidských kouzel podle tvé podoby.", cz:"Cooldown – léčení i Grove Guardians."},
+  "Innervate":{range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 3 min", desc:"Healer během 8 s obnoví 20 % maximální many.", cz:"Doplnění many."},
+  "Ironbark":{range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 1,5 min", desc:"Na 12 s sníží cíli přijaté poškození o 20 %.", cz:"Obranný cooldown na tanka."},
+  "Barkskin":{cast:"Okamžité", cd:"cooldown 1 min", desc:"Na 8 s snižuje přijaté poškození o 20 % a poškození nepřerušuje sesílání.", cz:"Osobní obrana."},
+  "Nature's Cure":{cost:"1,3 % základní many", range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 8 s", desc:"Odstraní ze spojence magické efekty (s talentem i kletby a jedy).", cz:"Dispel."},
+  "Moonfire":{range:"dosah 40 yd", cast:"Okamžité", desc:"Měsíční oheň – okamžité Arcane poškození a DoT.", cz:"DPS, když nikdo nepotřebuje léčit."},
+  "Mark of the Wild":{range:"dosah 40 yd", cast:"Okamžité", desc:"Buff pro celou skupinu na 1 hodinu (Versatility).", cz:"Buff pro skupinu."},
+  "Abundance":{kind:"Talent", desc:"Při 5+ aktivních Rejuvenation má Regrowth o 60 % vyšší šanci na krit.", cz:"Drž aspoň 5 Rejuvenation."},
+  "Soul of the Forest":{kind:"Proc", desc:"Swiftmend posílí tvé další léčivé kouzlo.", cz:"Utrať ho na Rejuvenation, nenech vypršet."},
+  /* HOLY PALADIN */
+  "Holy Shock":{cost:"2 % základní many", range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 6 s", desc:"Holy poškození nepříteli nebo silné léčení spojence, +10 % šance na krit. Dá 1 Holy Power.", cz:"Hlavní generátor Holy Power."},
+  "Light of Dawn":{cost:"3 Holy Power", range:"40 yd", cast:"Okamžité", desc:"Vyléčí až 5 zraněných spojenců.", cz:"Spender na skupinu."},
+  "Flash of Light":{cost:"10 % základní many", range:"dosah 40 yd", cast:"sesílání 1,5 s", desc:"Rychle vyléčí spřátelený cíl. Dá 1 Holy Power.", cz:"S Infusion of Light okamžitý a mnohem silnější."},
+  "Holy Light":{cost:"7 % základní many", range:"dosah 40 yd", cast:"sesílání 2 s", desc:"Velké léčení jednoho cíle.", cz:"Silné, ale pomalé léčení."},
+  "Beacon of Virtue":{cost:"4,5 % základní many", range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 15 s", desc:"Na 9 s dá Beacon of Light cíli a 4 zraněným spojencům – léčí je i část tvého dalšího léčení.", cz:"Největší zdroj léčení – skoro na cooldown, s poškozením."},
+  "Beacon of Light":{cost:"0,5 % základní many", range:"dosah 60 yd", cast:"Okamžité", desc:"Tvé přímé léčení ostatních vyléčí i označeného spojence za 10 %.", cz:"Dej na tanka."},
+  "Infusion of Light":{kind:"Proc", desc:"Holy Shock má 10% šanci posílit tvé další kouzlo: Flash of Light je okamžitý a o 200 % silnější.", cz:"Utrať ho na Flash of Light."},
+  "Crusader Strike":{cost:"1,6 % základní many", range:"na blízko", cast:"Okamžité", cd:"obnova 6 s · 2 nabití", desc:"Úder zbraní. Dá 1 Holy Power.", cz:"Holy Power, když nic jiného."},
+  "Aura Mastery":{cast:"Okamžité", cd:"cooldown 3 min", desc:"Na 8 s posílí auru (Devotion: −12 % poškození skupině).", cz:"Raid cooldown na velké poškození."},
+  "Blessing of Sacrifice":{cost:"1,4 % základní many", range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 2 min", desc:"Sníží cíli poškození o 30 % – část převezmeš na sebe.", cz:"Obrana pro tanka nebo spoluhráče."},
+  "Lay on Hands":{range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 10 min", desc:"Vyléčí spojence o 100 % tvého maximálního života. Způsobí Forbearance.", cz:"Nouzová záchrana."},
+  "Cleanse":{cost:"1,3 % základní many", range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 8 s", desc:"Odstraní ze spojence jedy, nemoci a magické efekty.", cz:"Dispel."},
+  /* BLOOD DK */
+  "Death Strike":{cost:"45 Runic Power", range:"na blízko", cast:"Okamžité", desc:"Úder temnou silou, který tě vyléčí o 20–32 % poškození přijatého za posledních 5 s (min. 7 % života).", cz:"Hlavní léčení a obrana – při velkém poškození."},
+  "Marrowrend":{cost:"2 runy", range:"na blízko", cast:"Okamžité", desc:"Rozdrtí cíl a dá 3 nabití Bone Shield (vyšší zbroj).", cz:"Udržuj Bone Shield (5+)."},
+  "Heart Strike":{cost:"1 runa", range:"na blízko", cast:"Okamžité", desc:"Zasáhne cíl a 1 dalšího nepřítele (s Death and Decay víc), zpomalí je a dá Runic Power.", cz:"Hlavní filler."},
+  "Blood Boil":{range:"okruh 10 yd", cast:"Okamžité", cd:"obnova 7,5 s · 2 nabití", desc:"Shadow poškození okolním nepřátelům a nakazí je Blood Plague.", cz:"Nenech nabití přetéct."},
+  "Death and Decay":{cost:"1 runa", range:"dosah 30 yd", cast:"Okamžité", cd:"cooldown 30 s", desc:"Znesvětí zem: 10 s poškozuje nepřátele. Heart Strike zasáhne víc cílů, když v ní stojíš.", cz:"Stůj v ní – s Crimson Scourge zdarma."},
+  "Dancing Rune Weapon":{range:"dosah 30 yd", cast:"Okamžité", cd:"cooldown 2 min", desc:"Na 8 s vyvolá runovou zbraň, která opakuje tvé útoky. +30 % parry.", cz:"Hlavní cooldown."},
+  "Vampiric Blood":{cast:"Okamžité", cd:"cooldown 1,5 min", desc:"Na 10 s zvýší maximální život o 30 % a přijaté léčení a štíty o 30 %.", cz:"Nejčastější obranný cooldown."},
+  "Icebound Fortitude":{cast:"Okamžité", cd:"cooldown 2 min", desc:"Na 8 s imunita vůči omráčení a −30 % přijatého poškození.", cz:"Základní obranný cooldown."},
+  "Anti-Magic Shell":{cast:"Okamžité", cd:"cooldown 1 min", desc:"Na 5 s pohlcuje magické poškození a brání magickým efektům. Dá Runic Power.", cz:"Proti magickému poškození."},
+  "Mind Freeze":{range:"dosah 15 yd", cast:"Okamžité", cd:"cooldown 15 s", desc:"Přeruší sesílání a na 5 s zakáže kouzla stejné školy.", cz:"Interrupt."},
+  "Bone Shield":{kind:"Buff", desc:"Víc zbroje. Každý útok na blízko spotřebuje nabití.", cz:"Drž aspoň 5 nabití (Marrowrend)."},
+  "Vampiric Strike":{cost:"1 runa", range:"na blízko", cast:"Okamžité", desc:"San'layn: Shadow úder, který tě vyléčí o 2 % života a dá Essence of the Blood Queen.", cz:"San'layn – nahradí Heart Strike, když je dostupný."},
+  "Runic Power":{kind:"Zdroj", desc:"Generuješ ho runovými útoky, utrácíš Death Strikem.", cz:"Nenech ho přetéct."},
+});
+(()=>{ const re=/(\d) %/g; Object.values(SPELL_TT).forEach(t=>{ for (const k in t) if (typeof t[k]==="string") t[k]=t[k].replace(re,"$1 %"); }); })();
+
+Object.assign(CONS, {
+  parade:{t:"Jídlo", n:"Silvermoon Parade", id:255845, ic:"inv_tradeskill_cooking_feastofblood", q:3, ilvl:24, kind:"Hostina", use:"Postaví hostinu pro všechny. Well Fed: +98 Stamina a +50 hlavního statu na 1 hodinu.", when:"Před bojem", cz:"Hostina pro celou skupinu."},
+  mana:{t:"Mana potion", n:"Lightfused Mana Potion", id:241300, ic:"inv_12_profession_alchemy_lightpotion_blue", q:1, ilvl:295, kind:"Lektvar", use:"Obnoví 26 200 many.", when:"Když dochází mana", cz:"Healer – mana v nouzi."},
+});
+const WHS3 = id => `https://www.wowhead.com/spell=${id}`;
+const B = (slot, id, n, src) => ({slot, id, n, src});
+
+/* ================= FURY WARRIOR ================= */
+GUIDES["warrior/fury"] = {
+  summary:"Fury Warrior bojuje se dvěma zbraněmi a drží se v Enrage. Bloodthirst a Raging Blow generují Rage, Rampage ho utrácí a dává Enrage. Na víc nepřátel nejdřív Whirlwind – pak útoky cleavují.",
+  strengths:["Stálý cleave až na 5 cílů přes Improved Whirlwind","Silný burst AoE (Bladestorm, Thunder Blast)","Jednoduchá rotace pro nováčky"],
+  weaknesses:["Melee – musíš být u nepřítele","Méně obranných cooldownů než tanky"],
+  changes:["Whirlwind dává 3 Rage a má upravené stacky","Rampaging Ruin: Rampage s Whirlwind stacky dá AoE úder","Slayer: Executioner stacky už nejsou omezené na 3"],
+  mechanics:[
+    {n:"Enrage", ic:"ability_warrior_rampage", u:WHS3(184361), d:"Zuřivost – víc poškození, dává ji Rampage.", t:"Rampage, když Enrage chybí."},
+    {n:"Whirlwind", ic:"ability_whirlwind", u:WHS3(190411), d:"Na AoE – další útoky zasáhnou víc cílů.", t:"Na 2+ nepřátele první."},
+  ],
+  spells:[
+    {n:"Rampage", ic:"ability_warrior_rampage", u:WHS3(184367), cat:"core", key:"1", d:"Spender Rage, dá Enrage."},
+    {n:"Bloodthirst", ic:"spell_nature_bloodlust", u:WHS3(23881), cat:"core", key:"2", d:"Rage + šance na Enrage."},
+    {n:"Raging Blow", ic:"warrior_wild_strike", u:WHS3(85288), cat:"core", key:"3", d:"Rage."},
+    {n:"Execute", ic:"inv_sword_48", u:WHS3(5308), cat:"core", key:"4", d:"Pod 20 % a se Sudden Death."},
+    {n:"Whirlwind", ic:"ability_whirlwind", u:WHS3(190411), cat:"core", key:"5", d:"AoE – zapne cleave."},
+    {n:"Thunder Clap", ic:"spell_nature_thunderclap", u:WHS3(6343), cat:"core", key:"6", d:"Mountain Thane – AoE / Thunder Blast."},
+    {n:"Recklessness", ic:"warrior_talent_icon_innerrage", u:WHS3(1719), cat:"cd", key:"Q", d:"Hlavní cooldown."},
+    {n:"Avatar", ic:"warrior_talent_icon_avatar", u:WHS3(107574), cat:"cd", key:"Q", d:"Spolu s Recklessness."},
+    {n:"Bladestorm", ic:"ability_warrior_bladestorm", u:WHS3(227847), cat:"cd", key:"E", d:"Slayer – AoE."},
+    {n:"Enraged Regeneration", ic:"ability_warrior_focusedrage", u:WHS3(184364), cat:"def", key:"R", d:"Obranný cooldown."},
+    {n:"Pummel", ic:"inv_gauntlets_04", u:WHS3(6552), cat:"util", key:"F", d:"Interrupt."},
+    {n:"Charge", ic:"ability_warrior_charge", u:WHS3(100), cat:"util", key:"Mezerník", d:"Skok k nepříteli."},
+    {n:"Battle Shout", ic:"ability_warrior_battleshout", u:WHS3(6673), cat:"buff", key:"–", d:"Buff pro skupinu."},
+  ],
+  rotations:{
+    Slayer:{ opener:["Charge","Bloodthirst","Recklessness + Avatar","Rampage","Bladestorm"],
+      st:["Recklessness (+ Avatar)","Rampage – když nemáš Enrage nebo máš 100+ Rage","Bladestorm","Execute – se 2 stacky Sudden Death","Rampage","Execute","Crushing Blow","Bloodbath","Raging Blow","Bloodthirst","Wrecking Throw","Whirlwind"],
+      aoe:["Whirlwind – když nemáš stacky Improved Whirlwind","Pak stejně jako single target"]},
+    "Mountain Thane":{ opener:["Charge","Bloodthirst","Recklessness + Avatar","Rampage"],
+      st:["Recklessness + Avatar","Rampage – když nemáš Enrage nebo máš 100+ Rage","Execute – se 2 stacky Sudden Death","Thunder Blast – se 2 nabitími","Bloodbath","Thunder Blast – během Avatar","Execute","Rampage","Thunder Blast","Crushing Blow","Bloodthirst","Raging Blow","Thunder Clap","Wrecking Throw"],
+      aoe:["Whirlwind – když nemáš stacky Improved Whirlwind","Pak stejně jako single target"]},
+  },
+  rotNote:"AoE: Method uvádí jen single target – Whirlwind na začátku AoE je obecné pravidlo Fury. Crushing Blow a Bloodbath jsou silnější verze Raging Blow a Bloodthirst během Recklessness.",
+  heroRec:"Slayer",
+  heroNote:{ Slayer:"Doporučeno pro raid – burst a Bladestorm.", "Mountain Thane":"Doporučeno pro Mythic+ – stálé AoE přes Thunder Blast." },
+  builds:[
+    {name:"Single target", hero:"Slayer", rec:true, str:"CgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGDDmx2yMzMzMmxMzMjZmZWmZGjZmthZGAAIGLLDsAmgZYCMDbAzMbMGAAMzYYMzMMYA"},
+    {name:"Cleave", hero:"Slayer", str:"CgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGDDmx2yMzMzMmxMzMjZMzyMzYMzsNmZGAAIGLLDsAmgZYCMDbAzMbMGAAMzYYMzMMYA"},
+    {name:"AoE / Mythic+", hero:"Slayer", str:"CgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGDDmZ2WmZmZmxMmZMjZMzyMzYMzsNmZGAAIGLLDsAmgZYCMDbAmZjxAAgZGDzMzMMYA"},
+    {name:"Single target", hero:"Mountain Thane", str:"CgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGDDzMz2yMzMzMMmZmZMjZWmZGjZmlxMzAAAhB2glNjGzAysgZsAYGMGAMzAYYMzMMYA"},
+    {name:"AoE / Mythic+", hero:"Mountain Thane", rec:true, str:"CgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGDDzMz2yMmZmxMmZMjZMzyMzYMzsMmZGAAIMwGssZ0YGQmFMjFAzgxAgZGADzMzMMYA"},
+  ],
+  stats:["Strength","Mastery","Haste","Critical Strike","Versatility"], statNote:"Mastery > Haste > Crit = Vers. Mastery zesiluje poškození během Enrage.",
+  gear:["Vždycky nejdřív vyšší item level.","Zbraně: dvě obouruční (Titan's Grip) nebo dvě jednoruční se Strength.","Zbroj: Plate.","Olej dej na obě zbraně."],
+  consumables:[CONS.haste, CONS.parade, CONS.oil, CONS.rune, CONS.light, CONS.heal],
+  races:[{id:"goblin", why:"Horda – Time is Money (Haste)."},{id:"troll", why:"Horda – Berserking do Recklessness."},{id:"voidelf", why:"Aliance – Entropic Embrace a Spatial Rift."},{id:"mechagnome", why:"Aliance – Combat Analysis."}],
+  bis:[B("head",251126,"Greathelm of Temptation","Murder Row (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",251138,"Cinderfury Shoulderguards","Murder Row (Catalyst)"),B("back",251190,"Bloodthorn Burnous","The Blinding Vale"),B("chest",193753,"Breastplate of Soaring Terror","Ruby Life Pools (Catalyst)"),B("wrist",237834,"Spellbreaker's Bracers","Crafted"),B("hands",159413,"Gauntlets of the Avian Sentinel","King's Rest (Catalyst)"),B("waist",159418,"Girdle of Pestilent Purification","King's Rest"),B("legs",271878,"Chausses of Unbound Rancor","Ula'tek"),B("feet",268260,"Scaled Fiend's Warboots","Vashnik the Malignant"),B("ring1",252258,"Sickening Signet of Atroxus","Voidscar Arena"),B("ring2",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("trinket1",270173,"Zul'jin's Guillotine Technique","The Coiled Altar"),B("trinket2",270175,"Voracious Heart of Ula'tek","Ula'tek"),B("main",268213,"Maze-Roa, Warlord's Fury","The Coiled Altar"),B("off",237846,"Blood Knight's Warblade","Crafted")],
+  mplus:["Whirlwind na začátku každého packu.","Pummel na nebezpečná kouzla.","Enraged Regeneration na velké poškození.","Heroic Leap na mechaniky."],
+  solo:["Bloodthirst tě léčí – na solo obsah ideální.","Charge k dalšímu nepříteli, Whirlwind na skupinky."],
+  pvp:["Velký burst s Recklessness.","Na PvP se víc hraje Arms – podrobnosti na Icy Veins."],
+  mistakes:["Rage přetéká přes 100.","Bez Enrage – zapomenutý Rampage.","Na AoE chybí Whirlwind.","Recklessness držená zbytečně dlouho."],
+  addons:STD_ADDONS,
+  sources:[["Method – rotace","https://www.method.gg/guides/fury-warrior/playstyle-and-rotation"],["Method – talenty","https://www.method.gg/guides/fury-warrior/talents"],["Method – staty, rasy, consumables","https://www.method.gg/guides/fury-warrior/stats-races-and-consumables"],["Method – gear","https://www.method.gg/guides/fury-warrior/gearing"]],
+};
+
+/* ================= RETRIBUTION PALADIN ================= */
+GUIDES["paladin/retribution"] = {
+  summary:"Retribution Paladin je jednoduchý melee: generuj Holy Power (Blade of Justice, Judgment, Hammer of Wrath, Wake of Ashes, Divine Toll) a utrácej ho Final Verdict (1 cíl) nebo Divine Storm (2+ cíle).",
+  strengths:["Velmi snadné na hraní","Časté útočné cooldowny a silné AoE","Léčení, combat res a Divine Shield"],
+  weaknesses:["Omezená mobilita"],
+  changes:["Art of War a Righteous Cause mají až 2 nabití","Crusading Strikes: +15 % rychlost útoků","Hammer of Light stojí 3 Holy Power (dříve 5), ale dává o 30 % míň"],
+  mechanics:[
+    {n:"Holy Power", ic:"spell_holy_righteousfury", u:WHS3(275779), d:"Zdroj až 5.", t:"Při 5 utrať, nenech přetéct."},
+  ],
+  spells:[
+    {n:"Final Verdict", ic:"spell_paladin_templarsverdict", u:WHS3(383328), cat:"core", key:"1", d:"Spender na 1 cíl."},
+    {n:"Divine Storm", ic:"ability_paladin_divinestorm", u:WHS3(53385), cat:"core", key:"2", d:"Spender na 2+ cíle."},
+    {n:"Blade of Justice", ic:"ability_paladin_bladeofjustice", u:WHS3(184575), cat:"core", key:"3", d:"Holy Power."},
+    {n:"Judgment", ic:"spell_holy_righteousfury", u:WHS3(20271), cat:"core", key:"4", d:"Holy Power."},
+    {n:"Hammer of Wrath", ic:"inv12_ability_paladin_hammerofwrath", u:WHS3(24275), cat:"core", key:"5", d:"Holy Power."},
+    {n:"Wake of Ashes", ic:"inv_sword_2h_artifactashbringerfire_d_03", u:WHS3(255937), cat:"cd", key:"E", d:"Velký útok na cooldown."},
+    {n:"Divine Toll", ic:"inv_ability_paladin_divinetoll", u:WHS3(375576), cat:"cd", key:"T", d:"Judgment na 5 cílů."},
+    {n:"Execution Sentence", ic:null, u:WHS3(343527), cat:"cd", key:"G", d:"Cooldown s Avenging Wrath."},
+    {n:"Avenging Wrath", ic:"spell_holy_avenginewrath", u:WHS3(31884), cat:"cd", key:"Q", d:"Hlavní cooldown."},
+    {n:"Hammer of Light", ic:"inv_mace_1h_gryphonrider_d_02_silver", u:WHS3(427453), cat:"cd", key:"E", d:"Templar – po Wake of Ashes."},
+    {n:"Shield of Vengeance", ic:"ability_paladin_shieldofthetemplar", u:WHS3(184662), cat:"def", key:"R", d:"Štít."},
+    {n:"Divine Shield", ic:"spell_holy_divineshield", u:WHS3(642), cat:"def", key:"Shift+R", d:"Imunita."},
+    {n:"Word of Glory", ic:"inv_helmet_96", u:WHS3(85673), cat:"def", key:"–", d:"Léčení za Holy Power."},
+    {n:"Rebuke", ic:"spell_holy_rebuke", u:WHS3(96231), cat:"util", key:"F", d:"Interrupt."},
+  ],
+  rotations:{
+    "Herald of the Sun":{ opener:["Blade of Justice","Avenging Wrath","Trinkety + lektvar","Execution Sentence","Wake of Ashes","Final Verdict","Final Verdict","Divine Toll"],
+      st:["Avenging Wrath","Execution Sentence","Divine Storm – s Divine Arbiter a 5 Holy Power","Final Verdict – 5 Holy Power","Wake of Ashes","Divine Toll","Blade of Justice – s Art of War mimo Avenging Wrath","Hammer of Wrath – 2 nabití","Divine Storm – s Divine Arbiter","Final Verdict – 4 Holy Power","Hammer of Wrath","Blade of Justice","Judgment","Final Verdict – 3 Holy Power"],
+      aoe:["Avenging Wrath","Execution Sentence","Final Verdict – s Divine Arbiter","Divine Storm – 5 Holy Power","Wake of Ashes","Divine Toll","Hammer of Wrath – 2 nabití","Blade of Justice – s Art of War mimo Avenging Wrath","Divine Storm – 4 Holy Power","Hammer of Wrath","Blade of Justice","Judgment","Divine Storm – 3 Holy Power"]},
+    Templar:{ opener:["Blade of Justice","Avenging Wrath","Trinkety + lektvar","Execution Sentence","Wake of Ashes","Hammer of Light","Divine Toll"],
+      st:["Avenging Wrath","Execution Sentence","Hammer of Light","Divine Storm – s Divine Arbiter a 5 Holy Power","Final Verdict – 5 Holy Power","Wake of Ashes","Divine Toll","Blade of Justice – s Art of War","Divine Storm – s Divine Arbiter","Final Verdict – 4 Holy Power","Blade of Justice","Judgment / Hammer of Wrath","Final Verdict – 3 Holy Power"],
+      aoe:["Avenging Wrath","Execution Sentence","Hammer of Light","Final Verdict – s Divine Arbiter a 5 Holy Power","Divine Storm – 5 Holy Power","Wake of Ashes","Divine Toll","Blade of Justice – s Art of War","Divine Storm – 4 Holy Power","Blade of Justice","Judgment / Hammer of Wrath","Divine Storm – 3 Holy Power"]},
+  },
+  heroNote:{ "Herald of the Sun":"Doporučeno pro raid i Mythic+.", Templar:"Silný v krátkých burst oknech – Hammer of Light." },
+  builds:[
+    {name:"Single target (raid)", hero:"Herald of the Sun", rec:true, str:"CYEAAAAAAAAAAAAAAAAAAAAAAAAAAAANbbzMzywMDAAAAAAzUmtZYmx2Y2GmZbGjxYYGLsNAMLz2Mzs1gAAAWAMAYMDDMjZmNgZmhxMGMA"},
+    {name:"Cleave / Mythic+", hero:"Herald of the Sun", rec:true, str:"CYEAAAAAAAAAAAAAAAAAAAAAAAAAAAwoZbbmZWGzMzAAAAAAYmyYGmZsNmthZ2mxYMGmxCbAYWmtZmZrBBAAsAYAwYGGYGzMbAzMDjZMYA"},
+    {name:"Single target (raid)", hero:"Templar", str:"CYEAAAAAAAAAAAAAAAAAAAAAAAAAAAANbbzMzywMDAAAAAAzUmtZYmx2Y2GmZbGjxMDzYhtBAAkZm2mZ2mBAsBYAwYGGYGjZDbzghxMGMA"},
+    {name:"Cleave / Mythic+", hero:"Templar", str:"CYEAAAAAAAAAAAAAAAAAAAAAAAAAAAwoZbbmZWGzMzAAAAAAYmyYGmZsNmthZ2mxYMGmxGbAAAZmptZmtZAAbAGAMmhBmxMzGWmBDjZMYA"},
+  ],
+  stats:["Strength","Mastery","Haste","Critical Strike","Versatility"], statNote:"Strength > Mastery > Haste > Crit > Versatility.",
+  gear:["Vždycky nejdřív vyšší item level.","Zbraň: obouruční se Strength.","Zbroj: Plate."],
+  consumables:[CONS.mastery, CONS.roast, CONS.oil, CONS.rune, CONS.reck, CONS.heal],
+  races:[{id:"dwarf", why:"Aliance – Stoneform odstraní i krvácení."},{id:"human", why:"Aliance – Will to Survive."},{id:"tauren", why:"Horda – Brawn a War Stomp."},{id:"bloodelf", why:"Horda – Arcane Torrent."}],
+  bis:[B("head",271465,"Warhelm of the Consecrated Flame","Nek'zali the Soulcoiler (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",271463,"Pauldrons of the Consecrated Flame","Murder Row (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",271468,"Bulwark of the Consecrated Flame","The Coiled Altar (Catalyst)"),B("wrist",237834,"Spellbreaker's Bracers","Crafted"),B("hands",271466,"Gauntlets of the Consecrated Flame","Den of Nalorakk (Catalyst)"),B("waist",268259,"Girdle of Toxic Regret","The Coiled Altar"),B("legs",271464,"Greaves of the Consecrated Flame","Ula'tek (Catalyst)"),B("feet",268260,"Scaled Fiend's Warboots","Vashnik the Malignant"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",251513,"Loa Worshiper's Band","Crafted"),B("trinket1",270175,"Voracious Heart of Ula'tek","Ula'tek"),B("trinket2",270173,"Zul'jin's Guillotine Technique","The Coiled Altar"),B("main",268213,"Maze-Roa, Warlord's Fury","The Coiled Altar")],
+  mplus:["Divine Storm na 2+ nepřátele.","Wake of Ashes a Divine Toll na packy.","Rebuke na nebezpečná kouzla.","Blessing of Freedom a Protection pomůžou spoluhráčům."],
+  solo:["Word of Glory tě vyléčí mezi pully.","Divine Storm na skupinky."],
+  pvp:["Silný burst s Avenging Wrath.","Hodně užitečných požehnání pro tým."],
+  mistakes:["Holy Power přetéká přes 5.","Final Verdict na víc cílů místo Divine Storm.","Wake of Ashes mimo nepřátele."],
+  addons:STD_ADDONS,
+  sources:[["Method – rotace","https://www.method.gg/guides/retribution-paladin/playstyle-and-rotation"],["Method – talenty","https://www.method.gg/guides/retribution-paladin/talents"],["Method – staty, rasy, consumables","https://www.method.gg/guides/retribution-paladin/stats-races-and-consumables"],["Method – gear","https://www.method.gg/guides/retribution-paladin/gearing"]],
+};
+
+/* ================= SHADOW PRIEST ================= */
+GUIDES["priest/shadow"] = {
+  summary:"Shadow Priest drží na nepřátelích DoTy (Vampiric Touch), generuje Insanity (Mind Blast, Tentacle Slam, Mind Flay) a utrácí ji Shadow Word: Madness. Voidform je hlavní cooldown.",
+  strengths:["Silné poškození na víc cílů (Psychic Link, Shadeburst)","Samoléčení z DoTů","Dispersion jako silná obrana"],
+  weaknesses:["DoTy je potřeba hlídat","Hodně nových kouzel v Midnight – staré návody neplatí"],
+  changes:["Shadow Word: Madness je hlavní spender","Tentacle Slam nahazuje Vampiric Touch na víc cílů","Void Volley má omezený počet použití během Voidform","Nový talent Shadeburst – Shadowy Apparitions vybuchují"],
+  mechanics:[
+    {n:"Insanity", ic:null, u:"https://www.wowhead.com/search?q=Insanity", d:"Zdroj – utrácíš Shadow Word: Madness.", t:"Nenech přetéct."},
+    {n:"Vampiric Touch", ic:"spell_holy_stoicism", u:WHS3(34914), d:"Hlavní DoT.", t:"Drž ho pořád na cíli."},
+  ],
+  spells:[
+    {n:"Shadow Word: Madness", ic:"inv12_ability_priest_powerwordmadness_eye", u:WHS3(335467), cat:"core", key:"1", d:"Spender Insanity."},
+    {n:"Mind Blast", ic:"spell_shadow_unholyfrenzy", u:WHS3(8092), cat:"core", key:"2", d:"Insanity na cooldown."},
+    {n:"Tentacle Slam", ic:"inv12_ability_priest_tentacleslam", u:WHS3(1227280), cat:"core", key:"3", d:"VT na víc cílů."},
+    {n:"Vampiric Touch", ic:"spell_holy_stoicism", u:WHS3(34914), cat:"core", key:"4", d:"DoT."},
+    {n:"Mind Flay", ic:"spell_shadow_siphonmana", u:WHS3(15407), cat:"core", key:"5", d:"Filler."},
+    {n:"Shadow Word: Death", ic:"spell_shadow_demonicfortitude", u:WHS3(32379), cat:"core", key:"6", d:"Execute pod 20 %."},
+    {n:"Shadow Word: Pain", ic:"spell_shadow_shadowwordpain", u:WHS3(589), cat:"core", key:"–", d:"DoT jen s Invoked Nightmare."},
+    {n:"Voidform", ic:"spell_priest_void-blast", u:WHS3(228260), cat:"cd", key:"Q", d:"Hlavní cooldown."},
+    {n:"Void Volley", ic:"inv12_ability_priest_voidvolley", u:WHS3(1242173), cat:"cd", key:"Q", d:"Během Voidform."},
+    {n:"Halo", ic:"ability_priest_halo_shadow", u:WHS3(120644), cat:"cd", key:"E", d:"Archon – na cooldown."},
+    {n:"Power Infusion", ic:"spell_holy_powerinfusion", u:WHS3(10060), cat:"cd", key:"T", d:"S Voidform."},
+    {n:"Dispersion", ic:"spell_shadow_dispersion", u:WHS3(47585), cat:"def", key:"R", d:"Záchrana života."},
+    {n:"Silence", ic:"ability_priest_silence", u:WHS3(15487), cat:"util", key:"F", d:"Interrupt."},
+    {n:"Power Word: Fortitude", ic:"spell_holy_wordfortitude", u:WHS3(21562), cat:"buff", key:"–", d:"Buff pro skupinu."},
+  ],
+  rotations:{
+    Archon:{ opener:["Mind Blast","Tentacle Slam","Halo","Void Volley","Voidform","Power Infusion + trinkety","Shadow Word: Madness","Void Volley"],
+      st:["Vampiric Touch – drž na cíli (Tentacle Slam nebo Vampiric Touch)","Halo","Voidform","Power Infusion","Shadow Word: Madness – když neběží, dobíhá nebo přetéká Insanity","Tentacle Slam – když přetékají nabití","Mind Blast","Tentacle Slam – spotřebuj nabití","Mind Flay: Insanity – během Shadow Word: Madness","Shadow Word: Death – cíl pod 20 %","Void Volley","Mind Flay"],
+      aoe:["DoTy na všechny cíle, které chvíli vydrží (Tentacle Slam na 6–12 cílů)","Pak stejná priorita – všechno cleavuje přes Psychic Link"]},
+    Voidweaver:{ opener:["Mind Blast","Tentacle Slam","Void Volley","Voidform","Power Infusion + trinkety","Shadow Word: Madness","Void Volley","Void Torrent","Void Blast","Void Blast"],
+      st:["Vampiric Touch – drž na cíli","Voidform","Power Infusion","Shadow Word: Madness – když neběží, dobíhá nebo přetéká","Void Volley","Void Blast – během Madness","Tentacle Slam – když přetékají nabití","Void Torrent","Mind Blast","Tentacle Slam","Shadow Word: Death – pod 20 %","Mind Flay"],
+      aoe:["Vampiric Touch na 4–5 cílů (během Voidform na všechny)","Pak stejná priorita"]},
+  },
+  heroNote:{ Archon:"Doporučeno pro raid i Mythic+.", Voidweaver:"Alternativa – Void Torrent a Void Blast." },
+  builds:[
+    {name:"Raid", hero:"Archon", rec:true, str:"CIQAAAAAAAAAAAAAAAAAAAAAAMMDDAAAAAAAAAAAAmZxMmZbmxMz2MGzw2MzYmZGbIzYxMNAzAMzmZY2MAkxYBAzMgxMzMmNmZbZAmBDA"},
+    {name:"Mythic+", hero:"Archon", rec:true, str:"CIQAAAAAAAAAAAAAAAAAAAAAAMMDzAAAAAAAAAAAAwMLmxMbjxMzyMGzw2MzYmZGbIzYxMNAzAMzmZY2MAkxYBAzMgxMzMmNmZbZAmBDA"},
+    {name:"Delves", hero:"Archon", str:"CIQAAAAAAAAAAAAAAAAAAAAAAMMDzAAAAAAAAAAAAwMLmxMbjxMzyMGzM2mBzMzMbIzYZjGgZAmZzMMbGAyYsAgZGgZmZmZ2YmtlBYGMA"},
+    {name:"Raid", hero:"Voidweaver", str:"CIQAAAAAAAAAAAAAAAAAAAAAAMMjZGAAAAAAAAAAAAMLmxMbzMMz2MzYG2mZGzMzYDZGLmpBYmZGAIAz2stAmNGAYwYmZGz2YGMzgZwA"},
+    {name:"Mythic+", hero:"Voidweaver", str:"CIQAAAAAAAAAAAAAAAAAAAAAAMMDDAAAAAAAAAAAAmZxMmZbmxMzyMzYG2mZGzMzYDZGLmpBYmZGAIAz2stAmNGAYwYmZGzGzgZGMDGA"},
+  ],
+  stats:["Intellect","Mastery","Haste","Critical Strike","Versatility"], statNote:"Single target: Mastery > Haste, na AoE naopak Haste > Mastery. Versatility nejmíň.",
+  gear:["Vždycky nejdřív vyšší item level.","Zbraň: hůl, nebo jednoruční + off-hand s Intellectem.","Zbroj: Cloth (látka)."],
+  consumables:[CONS.haste, CONS.feast, CONS.oil, CONS.rune, CONS.reck, CONS.heal],
+  races:[{id:"goblin", why:"Rocket Jump – mobilita v raidu."},{id:"dracthyr", why:"Glide – skvělý pohyb."},{id:"voidelf", why:"Spatial Rift."},{id:"nightelf", why:"Shadowmeld v Mythic+."},{id:"dwarf", why:"Stoneform v Mythic+."}],
+  bis:[B("head",271555,"Cosmic Penitent's Truesight","Tier set / Catalyst"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",239045,"Mantle of Ceremonial Ascension","Kings' Rest"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",271558,"Cosmic Penitent's Eclipsing Robes","Tier set / Catalyst"),B("wrist",239648,"Martyr's Bindings","Crafted"),B("hands",271556,"Cosmic Penitent's Celestial Grips","Tier set / Catalyst"),B("waist",239649,"Martyr's Waistwrap","Crafted"),B("legs",271554,"Enveloping Legwraps of the Cosmic Penitent","Tier set / Catalyst"),B("feet",268255,"Cackling Soultreads","The Coiled Altar"),B("ring1",252258,"Sickening Signet of Atroxus","Voidscar Arena"),B("ring2",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("trinket1",270167,"Wavecaller's Seastone","Nymrissa Wavecaller"),B("trinket2",250215,"Freightrunner's Flask","Murder Row"),B("main",271092,"Jan'thrazet, the Soul Fang","Ula'tek"),B("off",268197,"Spine of the Hissing Abyss","Entombed Sentinels")],
+  mplus:["Tentacle Slam na balík – rychle nahodí Vampiric Touch.","Silence na nebezpečná kouzla.","Mass Dispel a Purify Disease pomůžou skupině.","Dispersion na smrtelné mechaniky."],
+  solo:["DoTy tě léčí – Vampiric Touch a Madness.","Power Word: Shield před pullem."],
+  pvp:["Silný tlak DoTy a Psychic Scream.","Dispersion na přežití."],
+  mistakes:["Vampiric Touch vyprší na cíli.","Insanity přetéká.","Voidform bez Power Infusion.","Mind Flay nepřerušený, když je Mind Blast ready."],
+  addons:STD_ADDONS,
+  sources:[["Method – rotace","https://www.method.gg/guides/shadow-priest/playstyle-and-rotation"],["Method – talenty","https://www.method.gg/guides/shadow-priest/talents"],["Method – staty, rasy, consumables","https://www.method.gg/guides/shadow-priest/stats-races-and-consumables"],["Method – gear","https://www.method.gg/guides/shadow-priest/gearing"]],
+};
+
+/* ================= RESTORATION DRUID ================= */
+GUIDES["druid/restoration"] = {
+  summary:"Restoration Druid léčí hlavně HoTy (léčení v čase): Lifebloom drž pořád, Rejuvenation na víc lidí (5+ = Abundance), Swiftmend a Wild Growth často. Tranquility je velký cooldown. Když nikdo nepotřebuje léčit, přidej poškození.",
+  strengths:["Velmi flexibilní healer","Dobrá mobilita – hodně okamžitých kouzel","Silné průběžné léčení"],
+  weaknesses:["Musíš léčit dopředu – HoTy potřebují čas","Hospodaření s manou"],
+  changes:["Innervate teď obnovuje manu (20 % za 8 s)","Abundance posiluje Regrowth při 5+ Rejuvenation","Tranquility tě chrání kořeny (štít)","Swiftmend léčí víc podle spotřebovaného HoTu"],
+  mechanics:[
+    {n:"Abundance", ic:"spell_nature_rejuvenation", u:"https://www.wowhead.com/search?q=Abundance", d:"5+ Rejuvenation = silnější Regrowth.", t:"Drž aspoň 5 Rejuvenation."},
+    {n:"Soul of the Forest", ic:"inv_relics_idolofrejuvenation", u:"https://www.wowhead.com/search?q=Soul+of+the+Forest", d:"Proc po Swiftmend.", t:"Utrať na Rejuvenation."},
+  ],
+  spells:[
+    {n:"Lifebloom", ic:"inv_misc_herb_felblossom", u:WHS3(33763), cat:"core", key:"1", d:"Drž 100 % času."},
+    {n:"Rejuvenation", ic:"spell_nature_rejuvenation", u:WHS3(774), cat:"core", key:"2", d:"Základní HoT."},
+    {n:"Swiftmend", ic:"inv_relics_idolofrejuvenation", u:WHS3(18562), cat:"core", key:"3", d:"Okamžité velké léčení."},
+    {n:"Wild Growth", ic:"ability_druid_flourish", u:WHS3(48438), cat:"core", key:"4", d:"Skupinové léčení."},
+    {n:"Regrowth", ic:"spell_nature_resistnature", u:WHS3(8936), cat:"core", key:"5", d:"Rychlé léčení cíle."},
+    {n:"Efflorescence", ic:"inv_misc_herb_talandrasrose", u:WHS3(145205), cat:"core", key:"6", d:"Léčivý květ pod skupinu."},
+    {n:"Tranquility", ic:"spell_nature_tranquility", u:WHS3(740), cat:"cd", key:"Q", d:"Největší cooldown."},
+    {n:"Convoke the Spirits", ic:"inv_ability_druid_convokethespirits", u:WHS3(391528), cat:"cd", key:"E", d:"Cooldown."},
+    {n:"Innervate", ic:"spell_nature_lightning", u:WHS3(29166), cat:"cd", key:"T", d:"Mana."},
+    {n:"Ironbark", ic:"spell_druid_ironbark", u:WHS3(102342), cat:"def", key:"G", d:"Obrana pro tanka."},
+    {n:"Barkskin", ic:"spell_nature_stoneclawtotem", u:WHS3(22812), cat:"def", key:"R", d:"Osobní obrana."},
+    {n:"Nature's Cure", ic:"ability_shaman_cleansespirit", u:WHS3(88423), cat:"util", key:"F", d:"Dispel."},
+    {n:"Moonfire", ic:"spell_nature_starfall", u:WHS3(8921), cat:"util", key:"7", d:"DPS, když není co léčit."},
+    {n:"Mark of the Wild", ic:"spell_nature_regeneration", u:WHS3(1126), cat:"buff", key:"–", d:"Buff pro skupinu."},
+  ],
+  rotations:{
+    Wildstalker:{ opener:["Lifebloom na tanka (nebo sebe)","Rejuvenation na 2–3 lidi před pullem","Efflorescence pod skupinu"],
+      st:["Lifebloom – drž 100 % času","Rejuvenation – utrať Soul of the Forest","Swiftmend – na zraněného","Wild Growth – víc zraněných","Efflorescence – když chybí pod skupinou","Regrowth – s Clearcasting nebo na nízký život","Rejuvenation – drž 5+ (Abundance)","DPS: Moonfire / Sunfire, Cat Form (Rake, Rip)"],
+      aoe:["Před velkým poškozením: Rejuvenation na víc lidí","Wild Growth + Swiftmend","Tranquility na velké skupinové poškození (3 min)","Convoke the Spirits nebo Incarnation podle souboje"]},
+  },
+  rotNote:"Healer nemá pevnou rotaci – toto je zjednodušená priorita podle Method.gg. Trenažér ukáže zdraví skupiny.",
+  heroNote:{ Wildstalker:"Doporučeno pro raid i Mythic+.", "Keeper of the Grove":"Alternativa." },
+  builds:[
+    {name:"Raid", hero:"Wildstalker", rec:true, str:"CkGAAAAAAAAAAAAAAAAAAAAAAYMmZZmZMzMmthZwsZsNmBAAAAAAAAAALDa2MjpZGDjZZmZmZYYGAAAAAAAAAABAAMbzs0sNzmNGzMwMANDAwMDADA"},
+    {name:"Mythic+", hero:"Wildstalker", rec:true, str:"CkGAAAAAAAAAAAAAAAAAAAAAAMMmZZMjZmxsNMDmFjNbzAAAAAAAAAAglBNbzw0MjBmFzMzMLzwDMAAAAAMAAzAAQAAAz2MbNbzsYjZmBmZWANDAwMDADA"},
+    {name:"Raid", hero:"Keeper of the Grove", str:"CkGAAAAAAAAAAAAAAAAAAAAAAMjxMbzMjZmxsN8AzYGGbMDAAAAAAAAAAWG0sZGTzMGGzyMzMzwwMAAAAAAAAw2yYDTzMLDAAQALMmZwMDQzAgZGAwA"},
+    {name:"Mythic+", hero:"Keeper of the Grove", str:"CkGAAAAAAAAAAAAAAAAAAAAAAMMmZZMjZmxsN8AMzsYsYbGAAAAAAAAAAsYoZbGmmBwsYmZmZxwDMAAAAAMAAzA22GLYamZZAAACYhZmZGmZ2ANDAmZAADA"},
+  ],
+  stats:["Intellect","Haste","Mastery","Critical Strike","Versatility"], statNote:"Raid: Haste = Mastery > Crit ≥ Vers. Mythic+: Haste > Mastery > Vers > Crit. Nad vším item level.",
+  gear:["Vždycky nejdřív vyšší item level.","Zbraň: hůl, nebo jednoruční + off-hand s Intellectem.","Zbroj: Leather."],
+  consumables:[CONS.haste, CONS.feast, CONS.oil, CONS.mana, CONS.light, CONS.heal],
+  races:[{id:"troll", why:"Horda – Berserking (+Haste)."},{id:"tauren", why:"Horda – War Stomp a víc životů."},{id:"nightelf", why:"Aliance – Shadowmeld v Mythic+."}],
+  bis:[B("head",271875,"Gaze of the Coiled Watcher","Ula'tek / Catalyst"),B("neck",268251,"Amulet of the Twin Fangs","The Twin Fangs"),B("shoulder",244572,"Silvermoon Agent's Mantle","Crafted"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",251159,"War Trial Vestments","Den of Nalorakk / Catalyst"),B("wrist",244576,"Silvermoon Agent's Deflectors","Crafted"),B("hands",271529,"Enigmatic Dreamwatcher's Gauntlets","Entombed Sentinels"),B("waist",268256,"Sash of the Forlorn Vessel","The Coiled Altar"),B("legs",268225,"Coiled Hex Legguards","The Coiled Altar / Catalyst"),B("feet",268247,"Breakwater Boots","Nymrissa Wavecaller"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",252258,"Sickening Signet of Atroxus","Voidscar Arena"),B("trinket1",270167,"Wavecaller's Seastone","Nymrissa Wavecaller"),B("trinket2",270162,"Soulcoiler Ritual Vessel","Nek'zali the Soulcoiler"),B("main",159636,"Staff of the Lightning Serpent","Temple of Sethraliss")],
+  mplus:["Lifebloom na tanka – dostává nejvíc.","HoTy dej dopředu před velkým poškozením.","Nature's Cure na debuffy.","Když je klid, přidej DPS (Moonfire, Cat Form)."],
+  solo:["Na levelování a solo zvaž Balance nebo Feral – Resto je pomalejší.","V delves Moonfire + HoTy na sebe."],
+  pvp:["Hodně okamžitých kouzel – léčení v pohybu.","Cyclone a Entangling Roots na kontrolu."],
+  mistakes:["Lifebloom vyprší.","Léčíš až po poškození místo dopředu.","Tranquility nepoužitá.","Efflorescence mimo skupinu."],
+  addons:[["Details!","Měření léčení."],["BigWigs / DBM","Upozornění na mechaniky."],["VuhDo / Cell / Grid2","Přehledné rámečky skupiny pro healery."],["WeakAuras","Hlídání HoTů a cooldownů."]],
+  sources:[["Method – healing","https://www.method.gg/guides/restoration-druid/playstyle-and-rotation"],["Method – talenty","https://www.method.gg/guides/restoration-druid/talents"],["Method – staty, rasy, consumables","https://www.method.gg/guides/restoration-druid/stats-races-and-consumables"],["Method – gear","https://www.method.gg/guides/restoration-druid/gearing"]],
+};
+
+/* ================= HOLY PALADIN ================= */
+GUIDES["paladin/holy"] = {
+  summary:"Holy Paladin je build–spend healer: Holy Shock, Judgment a Flash of Light generují Holy Power, Word of Glory (1 cíl) a Light of Dawn (skupina) ho utrácejí. Beacon of Virtue je největší zdroj léčení.",
+  strengths:["Snadný na pochopení, vhodný pro nováčky","Spousta užitečných kouzel (imunita, freedom, snížení poškození)","V 12.1 velké buffy"],
+  weaknesses:["Hodně tlačítek může zpočátku zahltit"],
+  changes:["Midnight Holy Paladina změnil nejméně ze všech specializací","12.1: buffy hlavních kouzel a spenderů"],
+  mechanics:[
+    {n:"Holy Power", ic:"spell_holy_righteousfury", u:WHS3(275779), d:"Zdroj až 5.", t:"Při 5 hned utrať."},
+    {n:"Infusion of Light", ic:"ability_paladin_infusionoflight", u:WHS3(54149), d:"Proc z Holy Shock.", t:"Utrať na Flash of Light."},
+  ],
+  spells:[
+    {n:"Holy Shock", ic:"spell_holy_searinglight", u:WHS3(20473), cat:"core", key:"1", d:"Hlavní generátor Holy Power."},
+    {n:"Word of Glory", ic:"inv_helmet_96", u:WHS3(85673), cat:"core", key:"2", d:"Spender na 1 cíl."},
+    {n:"Light of Dawn", ic:"spell_paladin_lightofdawn", u:WHS3(85222), cat:"core", key:"3", d:"Spender na skupinu."},
+    {n:"Flash of Light", ic:"spell_holy_flashheal", u:WHS3(19750), cat:"core", key:"4", d:"S Infusion of Light."},
+    {n:"Judgment", ic:"spell_holy_righteousfury", u:WHS3(20271), cat:"core", key:"5", d:"Holy Power."},
+    {n:"Crusader Strike", ic:"spell_holy_crusaderstrike", u:WHS3(35395), cat:"core", key:"6", d:"Holy Power."},
+    {n:"Holy Light", ic:"spell_holy_surgeoflight", u:WHS3(82326), cat:"core", key:"–", d:"Velké pomalé léčení."},
+    {n:"Beacon of Virtue", ic:"ability_paladin_beaconofinsight", u:WHS3(200025), cat:"cd", key:"E", d:"Skoro na cooldown."},
+    {n:"Divine Toll", ic:"inv_ability_paladin_divinetoll", u:WHS3(375576), cat:"cd", key:"T", d:"Na cooldown."},
+    {n:"Avenging Wrath", ic:"spell_holy_avenginewrath", u:WHS3(31884), cat:"cd", key:"Q", d:"Na cooldown."},
+    {n:"Aura Mastery", ic:"spell_holy_auramastery", u:WHS3(31821), cat:"cd", key:"G", d:"Raid cooldown."},
+    {n:"Blessing of Sacrifice", ic:"spell_holy_sealofsacrifice", u:WHS3(6940), cat:"def", key:"–", d:"Obrana spoluhráče."},
+    {n:"Lay on Hands", ic:"spell_holy_layonhands", u:WHS3(633), cat:"def", key:"Shift+R", d:"Nouzová záchrana."},
+    {n:"Divine Shield", ic:"spell_holy_divineshield", u:WHS3(642), cat:"def", key:"R", d:"Imunita."},
+    {n:"Cleanse", ic:"spell_holy_purify", u:WHS3(4987), cat:"util", key:"F", d:"Dispel."},
+  ],
+  rotations:{
+    "Herald of the Sun":{ opener:["Beacon na tanka","Holy Shock","Judgment","Spend Holy Power"],
+      st:["Utrať Holy Power při 5","Divine Toll","Flash of Light – s Infusion of Light","Holy Shock","Utrať Holy Power (Word of Glory / Light of Dawn)","Judgment"],
+      aoe:["Beacon of Virtue – před poškozením","Divine Toll + Beacon of Virtue spolu","Light of Dawn místo Word of Glory","Avenging Wrath na cooldown, Aura Mastery na velké poškození"]},
+  },
+  rotNote:"Priorita podle Method.gg. Healer nemá pevnou rotaci – trenažér ukáže zdraví skupiny.",
+  heroNote:{ "Herald of the Sun":"Doporučeno pro raid i Mythic+.", Lightsmith:"Alternativa pro Mythic+." },
+  builds:[
+    {name:"Raid – Beacon of Virtue", hero:"Herald of the Sun", rec:true, str:"CEEAAAAAAAAAAAAAAAAAAAAAAAAAALAwMAAw2MzMjZMzYxYmZYZwMLmpJGGzMDjZLDADAbgNWmxMLz2Mzs1AAAAsAGYzwYGDmBAwMDzYMaA"},
+    {name:"Raid – Beacon of Faith", hero:"Herald of the Sun", str:"CEEAAAAAAAAAAAAAAAAAAAAAAAAAALAwMAAwyMzMjZ2mZmNYMsM2mZWMTTMMmZGGzWGAGA2AbsMjZWmtZmZrBAAAYBMwmhxMGYAAMzwMGjGA"},
+    {name:"Mythic+ – Beacon of Faith", hero:"Herald of the Sun", rec:true, str:"CEEAAAAAAAAAAAAAAAAAAAAAAAAAALAwMAADWGzMzMjZmZBGDLjNzsY0EDjZmhxslBgBgNwGLzMzsMbzMzWDAAAwCLMzwmHAmxgZAAMzwMGjGA"},
+  ],
+  stats:["Intellect","Mastery","Haste","Critical Strike","Versatility"], statNote:"Raid: Mastery > Haste = Crit > Vers. V Mythic+ dej Versatility před Mastery.",
+  gear:["Vždycky nejdřív vyšší item level.","Zbraň: jednoruční zbraň + štít/off-hand s Intellectem.","Zbroj: Plate."],
+  consumables:[CONS.haste, CONS.parade, CONS.oil, CONS.mana, CONS.heal],
+  races:[{id:"dwarf", why:"Aliance – Stoneform jako extra obrana."},{id:"bloodelf", why:"Horda – Arcane Torrent dá Holy Power."}],
+  bis:[B("head",251126,"Greathelm of Temptation","Murder Row (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",251138,"Cinderfury Shoulderguards","Murder Row (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",268222,"Reckless Spirit Breastplate","The Coiled Altar (Catalyst)"),B("wrist",268239,"Shellbound Bracers","The Lost Explorers"),B("hands",159413,"Gauntlets of the Avian Sentinel","King's Rest (Catalyst)"),B("waist",268259,"Girdle of Toxic Regret","The Coiled Altar"),B("legs",271878,"Chausses of Unbound Rancor","Ula'tek"),B("feet",268260,"Scaled Fiend's Warboots","Vashnik the Malignant"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",252258,"Sickening Signet of Atroxus","Voidscar Arena"),B("trinket1",270162,"Soulcoiler Ritual Vessel","Nek'zali the Soulcoiler"),B("trinket2",270164,"Gebbo's Bottomless Bag","The Lost Explorers"),B("main",268211,"Baleful Hexblade","The Coiled Altar"),B("off",268262,"Bubblefin Splash Guard","The Tidebound Grotto")],
+  mplus:["Beacon of Faith na tanka a sebe.","Cleanse na debuffy.","Blessing of Sacrifice a Lay on Hands zachrání spoluhráče.","Stůj bezpečně – vše léčíš na dálku."],
+  solo:["Na levelování zvaž Retribution – Holy je pomalejší.","Holy Shock a Judgment dávají i poškození."],
+  pvp:["Hodně užitečných kouzel – freedom, stun, imunita.","Divine Shield na přežití."],
+  mistakes:["Holy Power přetéká na 5.","Infusion of Light nevyužitý.","Beacon of Virtue mimo poškození.","Stojíš v mechanikách kvůli Mastery."],
+  addons:[["Details!","Měření léčení."],["BigWigs / DBM","Upozornění na mechaniky."],["VuhDo / Cell / Grid2","Přehledné rámečky skupiny pro healery."],["WeakAuras","Hlídání proců a cooldownů."]],
+  sources:[["Method – healing","https://www.method.gg/guides/holy-paladin/playstyle-and-rotation"],["Method – talenty","https://www.method.gg/guides/holy-paladin/talents"],["Method – staty, rasy, consumables","https://www.method.gg/guides/holy-paladin/stats-races-and-consumables"],["Method – gear","https://www.method.gg/guides/holy-paladin/gearing"]],
+};
+
+/* ================= BLOOD DEATH KNIGHT ================= */
+GUIDES["deathknight/blood"] = {
+  summary:"Blood Death Knight je tank, který se léčí sám: Death Strike vyléčí podle poškození, které jsi právě dostal. Udržuj Bone Shield (Marrowrend), stůj v Death and Decay a nenech přetéct Runic Power ani nabití Blood Boil.",
+  strengths:["Výborné samoléčení","Anti-Magic Shell proti magii, Purgatory zabrání smrti","Silná užitečnost pro skupinu"],
+  weaknesses:["Omezená mobilita","Strmější učení – chyby rychle zabijí"],
+  changes:["Nový Apex talent Dance of Midnight","Přeházený strom talentů","12.1: silnější obrana (Perseverance of the Ebon Blade, Bloodshot)"],
+  mechanics:[
+    {n:"Bone Shield", ic:"ability_deathknight_boneshield", u:WHS3(195181), d:"Víc zbroje, útoky spotřebují nabití.", t:"Drž aspoň 5 (Marrowrend)."},
+    {n:"Runic Power", ic:null, u:"https://www.wowhead.com/search?q=Runic+Power", d:"Zdroj na Death Strike.", t:"Nenech přetéct."},
+  ],
+  spells:[
+    {n:"Death Strike", ic:"spell_deathknight_butcher2", u:WHS3(49998), cat:"core", key:"1", d:"Léčení podle přijatého poškození."},
+    {n:"Marrowrend", ic:"ability_deathknight_marrowrend", u:WHS3(195182), cat:"core", key:"2", d:"Bone Shield."},
+    {n:"Heart Strike", ic:"inv_weapon_shortblade_40", u:WHS3(206930), cat:"core", key:"3", d:"Filler."},
+    {n:"Blood Boil", ic:"spell_deathknight_bloodboil", u:WHS3(50842), cat:"core", key:"4", d:"Nenech přetéct nabití."},
+    {n:"Death and Decay", ic:"spell_shadow_deathanddecay", u:WHS3(43265), cat:"core", key:"5", d:"Stůj v ní."},
+    {n:"Vampiric Strike", ic:"inv_ability_sanlayndeathknight_vampiricstrike", u:WHS3(433895), cat:"core", key:"3", d:"San'layn – místo Heart Strike."},
+    {n:"Dancing Rune Weapon", ic:"inv_sword_07", u:WHS3(49028), cat:"cd", key:"Q", d:"Hlavní cooldown."},
+    {n:"Vampiric Blood", ic:"spell_shadow_lifedrain", u:WHS3(55233), cat:"def", key:"R", d:"Nejčastější obrana."},
+    {n:"Icebound Fortitude", ic:"spell_deathknight_iceboundfortitude", u:WHS3(48792), cat:"def", key:"Shift+R", d:"−30 % poškození."},
+    {n:"Anti-Magic Shell", ic:"spell_shadow_antimagicshell", u:WHS3(48707), cat:"def", key:"E", d:"Proti magii."},
+    {n:"Mind Freeze", ic:"spell_deathknight_mindfreeze", u:WHS3(47528), cat:"util", key:"F", d:"Interrupt."},
+  ],
+  rotations:{
+    "San'layn":{ opener:["Death and Decay","Marrowrend (Bone Shield)","Dancing Rune Weapon","Blood Boil","Vampiric Strike"],
+      st:["Death Strike – na přežití nebo při 75+ Runic Power","Marrowrend – při méně než 5 Bone Shield","Death and Decay – udržuj (s Crimson Scourge zdarma)","Vampiric Strike","Blood Boil – nenech přetéct 2 nabití","Heart Strike","Blood Boil"],
+      aoe:["Stejně jako single target – Death and Decay a Blood Boil zasahují víc cílů"]},
+    Deathbringer:{ opener:["Death and Decay","Marrowrend","Dancing Rune Weapon","Blood Boil","Heart Strike"],
+      st:["Death Strike – na přežití nebo při hodně Runic Power","Marrowrend – při méně než 5 Bone Shield","Death and Decay","Blood Boil – nenech přetéct","Heart Strike"],
+      aoe:["Stejně jako single target"]},
+  },
+  rotNote:"Trenažér je zjednodušená verze San'layn priority podle Method.gg (mimo Dancing Rune Weapon).",
+  heroNote:{ "San'layn":"Doporučeno pro raid i Mythic+.", Deathbringer:"Přístupnější alternativa (Reaper's Mark)." },
+  builds:[
+    {name:"Single target", hero:"San'layn", rec:true, str:"CoPAAAAAAAAAAAAAAAAAAAAAAwYWmZGmxMzMMbzMz0MbGzMmxAAAAAmZmZmZmZYGjBAjZmZGAAADMwMW0YZDklBsBYGzAAAmZghB"},
+    {name:"Mythic+", hero:"San'layn", rec:true, str:"CoPAAAAAAAAAAAAAAAAAAAAAAwMzyMzMmxMzMMLzMz0MLGjxMGAAAAwMmZmZmZYGDAYmZmZGAAADMwMW0YZBklBsBYGzAAAmZghB"},
+    {name:"Single target", hero:"Deathbringer", str:"CoPAAAAAAAAAAAAAAAAAAAAAAwYWGzMmxMzMYbmZmmZZGjxMGAAAAwMzMzMzMDzYMAYMzMzAAAMmtBGwSwywEYYBwMmBAgZGAzYA"},
+    {name:"Mythic+", hero:"Deathbringer", str:"CoPAAAAAAAAAAAAAAAAAAAAAAwMzyMzwMmZmhZZmZmmZxYmxMGAAAAwMmZmZmZYGDAYmZmZGAAgxsNwAWC2GmADLAmxMAAMzAYYA"},
+  ],
+  stats:["Strength","Haste","Critical Strike","Versatility","Mastery"], statNote:"San'layn: Haste > Crit = Vers = Mastery. Deathbringer: Crit = Vers = Mastery > Haste.",
+  gear:["Vždycky nejdřív vyšší item level.","Zbraň: obouruční se Strength.","Zbroj: Plate.","Runeforge na zbraň vyber podle Method guidu."],
+  consumables:[CONS.haste, CONS.feast, CONS.oil, CONS.rune, CONS.reck, CONS.heal],
+  races:[{id:"dwarf", why:"Stoneform – dispel na sebe a −10 % fyzického poškození."},{id:"nightelf", why:"Shadowmeld a vyšší šance uhnout."}],
+  bis:[B("head",251229,"Visor of the Predator","Voidscar Arena"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",239051,"Pauldrons of the Great Unifier","King's Rest"),B("back",251190,"Bloodthorn Burnous","The Blinding Vale"),B("chest",268222,"Reckless Spirit Breastplate","The Coiled Altar"),B("wrist",237834,"Spellbreaker's Bracers","Crafted"),B("hands",251221,"Despondent's Gauntlets","Voidscar Arena"),B("waist",268259,"Girdle of Toxic Regret","The Coiled Altar"),B("legs",271878,"Chausses of Unbound Rancor","Ula'tek"),B("feet",159412,"Auric Puddle Stompers","King's Rest"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",240949,"Masterwork Sin'dorei Band","Crafted"),B("trinket1",270175,"Voracious Heart of Ula'tek","Ula'tek"),B("trinket2",270173,"Zul'jin's Guillotine Technique","The Coiled Altar"),B("main",268213,"Maze-Roa, Warlord's Fury","The Coiled Altar")],
+  mplus:["Death and Decay pod pack – Heart Strike zasáhne víc cílů.","Death Grip na stažení casterů.","Anti-Magic Shell na magické poškození.","Vampiric Blood jako hlavní obranný cooldown."],
+  solo:["Death Strike tě vyléčí – Blood zvládne velké pully.","Death Grip přitáhne nepřátele k tobě."],
+  pvp:["Tank specy se v PvP moc nehrají – zvaž Frost nebo Unholy."],
+  mistakes:["Death Strike jen kvůli poškození místo na léčení po zásahu.","Bone Shield spadne.","Runic Power nebo Blood Boil přetéká.","Stojíš mimo Death and Decay."],
+  addons:STD_ADDONS,
+  sources:[["Method – rotace","https://www.method.gg/guides/blood-death-knight/playstyle-and-rotation"],["Method – talenty","https://www.method.gg/guides/blood-death-knight/talents"],["Method – staty, rasy, consumables","https://www.method.gg/guides/blood-death-knight/stats-races-and-consumables"],["Method – gear","https://www.method.gg/guides/blood-death-knight/gearing"]],
+};
+
+/* BiS pro průvodce z vlny 0 (Method.gg) */
+GUIDES["mage/arcane"].bis = [B("head",271874,"Venomkeeper's Horrific Cowl","Ula'tek"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",271562,"Primal Leywarden's Manaflux","The Lost Explorers"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",271567,"Crest of the Primal Leywarden","Vashnik the Malignant"),B("wrist",239648,"Martyr's Bindings","Crafted"),B("hands",271565,"Primal Leywarden's Manashapers","Entombed Sentinels"),B("waist",268257,"Caustic Chain-Wrapped Sash","Sszorak"),B("legs",271563,"Primal Leywarden's Tailored Legwraps","Sszorak"),B("feet",268255,"Cackling Soultreads","The Coiled Altar"),B("ring1",268266,"Alluring Bubbleband","Nymrissa Wavecaller"),B("ring2",251148,"Pilfered Precious Band","Den of Nalorakk"),B("trinket1",250215,"Freightrunner's Flask","Murder Row"),B("trinket2",270164,"Gebbo's Bottomless Bag","The Lost Explorers"),B("main",271092,"Jan'thrazet, the Soul Fang","Ula'tek"),B("off",245769,"Aln'hara Lantern","Crafted")];
+GUIDES["mage/fire"].bis = [B("head",271874,"Venomkeeper's Horrific Cowl","Ula'tek"),B("neck",251142,"Pendant of Malefic Fury","Murder Row"),B("shoulder",268241,"Ornaments of the Eternal Coil","The Twin Fangs"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",273785,"Primordial Robe of Rites","Altar of Fangs"),B("wrist",239648,"Martyr's Bindings","Crafted"),B("hands",268243,"Grasps of the Eternal Shadow","The Coiled Altar"),B("waist",268257,"Caustic Chain-Wrapped Sash","Sszorak"),B("legs",268236,"Initiate's Sacrificial Tights","Nek'zali the Soulcoiler"),B("feet",268255,"Cackling Soultreads","The Coiled Altar"),B("ring1",268266,"Alluring Bubbleband","Nymrissa Wavecaller"),B("ring2",159459,"Ritual Binder's Ring","King's Rest"),B("trinket1",273796,"Vile Vial of Volatile Venom","Altar of Fangs"),B("trinket2",270164,"Gebbo's Bottomless Bag","The Lost Explorers"),B("main",271092,"Jan'thrazet, the Soul Fang","Ula'tek"),B("off",245769,"Aln'hara Lantern","Crafted")];
+GUIDES["hunter/beast-mastery"].bis = [B("head",251220,"Voidscarred Crown","Voidscar Arena (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",268231,"Soulslither Spaulders","The Coiled Altar (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",271876,"Awoken Dreadfang Cuirass","Ula'tek (Catalyst)"),B("wrist",244584,"Farstrider's Plated Bracers","Crafted"),B("hands",160213,"Sepulchral Construct's Gloves","King's Rest (Catalyst)"),B("waist",244581,"Farstrider's Trophy Belt","Crafted"),B("legs",268237,"Cuisses of the Uncoiled Union","The Coiled Altar (Catalyst)"),B("feet",268233,"Ferocious Scaleboots","Sszorak"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",252258,"Sickening Signet of Atroxus","Voidscar Arena"),B("trinket1",270168,"Font of Venomous Rage","Ula'tek"),B("trinket2",270175,"Voracious Heart of Ula'tek","Ula'tek"),B("main",268207,"Caustic Repose Greatbow","Ula'tek")];
+GUIDES["demonhunter/havoc"].bis = [B("head",271875,"Gaze of the Coiled Watcher","Ula'tek (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",268246,"Frothing Venom Spaulders","Vashnik the Malignant (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",239048,"Vest of Reverent Adoration","Kings' Rest (Catalyst)"),B("wrist",244576,"Silvermoon Agent's Deflectors","Crafted"),B("hands",271538,"Abyssal Doomhound's Studded Gauntlets","Entombed Sentinels"),B("waist",268256,"Sash of the Forlorn Vessel","The Coiled Altar"),B("legs",268225,"Coiled Hex Legguards","The Coiled Altar (Catalyst)"),B("feet",159327,"Sand-Shined Snakeskin Sandals","Temple of Sethraliss"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",251136,"Signet of Snarling Servitude","Murder Row"),B("trinket1",270175,"Voracious Heart of Ula'tek","Ula'tek"),B("trinket2",270173,"Zul'jin's Guillotine Technique","The Coiled Altar"),B("main",268209,"Aman'muso, Warlord's Vengeance","The Coiled Altar"),B("off",237840,"Spellbreaker's Warglaive","Crafted")];
+GUIDES["paladin/protection"].bis = [B("head",268229,"Skullguard of the Risen Sacrifice","Nek'zali the Soulcoiler"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",239037,"C'thraxxi Binders Pauldrons","Temple of Sethraliss (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",268222,"Reckless Spirit Breastplate","The Coiled Altar (Catalyst)"),B("wrist",159409,"Embalmer's Steadying Bracers","Kings' Rest"),B("hands",268220,"Scaleplate Strangulators","The Twin Fangs (Catalyst)"),B("waist",268259,"Girdle of Toxic Regret","The Coiled Altar"),B("legs",271878,"Chausses of Unbound Rancor","Ula'tek (Catalyst)"),B("feet",268245,"Entombed Cultist's Sabatons","Nek'zali the Soulcoiler"),B("ring1",268252,"Apex Brute's Claw Ring","Sszorak"),B("ring2",273792,"Band of the Amani Warlord","Altar of Fangs"),B("trinket1",270165,"Keeper's Seething Core","Entombed Sentinels"),B("trinket2",270173,"Zul'jin's Guillotine Technique","The Coiled Altar"),B("main",268209,"Aman'muso, Warlord's Vengeance","The Coiled Altar"),B("off",268196,"Venom-Slashed Scuteward","The Lost Explorers")];
+GUIDES["warlock/destruction"].bis = [B("head",271874,"Venomkeeper's Horrific Cowl","Ula'tek (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",271544,"Spires of the Damned Necrolyte","The Lost Explorers"),B("back",239656,"Adherent's Silken Shroud","Tailoring"),B("chest",268221,"Tidebound Sorceress's Robes","Nymrissa Wavecaller"),B("wrist",239648,"Martyr's Bindings","Tailoring"),B("hands",271547,"Damned Necrolyte's Charred Grasps","Entombed Sentinels"),B("waist",271543,"Damned Necrolyte's Clanging Cinch","Sszorak (Catalyst)"),B("legs",271545,"Damned Necrolyte's Leg Bindings","Sszorak"),B("feet",268255,"Cackling Soultreads","The Coiled Altar"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",158366,"Charged Sandstone Band","Temple of Sethraliss"),B("trinket1",270164,"Gebbo's Bottomless Bag","The Lost Explorers"),B("trinket2",270167,"Wavecaller's Seastone","Nymrissa Wavecaller"),B("main",271092,"Jan'thrazet, the Soul Fang","Ula'tek"),B("off",268263,"Frostscale's Mystic Frond","Nymrissa Wavecaller")];
+
+[["warrior","fury"],["paladin","retribution"],["priest","shadow"],["druid","restoration"],["paladin","holy"],["deathknight","blood"]].forEach(([c,s]) => { CLASSES.find(x=>x.id===c).specs.find(x=>x.id===s).full = true; });
+
+/* ============ TRENAŽÉRY: vlna 1 (včetně healerů a tanka) ============ */
+const injured = (st, lim) => st.party.filter(m => m.hp < lim).length;
+const lowest = st => st.party.reduce((a,b)=> a.hp<b.hp ? a : b);
+function genParty(){
+  const scen = pick(["calm","tank","spread","spread","big"]);
+  const base = {calm:[88,100], tank:[75,100], spread:[55,90], big:[25,70]}[scen];
+  const r = () => base[0] + rnd(base[1]-base[0]+1);
+  const p = [
+    {n:"Tank", role:"tank", hp:r()}, {n:"Ty", role:"heal", hp:r()},
+    {n:"DPS 1", role:"dps", hp:r()}, {n:"DPS 2", role:"dps", hp:r()}, {n:"DPS 3", role:"dps", hp:r()},
+  ];
+  if (scen==="tank") p[0].hp = 20+rnd(40);
+  if (chance(.15)) pick(p).hp = 8+rnd(10);
+  return p;
+}
+
+/* ---------- FURY ---------- */
+const FURY_BASE = [
+  {s:"Rampage", ic:"ability_warrior_rampage", key:"1", cd:st=>st.rage>=80?null:"málo Rage"},
+  {s:"Bloodthirst", ic:"spell_nature_bloodlust", key:"2", cd:st=>st.bt?null:"cooldown"},
+  {s:"Raging Blow", ic:"warrior_wild_strike", key:"3", cd:st=>st.rb?null:"cooldown"},
+  {s:"Execute", ic:"inv_sword_48", key:"4", cd:st=>(st.exec||st.sd>0)?null:"jen pod 20 %"},
+  {s:"Whirlwind", ic:"ability_whirlwind", key:"5"},
+  {s:"Recklessness", ic:"warrior_talent_icon_innerrage", key:"Q", cd:st=>st.reck?null:"cooldown"},
+];
+TRAINERS["warrior/fury"] = {
+  heroes:["Slayer","Mountain Thane"],
+  buttons:[...FURY_BASE, {s:"Bladestorm", ic:"ability_warrior_bladestorm", key:"E", cd:st=>st.bs?null:"cooldown"}],
+  heroButtons:{ "Mountain Thane":[...FURY_BASE, {s:"Thunder Clap", ic:"spell_nature_thunderclap", key:"6", alt:{s:"Thunder Blast", ic:"warrior_talent_icon_bloodandthunder", when:st=>st.tb>0}}] },
+  gen(aoe, hero){
+    return { rage:rnd(131), enraged:chance(.6), reck:chance(.15), bs: hero==="Slayer" && chance(.2), sd:pick([0,0,0,1,2]), exec:chance(.15), rb:chance(.6), bt:chance(.6), tb: hero==="Mountain Thane" ? pick([0,0,1,2]) : 0, avatar:chance(.25), ww: aoe ? rnd(5) : 0, targets: aoe ? 3+rnd(5) : 1 };
+  },
+  hud(st){
+    return {
+      buffs:[ st.enraged && {n:"Enrage", ic:"ability_warrior_rampage"}, st.sd && {n:"Sudden Death", ic:"inv_sword_48", stack:st.sd}, st.avatar && {n:"Avatar", ic:"warrior_talent_icon_avatar"}, st.tb && {n:"Thunder Blast", ic:"warrior_talent_icon_bloodandthunder", stack:st.tb}, st.ww && {n:"Improved Whirlwind", ic:"ability_whirlwind", stack:st.ww} ].filter(Boolean),
+      debuffs:[], pips:null,
+      info:[`Rage: ${st.rage}`, `Nepřátel: ${st.targets}`, st.exec ? "Cíl pod 20 %" : "Cíl nad 20 %"],
+    };
+  },
+  rules:{},
+};
+(() => {
+  const ww = {s:"Whirlwind", when:st=>st.targets>=2 && st.ww===0, why:"Na víc nepřátel nemáš stacky Improved Whirlwind – nejdřív Whirlwind."};
+  const slayer = [
+    {s:"Recklessness", when:st=>st.reck, why:"Recklessness (+ Avatar) je připravený."},
+    {s:"Rampage", when:st=>st.rage>=80 && (!st.enraged || st.rage>=100), why:"Nemáš Enrage nebo máš 100+ Rage – Rampage."},
+    {s:"Bladestorm", when:st=>st.bs, why:"Bladestorm je připravený."},
+    {s:"Execute", when:st=>st.sd===2, why:"2 stacky Sudden Death – Execute."},
+    {s:"Rampage", when:st=>st.rage>=80, why:"Máš Rage na Rampage."},
+    {s:"Execute", when:st=>st.exec || st.sd>0, why:"Execute je dostupný."},
+    {s:"Raging Blow", when:st=>st.rb, why:"Raging Blow je připravený."},
+    {s:"Bloodthirst", when:st=>st.bt, why:"Bloodthirst je připravený."},
+    {s:"Whirlwind", when:()=>true, why:"Nic jiného – Whirlwind."},
+  ];
+  const thane = [
+    {s:"Recklessness", when:st=>st.reck, why:"Recklessness + Avatar."},
+    {s:"Rampage", when:st=>st.rage>=80 && (!st.enraged || st.rage>=100), why:"Nemáš Enrage nebo máš 100+ Rage – Rampage."},
+    {s:"Execute", when:st=>st.sd===2, why:"2 stacky Sudden Death – Execute."},
+    {s:"Thunder Blast", when:st=>st.tb===2, why:"2 nabití Thunder Blast – utrať, ať nepřeteče."},
+    {s:"Thunder Blast", when:st=>st.tb>0 && st.avatar, why:"Thunder Blast během Avatar."},
+    {s:"Execute", when:st=>st.exec || st.sd>0, why:"Execute je dostupný."},
+    {s:"Rampage", when:st=>st.rage>=80, why:"Máš Rage na Rampage."},
+    {s:"Thunder Blast", when:st=>st.tb>0, why:"Thunder Blast má nabití."},
+    {s:"Bloodthirst", when:st=>st.bt, why:"Bloodthirst je připravený."},
+    {s:"Raging Blow", when:st=>st.rb, why:"Raging Blow je připravený."},
+    {s:"Thunder Clap", when:()=>true, why:"Nic jiného – Thunder Clap."},
+  ];
+  TRAINERS["warrior/fury"].rules = { Slayer:{st:slayer, aoe:[ww,...slayer]}, "Mountain Thane":{st:thane, aoe:[ww,...thane]} };
+})();
+
+/* ---------- RETRIBUTION ---------- */
+const RET_BASE = [
+  {s:"Final Verdict", ic:"spell_paladin_templarsverdict", key:"1", cd:st=>st.hp>=3?null:"málo HP"},
+  {s:"Divine Storm", ic:"ability_paladin_divinestorm", key:"2", cd:st=>st.hp>=3?null:"málo HP"},
+  {s:"Blade of Justice", ic:"ability_paladin_bladeofjustice", key:"3", cd:st=>st.boj?null:"cooldown"},
+  {s:"Judgment", ic:"spell_holy_righteousfury", key:"4", cd:st=>st.judg?null:"cooldown"},
+  {s:"Hammer of Wrath", ic:"inv12_ability_paladin_hammerofwrath", key:"5", cd:st=>st.how>0?null:"0 nabití"},
+  {s:"Wake of Ashes", ic:"inv_sword_2h_artifactashbringerfire_d_03", key:"E", cd:st=>st.wake?null:"cooldown"},
+  {s:"Divine Toll", ic:"inv_ability_paladin_divinetoll", key:"T", cd:st=>st.toll?null:"cooldown"},
+  {s:"Execution Sentence", ic:null, key:"G", cd:st=>st.es?null:"cooldown"},
+  {s:"Avenging Wrath", ic:"spell_holy_avenginewrath", key:"Q", cd:st=>st.awReady?null:"cooldown"},
+];
+TRAINERS["paladin/retribution"] = {
+  heroes:["Herald of the Sun","Templar"],
+  buttons:RET_BASE,
+  heroButtons:{ Templar: RET_BASE.map(b => b.s==="Wake of Ashes" ? {...b, alt:{s:"Hammer of Light", ic:"inv_mace_1h_gryphonrider_d_02_silver", when:st=>st.hol}, cd:st=>(st.wake||st.hol)?null:"cooldown"} : b) },
+  gen(aoe, hero){
+    const inAW = chance(.25);
+    const st = { hp:rnd(6), da:chance(.2), aow:chance(.3), inAW, awReady: !inAW && chance(.15), es:chance(.15), wake:chance(.2), toll:chance(.15), how:pick([0,0,1,1,2]), boj:chance(.5), judg:chance(.5), hol: hero==="Templar" && chance(.2), targets: aoe ? 3+rnd(5) : 1 };
+    if (st.hp<3 && !st.boj && !st.judg && st.how===0 && !st.wake && !st.toll) st.judg = true;
+    return st;
+  },
+  hud(st){
+    return {
+      buffs:[ st.inAW && {n:"Avenging Wrath", ic:"spell_holy_avenginewrath"}, st.da && {n:"Divine Arbiter", ic:"ability_paladin_divinestorm"}, st.aow && {n:"Art of War", ic:"ability_paladin_bladeofjustice"}, st.hol && {n:"Hammer of Light", ic:"inv_mace_1h_gryphonrider_d_02_silver"} ].filter(Boolean),
+      debuffs:[], pips:{label:"Holy Power", n:st.hp, max:5},
+      info:[`Nepřátel: ${st.targets}`, `Hammer of Wrath: ${st.how} nabití`],
+    };
+  },
+  rules:{},
+};
+(() => {
+  const herald = aoe => {
+    const sp = aoe ? "Divine Storm" : "Final Verdict", alt = aoe ? "Final Verdict" : "Divine Storm";
+    return [
+      {s:"Avenging Wrath", when:st=>st.awReady, why:"Avenging Wrath na cooldown."},
+      {s:"Execution Sentence", when:st=>st.es, why:"Execution Sentence je připravený."},
+      {s:alt, when:st=>st.da && (aoe || st.hp===5) && st.hp>=3, why:aoe?"Divine Arbiter – na AoE Final Verdict.":"Divine Arbiter a 5 Holy Power – Divine Storm."},
+      {s:sp, when:st=>st.hp===5, why:`5 Holy Power – ${sp}, ať nepřeteče.`},
+      {s:"Wake of Ashes", when:st=>st.wake, why:"Wake of Ashes je připravený."},
+      {s:"Divine Toll", when:st=>st.toll, why:"Divine Toll je připravený."},
+      ...(aoe ? [{s:"Hammer of Wrath", when:st=>st.how===2, why:"Hammer of Wrath má 2 nabití."},{s:"Blade of Justice", when:st=>st.boj && st.aow && !st.inAW, why:"Art of War mimo Avenging Wrath – Blade of Justice."}]
+              : [{s:"Blade of Justice", when:st=>st.boj && st.aow && !st.inAW, why:"Art of War mimo Avenging Wrath – Blade of Justice."},{s:"Hammer of Wrath", when:st=>st.how===2, why:"Hammer of Wrath má 2 nabití."}]),
+      {s:alt, when:st=>st.da && st.hp>=3, why:"Divine Arbiter."},
+      {s:sp, when:st=>st.hp>=4, why:`4 Holy Power – ${sp}.`},
+      {s:"Hammer of Wrath", when:st=>st.how>0, why:"Hammer of Wrath."},
+      {s:"Blade of Justice", when:st=>st.boj, why:"Blade of Justice."},
+      {s:"Judgment", when:st=>st.judg, why:"Judgment."},
+      {s:sp, when:st=>st.hp>=3, why:`3 Holy Power – ${sp}.`},
+    ];
+  };
+  const templar = aoe => {
+    const sp = aoe ? "Divine Storm" : "Final Verdict", alt = aoe ? "Final Verdict" : "Divine Storm";
+    return [
+      {s:"Avenging Wrath", when:st=>st.awReady, why:"Avenging Wrath na cooldown."},
+      {s:"Execution Sentence", when:st=>st.es, why:"Execution Sentence je připravený."},
+      {s:"Hammer of Light", when:st=>st.hol, why:"Hammer of Light je připravený (po Wake of Ashes)."},
+      {s:alt, when:st=>st.da && st.hp===5, why:"Divine Arbiter a 5 Holy Power."},
+      {s:sp, when:st=>st.hp===5, why:`5 Holy Power – ${sp}.`},
+      {s:"Wake of Ashes", when:st=>st.wake && !st.hol, why:"Wake of Ashes je připravený."},
+      {s:"Divine Toll", when:st=>st.toll, why:"Divine Toll je připravený."},
+      {s:"Blade of Justice", when:st=>st.boj && st.aow, why:"Art of War – Blade of Justice."},
+      {s:alt, when:st=>st.da && st.hp>=3, why:"Divine Arbiter."},
+      {s:sp, when:st=>st.hp>=4, why:`4 Holy Power – ${sp}.`},
+      {s:"Blade of Justice", when:st=>st.boj, why:"Blade of Justice."},
+      {s:"Judgment", when:st=>st.judg, why:"Judgment."},
+      {s:"Hammer of Wrath", when:st=>st.how>0, why:"Hammer of Wrath."},
+      {s:sp, when:st=>st.hp>=3, why:`3 Holy Power – ${sp}.`},
+    ];
+  };
+  TRAINERS["paladin/retribution"].rules = { "Herald of the Sun":{st:herald(false), aoe:herald(true)}, Templar:{st:templar(false), aoe:templar(true)} };
+})();
+
+/* ---------- SHADOW ---------- */
+TRAINERS["priest/shadow"] = {
+  heroes:["Archon"],
+  buttons:[
+    {s:"Shadow Word: Madness", ic:"inv12_ability_priest_powerwordmadness_eye", key:"1", cd:st=>st.ins>=50?null:"málo Insanity"},
+    {s:"Mind Blast", ic:"spell_shadow_unholyfrenzy", key:"2", cd:st=>st.mb?null:"cooldown"},
+    {s:"Tentacle Slam", ic:"inv12_ability_priest_tentacleslam", key:"3", cd:st=>st.slam>0?null:"0 nabití"},
+    {s:"Vampiric Touch", ic:"spell_holy_stoicism", key:"4"},
+    {s:"Mind Flay", ic:"spell_shadow_siphonmana", key:"5", alt:{s:"Mind Flay: Insanity", ic:"spell_shadow_siphonmana", when:st=>st.mad}},
+    {s:"Shadow Word: Death", ic:"spell_shadow_demonicfortitude", key:"6", cd:st=>st.exec?null:"jen pod 20 %"},
+    {s:"Halo", ic:"ability_priest_halo_shadow", key:"E", cd:st=>st.halo?null:"cooldown"},
+    {s:"Voidform", ic:"spell_priest_void-blast", key:"Q", alt:{s:"Void Volley", ic:"inv12_ability_priest_voidvolley", when:st=>st.inVF}, cd:st=>st.inVF ? (st.volley>0?null:"0 použití") : (st.vf?null:"cooldown")},
+    {s:"Power Infusion", ic:"spell_holy_powerinfusion", key:"T", cd:st=>st.pi?null:"cooldown"},
+  ],
+  gen(aoe){
+    const inVF = chance(.3);
+    return { ins:rnd(101), vt:chance(.7), mad:chance(.4), slam:rnd(3), mb:chance(.5), halo:chance(.2), inVF, vf: !inVF && chance(.15), volley: inVF ? rnd(4) : 0, pi:chance(.15), exec:chance(.15), targets: aoe ? 3+rnd(6) : 1 };
+  },
+  hud(st){
+    return {
+      buffs:[ st.inVF && {n:"Voidform", ic:"spell_priest_void-blast"}, st.inVF && st.volley && {n:"Void Volley", ic:"inv12_ability_priest_voidvolley", stack:st.volley} ].filter(Boolean),
+      debuffs:[ st.vt && {n:"Vampiric Touch", ic:"spell_holy_stoicism"}, st.mad && {n:"SW: Madness", ic:"inv12_ability_priest_powerwordmadness_eye"} ].filter(Boolean),
+      pips:null,
+      info:[`Insanity: ${st.ins}`, `Nepřátel: ${st.targets}`, `Tentacle Slam: ${st.slam} nabití`, st.exec ? "Cíl pod 20 %" : "Cíl nad 20 %"],
+    };
+  },
+  rules:{},
+};
+(() => {
+  const L = [
+    {s:"Tentacle Slam", when:st=>!st.vt && st.slam>0, why:"Vampiric Touch chybí – Tentacle Slam ho nahodí."},
+    {s:"Vampiric Touch", when:st=>!st.vt, why:"Vampiric Touch chybí – nahoď ho."},
+    {s:"Halo", when:st=>st.halo, why:"Halo na cooldown."},
+    {s:"Voidform", when:st=>st.vf && !st.inVF, why:"Voidform je připravený."},
+    {s:"Power Infusion", when:st=>st.pi, why:"Power Infusion je připravený."},
+    {s:"Shadow Word: Madness", when:st=>st.ins>=50 && (!st.mad || st.ins>=90), why:"Madness neběží nebo přetéká Insanity – Shadow Word: Madness."},
+    {s:"Tentacle Slam", when:st=>st.slam===2, why:"Tentacle Slam má 2 nabití – utrať, ať nepřeteče."},
+    {s:"Mind Blast", when:st=>st.mb, why:"Mind Blast na cooldown."},
+    {s:"Tentacle Slam", when:st=>st.slam>0, why:"Spotřebuj nabití Tentacle Slam."},
+    {s:"Mind Flay: Insanity", when:st=>st.mad, why:"Během Shadow Word: Madness – Mind Flay: Insanity."},
+    {s:"Shadow Word: Death", when:st=>st.exec, why:"Cíl pod 20 % – Shadow Word: Death."},
+    {s:"Void Volley", when:st=>st.inVF && st.volley>0, why:"Void Volley během Voidform."},
+    {s:"Mind Flay", when:()=>true, why:"Nic jiného – Mind Flay jako filler."},
+  ];
+  TRAINERS["priest/shadow"].rules = { Archon:{ st:L, aoe:L } };
+})();
+
+/* ---------- RESTORATION DRUID (healer) ---------- */
+TRAINERS["druid/restoration"] = {
+  heroes:["Wildstalker"], healer:true,
+  buttons:[
+    {s:"Rejuvenation", ic:"spell_nature_rejuvenation", key:"1"},
+    {s:"Lifebloom", ic:"inv_misc_herb_felblossom", key:"2"},
+    {s:"Swiftmend", ic:"inv_relics_idolofrejuvenation", key:"3", cd:st=>st.swift?null:"cooldown"},
+    {s:"Wild Growth", ic:"ability_druid_flourish", key:"4", cd:st=>st.wg?null:"cooldown"},
+    {s:"Regrowth", ic:"spell_nature_resistnature", key:"5"},
+    {s:"Efflorescence", ic:"inv_misc_herb_talandrasrose", key:"6"},
+    {s:"Tranquility", ic:"spell_nature_tranquility", key:"Q", cd:st=>st.tranq?null:"cooldown"},
+    {s:"Moonfire", ic:"spell_nature_starfall", key:"7"},
+  ],
+  gen(){
+    return { party:genParty(), lb:chance(.7), rejuv:rnd(7), swift:chance(.5), wg:chance(.5), tranq:chance(.2), efflo:chance(.6), cc:chance(.25), sotf:chance(.15) };
+  },
+  hud(st){
+    return {
+      buffs:[ st.cc && {n:"Clearcasting", ic:"spell_nature_resistnature"}, st.sotf && {n:"Soul of the Forest", ic:"inv_relics_idolofrejuvenation"} ].filter(Boolean),
+      debuffs:[], pips:null, party:st.party.map(m=>({...m, tags: m.role==="tank" && st.lb ? ["Lifebloom"] : []})),
+      info:[`Rejuvenation aktivních: ${st.rejuv}`, st.efflo ? "Efflorescence: pod skupinou" : "Efflorescence: chybí"],
+    };
+  },
+  rules:{},
+};
+(() => {
+  const L = [
+    {s:"Tranquility", when:st=>st.tranq && injured(st,50)>=4, why:"Skoro celá skupina je pod 50 % – Tranquility."},
+    {s:"Lifebloom", when:st=>!st.lb, why:"Lifebloom chybí – drž ho 100 % času (tank nebo ty)."},
+    {s:"Rejuvenation", when:st=>st.sotf, why:"Soul of the Forest – utrať ho na Rejuvenation."},
+    {s:"Swiftmend", when:st=>st.swift && lowest(st).hp<45, why:"Někdo je pod 45 % – Swiftmend ho rychle vyléčí."},
+    {s:"Wild Growth", when:st=>st.wg && injured(st,85)>=3, why:"3+ zranění – Wild Growth."},
+    {s:"Efflorescence", when:st=>!st.efflo && injured(st,85)>=3, why:"Efflorescence chybí a skupina je zraněná – polož ji pod ně."},
+    {s:"Regrowth", when:st=>st.cc || lowest(st).hp<50, why:st=>st.cc?"Clearcasting – Regrowth zdarma.":"Někdo má pod 50 % – Regrowth."},
+    {s:"Rejuvenation", when:st=>st.rejuv<5 && injured(st,95)>=1, why:"Méně než 5 Rejuvenation – doplň je (Abundance)."},
+    {s:"Moonfire", when:()=>true, why:"Nikdo nepotřebuje léčit – přidej poškození (Moonfire)."},
+  ];
+  TRAINERS["druid/restoration"].rules = { Wildstalker:{ st:L, aoe:L } };
+})();
+
+/* ---------- HOLY PALADIN (healer) ---------- */
+TRAINERS["paladin/holy"] = {
+  heroes:["Herald of the Sun"], healer:true,
+  buttons:[
+    {s:"Holy Shock", ic:"spell_holy_searinglight", key:"1", cd:st=>st.hs?null:"cooldown"},
+    {s:"Word of Glory", ic:"inv_helmet_96", key:"2", cd:st=>st.hp>=3?null:"málo HP"},
+    {s:"Light of Dawn", ic:"spell_paladin_lightofdawn", key:"3", cd:st=>st.hp>=3?null:"málo HP"},
+    {s:"Flash of Light", ic:"spell_holy_flashheal", key:"4"},
+    {s:"Judgment", ic:"spell_holy_righteousfury", key:"5", cd:st=>st.judg?null:"cooldown"},
+    {s:"Crusader Strike", ic:"spell_holy_crusaderstrike", key:"6", cd:st=>st.cs>0?null:"0 nabití"},
+    {s:"Beacon of Virtue", ic:"ability_paladin_beaconofinsight", key:"E", cd:st=>st.bov?null:"cooldown"},
+    {s:"Divine Toll", ic:"inv_ability_paladin_divinetoll", key:"T", cd:st=>st.toll?null:"cooldown"},
+    {s:"Lay on Hands", ic:"spell_holy_layonhands", key:"R", cd:st=>st.loh?null:"cooldown"},
+  ],
+  gen(){
+    return { party:genParty(), hp:rnd(6), iol:chance(.25), hs:chance(.55), judg:chance(.5), cs:rnd(3), bov:chance(.35), toll:chance(.2), loh:chance(.5) };
+  },
+  hud(st){
+    return {
+      buffs:[ st.iol && {n:"Infusion of Light", ic:"ability_paladin_infusionoflight"} ].filter(Boolean),
+      debuffs:[], pips:{label:"Holy Power", n:st.hp, max:5}, party:st.party, info:[],
+    };
+  },
+  rules:{},
+};
+(() => {
+  const spend = st => injured(st,85)>=3 ? "Light of Dawn" : "Word of Glory";
+  const L = [
+    {s:"Lay on Hands", when:st=>st.loh && lowest(st).hp<15, why:"Někdo umírá (pod 15 %) – Lay on Hands."},
+    {s:"Light of Dawn", when:st=>st.hp===5 && injured(st,85)>=3, why:"5 Holy Power a víc zraněných – Light of Dawn."},
+    {s:"Word of Glory", when:st=>st.hp===5, why:"5 Holy Power – utrať Word of Glory, ať nepřeteče."},
+    {s:"Divine Toll", when:st=>st.toll, why:"Divine Toll na cooldown."},
+    {s:"Beacon of Virtue", when:st=>st.bov && injured(st,85)>=3, why:"Víc zraněných – Beacon of Virtue."},
+    {s:"Flash of Light", when:st=>st.iol, why:"Infusion of Light – okamžitý silný Flash of Light."},
+    {s:"Holy Shock", when:st=>st.hs, why:"Holy Shock na cooldown."},
+    {s:"Light of Dawn", when:st=>st.hp>=3 && injured(st,85)>=3, why:"3+ Holy Power a víc zraněných – Light of Dawn."},
+    {s:"Word of Glory", when:st=>st.hp>=3, why:"3+ Holy Power – Word of Glory."},
+    {s:"Judgment", when:st=>st.judg, why:"Judgment – Holy Power."},
+    {s:"Crusader Strike", when:st=>st.cs>0, why:"Crusader Strike – Holy Power."},
+    {s:"Flash of Light", when:()=>true, why:"Nic jiného – Flash of Light."},
+  ];
+  TRAINERS["paladin/holy"].rules = { "Herald of the Sun":{ st:L, aoe:L } };
+})();
+
+/* ---------- BLOOD DK (tank) ---------- */
+TRAINERS["deathknight/blood"] = {
+  heroes:["San'layn"],
+  buttons:[
+    {s:"Death Strike", ic:"spell_deathknight_butcher2", key:"1", cd:st=>st.rp>=45?null:"málo RP"},
+    {s:"Marrowrend", ic:"ability_deathknight_marrowrend", key:"2", cd:st=>st.runes>=2?null:"málo run"},
+    {s:"Heart Strike", ic:"inv_weapon_shortblade_40", key:"3", alt:{s:"Vampiric Strike", ic:"inv_ability_sanlayndeathknight_vampiricstrike", when:st=>st.vamp}, cd:st=>st.runes>=1?null:"málo run"},
+    {s:"Blood Boil", ic:"spell_deathknight_bloodboil", key:"4", cd:st=>st.bb>0?null:"0 nabití"},
+    {s:"Death and Decay", ic:"spell_shadow_deathanddecay", key:"5", cd:st=>(st.dndReady||st.crimson)?null:"cooldown"},
+    {s:"Dancing Rune Weapon", ic:"inv_sword_07", key:"Q", cd:st=>st.drw?null:"cooldown"},
+    {s:"Vampiric Blood", ic:"spell_shadow_lifedrain", key:"R", cd:st=>st.vb?null:"cooldown"},
+  ],
+  gen(){
+    const st = { rp:rnd(126), health:30+rnd(71), bone:rnd(11), dnd:chance(.6), dndReady:chance(.4), crimson:chance(.2), vamp:chance(.3), bb:rnd(3), runes:rnd(7), drw:chance(.15), vb:chance(.4), big:chance(.2), targets:1+rnd(5) };
+    if (st.runes===0 && st.bb===0) st.bb = 1;
+    return st;
+  },
+  hud(st){
+    return {
+      buffs:[ st.bone && {n:"Bone Shield", ic:"ability_deathknight_boneshield", stack:st.bone}, st.crimson && {n:"Crimson Scourge", ic:"spell_shadow_deathanddecay"}, st.dnd && {n:"Death and Decay (stojíš v ní)", ic:"spell_shadow_deathanddecay"} ].filter(Boolean),
+      debuffs:[], pips:{label:"Runy", n:st.runes, max:6},
+      info:[`Tvůj život: ${st.health} %`, `Runic Power: ${st.rp}`, `Blood Boil: ${st.bb} nabití`, `Nepřátel: ${st.targets}`, st.big ? "Boss chystá velký úder!" : "Běžné poškození"],
+    };
+  },
+  rules:{},
+};
+(() => {
+  const L = [
+    {s:"Death Strike", when:st=>st.health<60 && st.rp>=45, why:"Máš pod 60 % života – Death Strike tě vyléčí."},
+    {s:"Vampiric Blood", when:st=>st.big && st.vb, why:"Přichází velký úder – Vampiric Blood je hlavní obranný cooldown."},
+    {s:"Dancing Rune Weapon", when:st=>st.drw, why:"Dancing Rune Weapon je připravený."},
+    {s:"Death Strike", when:st=>st.rp>=90, why:"Runic Power přetéká – utrať Death Strike."},
+    {s:"Marrowrend", when:st=>st.bone<5 && st.runes>=2, why:"Méně než 5 Bone Shield – Marrowrend."},
+    {s:"Death and Decay", when:st=>st.crimson || (!st.dnd && st.dndReady), why:"Death and Decay chybí (nebo máš Crimson Scourge zdarma)."},
+    {s:"Vampiric Strike", when:st=>st.vamp && st.runes>=1, why:"Vampiric Strike je dostupný."},
+    {s:"Blood Boil", when:st=>st.bb===2, why:"Blood Boil má 2 nabití – nenech přetéct."},
+    {s:"Heart Strike", when:st=>st.runes>=1 && !st.vamp, why:"Heart Strike jako filler."},
+    {s:"Blood Boil", when:st=>st.bb>0, why:"Blood Boil."},
+    {s:"Death Strike", when:st=>st.rp>=45, why:"Utrať Runic Power Death Strikem."},
+  ];
+  TRAINERS["deathknight/blood"].rules = { "San'layn":{ st:L, aoe:L } };
+})();
+
+/* ---------- SEASON 2: RAID A MYTHIC+ (patch 12.1) ---------- */
+const SEASON = {
+  raid:{
+    name:"The Venomous Abyss",
+    intro:"Raid Season 2 má 8 bossů na Coiled Isle. Tipy jsou zjednodušené pro Normal/Heroic – přesné mechaniky se liší podle obtížnosti.",
+    bosses:[
+      {n:"Nek'zali the Soulcoiler", k:"Nemrtví trollové (Restless Amani) nesmí dojít ke studni uprostřed – každý únik dá bossovi energii. Při plné energii Uncoiled Rage.", tank:"Drž bosse dál od studny, vyměňte se při stacích Hollowing Strikes.", heal:"Soulcoil Rite stackuje DoT, cooldowny na Soulcoil Ignition.", dps:"Zabij trolly dřív, než dojdou ke studni (magickým poškozením), v půlce přetni vlákna."},
+      {n:"Entombed Sentinels", k:"Dva golemové – když jsou do 40 yd od sebe, dostávají o 99 % míň poškození. Raid se rozdělí na dvě strany.", tank:"Každý tank jeden golem, na opačných koncích. Výměna v intermisi.", heal:"Dva healeři na každou stranu, hlídej Mark of Acid a Mark of Blood.", dps:"Drž životy obou golemů vyrovnané, zabíjej slizy, soakuj Toxic Droplets."},
+      {n:"Vashnik the Malignant", k:"Boss pije z fontán a vytváří jed, který jde k Malignant Cavity – každý, který dojde, zraní celý raid a stackuje DoT.", tank:"Táhni bosse k domluveným fontánám, výměna při stacích Dripping Fangs.", heal:"Siphoning Infection snižuje léčení, šetři cooldowny na konec.", dps:"Zabij jedy dřív, než dojdou k jámě. Některé typy jdou ovládnout (CC)."},
+      {n:"The Lost Explorers", k:"Tři průzkumníci najednou, Mor'zahi jednoho ovládne a posílí. Před Final Ascension je potřeba nakrmit je rybou (Disgusting Fish).", tank:"Dva průzkumníci u sebe, třetí 30+ yd daleko.", heal:"Pozor na Icebound Flames, Piercing Frost a krvácení Splinters.", dps:"Cleavuj jen dva, soakuj Mighty Thud, debuffy odnes do správných ploch."},
+      {n:"Sszorak", k:"Výměna tanků se soakováním kuželů. Při plné energii Howling Maelstrom – vítr odhazuje raid přes Viscous Cyst.", tank:"Drž bosse u kraje, výměna při Apex Predator a stacích Ravage.", heal:"Drž naživu cíle Venomous Surge, cooldowny na Maelstrom.", dps:"Soakuj ve skupinách 5+, cysty pokládej mimo větrné tunely, burst během Dig In."},
+      {n:"The Twin Fangs", k:"Eternal Venom se stackuje a sám nevyprší – na 10 stacích zabije. Odstraní ho jen Ravenous Feast (kousnutí hada).", tank:"Odtáhni bossy od raidu při Caustic Deluge, střídejte Stone Breaker.", heal:"Cooldowny na Ravenous Feast, hlídej stacky jedu.", dps:"Soakuj globule a údery Feast, zabíjej mláďata."},
+      {n:"The Coiled Altar", k:"Zul'jan a Malacrass se střídají a nakonec musí zemřít společně. Ritual (Soulbinding) je okno na Bloodlust.", tank:"Výměna při Sever / Soul Sever, ve 3. fázi vyrovnej životy.", heal:"Potřeba víc healerů, cooldowny na Veil of Twilight a Defilement.", dps:"Nos globule, soakuj Guillotine ve 3+ skupinách, rozbij štíty Dreadmarch."},
+      {n:"Ula'tek", k:"Finální boss. Vajíčka nesmí spadnout do Caustic Waves, vylíhlí hadi dávají Putrid Membrane. Spectral Coils se soakují.", tank:"Jeden tank na bosse, druhý na ocas, po odhození se vrať.", heal:"Cooldowny na Fang Snap a přechody fází.", dps:"Nos vajíčka, soakuj Spectral Coils ve střídajících se skupinách, zlom tesáky ve dvojicích."},
+    ],
+  },
+  dungeons:[
+    {n:"Altar of Fangs", tag:"nový", time:"30:00", tips:["Bossové: Rav'i, The Writhing Coil, Zul'jan.","Kompaktní packy – důležitá je priorita cílů.","Málo místa – smrt se těžko dohání."]},
+    {n:"Murder Row", tag:"Midnight", time:"34:00", tips:["Nejdelší časový limit.","Husté packy – opatrné pully jsou důležitější než rychlost.","Hlídej aggro a crowd control."]},
+    {n:"Den of Nalorakk", tag:"Midnight", time:"32:00", tips:["Bossové jsou hlavní zdroj wipů – nauč se jejich mechaniky.","Pohybliví bossové a adds během boje.","Trash je jednodušší polovina."]},
+    {n:"The Blinding Vale", tag:"Midnight", time:"31:00", tips:["Hodně poškození se dá uhnout – nové čáry a kužely na zemi.","Přiměřená obtížnost, rozumné množství nepřátel."]},
+    {n:"Voidscar Arena", tag:"Midnight", time:"30:00", tips:["Pořadí interruptů rozhoduje o čase.","Málo místa – crowd control a pozice.","Mechaniky spojené s arénou."]},
+    {n:"Kings' Rest", tag:"Battle for Azeroth", time:"33:00", tips:["4 bossové, úzké chodby a velké AoE packy.","Domluvte si rotaci interruptů.","Nepřátelé mají víc životů než dřív."]},
+    {n:"Temple of Sethraliss", tag:"Battle for Azeroth", time:"33:00", tips:["Hodně interruptů na trashi.","Gauntlet a poslední boss jsou zkouška pro healery – šetři cooldowny."]},
+    {n:"Ruby Life Pools", tag:"Dragonflight", time:"28:00", tips:["Nejkratší limit, ale nejvstřícnější pro nováčky v M+.","Naučte se rozdělení na dvě křídla."]},
+  ],
+  affixes:[
+    ["+2 až +5","Lindormi's Guidance – zvýrazněný a oslabený trash, smrt neubírá čas."],
+    ["+5","Týdenní Xal'atath's Bargain (Ascendant, Voidbound, Pulsar nebo Devour)."],
+    ["+6","Lindormi's Guidance mizí, trash má plné životy."],
+    ["+7","Fortified nebo Tyrannical (střídají se po týdnu)."],
+    ["+10","Fortified i Tyrannical zároveň."],
+    ["+12 a víc","Xal'atath's Guile – každá smrt ubere 15 s."],
+  ],
+  basics:["Timed +10 v dungeonu odemkne jeho portál.","Mezi klíči: Great Vault každý týden – vyber si nejlepší odměnu.","Tank vede skupinu a určuje tempo – dej mu vědět, když potřebuješ manu.","Interrupty jsou práce celé skupiny, ne jen tanka."],
+  sources:[["Icy Veins – patch 12.1 (raid a dungeony)","https://www.icy-veins.com/wow/midnight-patch-12-1-guide"],["Wow.gg – Venomous Abyss","https://wow.gg/guides/venomous-abyss"],["Levelupper – Venomous Abyss Heroic","https://levelupper.com/blog/venomous-abyss-heroic-guide-all-bosses"],["LFCarry – Mythic+ Season 2","https://lfcarry.com/guides/wow-mythic-plus-guide"],["Koroboost – Mythic+ Season 2","https://koroboost.com/guide/midnight-mythic-plus-guide"],["Method – boss guidy","https://www.method.gg/guides/the-venomous-abyss/nekzali-the-soulcoiler-heroic"]],
+};
+
 </script>
 <script>
 (() => {
@@ -1902,6 +2726,7 @@ function fromHash(){
   const p = location.hash.slice(1).split("/");
   const scr = p[0];
   if (scr==="glossary"){ S.screen="glossary"; return; }
+  if (scr==="dungeons"){ S.screen="dungeons"; return; }
   if (scr==="leveling" && typeof vLeveling==="function"){ S.screen="leveling"; return; }
   if (scr==="race"){ S.screen="race"; }
   else if (scr==="class" && raceById(p[1])){ S.screen="class"; S.race=p[1]; }
@@ -1940,7 +2765,7 @@ function renderStepper(){
     ["spec","Specializace", sp && sp.name],
     ["guide","Průvodce", null],
   ];
-  $("#stepper").style.display = ["home","glossary","leveling"].includes(S.screen) ? "none" : "";
+  $("#stepper").style.display = ["home","glossary","leveling","dungeons"].includes(S.screen) ? "none" : "";
   $("#stepper").innerHTML = steps.map(([k,label,val],i)=>{
     const cls = i<idx ? "done" : i===idx ? "active" : "";
     const can = i<=idx || (k==="class"&&r) || (k==="spec"&&c) || (k==="guide"&&sp);
@@ -2138,7 +2963,7 @@ function gicon(ic, fb, cls=""){
 function spellRow(sp){
   const letter = sp.n.replace(/[^A-Za-z]/g,"").slice(0,2);
   return `<div class="spell tt" tabindex="0" data-tt="spell" data-name="${esc(sp.n)}" data-key="${esc(sp.key||"")}" data-u="${sp.u}" data-ic="${sp.ic||""}">${gicon(sp.ic, letter)}
-    <div><div class="name"><a href="${sp.u}" target="_blank" rel="noopener">${esc(sp.n)}</a></div><div class="d">${esc(sp.d)}</div></div>
+    <div><div class="name"><a href="#" data-ext="${sp.u}">${esc(sp.n)}</a></div><div class="d">${esc(sp.d)}</div></div>
     ${sp.key && sp.key!=="–" ? `<span class="key" title="Doporučená klávesa">${esc(sp.key)}</span>`:""}</div>`;
 }
 
@@ -2155,7 +2980,7 @@ function fullTab(c,s,r,g){
     </div>
     <div class="box"><h3>Co je v Midnight nového</h3><ul class="clean">${g.changes.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
     <div class="box"><h3>Mechaniky, kterým musíš rozumět</h3><p class="note" style="margin:-4px 0 12px">${HOVER_HINT} pro herní popis.</p><div class="spell-list">${g.mechanics.map(m=>`
-      <div class="spell tt" tabindex="0" data-tt="spell" data-name="${esc(m.n)}" data-u="${m.u}" data-ic="${m.ic||""}">${gicon(m.ic, m.n.slice(0,2))}<div><div class="name"><a href="${m.u}" target="_blank" rel="noopener">${esc(m.n)}</a></div><div class="d">${esc(m.d)}</div><div class="d" style="color:var(--gold-2)">→ ${esc(m.t)}</div></div></div>`).join("")}</div></div>
+      <div class="spell tt" tabindex="0" data-tt="spell" data-name="${esc(m.n)}" data-u="${m.u}" data-ic="${m.ic||""}">${gicon(m.ic, m.n.slice(0,2))}<div><div class="name"><a href="#" data-ext="${m.u}">${esc(m.n)}</a></div><div class="d">${esc(m.d)}</div><div class="d" style="color:var(--gold-2)">→ ${esc(m.t)}</div></div></div>`).join("")}</div></div>
     ${raceRecBox(g, r)}${racialBox(r)}`;
   case "spells": {
     const cats = [["core","Hlavní kouzla"],["cd","Cooldowny"],["def","Obrana"],["util","Užitečná kouzla"],["buff","Buffy"]];
@@ -2183,7 +3008,7 @@ function fullTab(c,s,r,g){
       <div class="btns"><a class="btn primary" href="${CALC(b.str)}" target="_blank" rel="noopener">Zobrazit strom ↗</a><button class="btn" data-copy="b${i}">Kopírovat řetězec</button></div></div>`).join("")}
     <h4>Import do hry</h4><ol class="prio"><li>Ve hře zmáčkni N (talenty).</li><li>Dole klikni na Import.</li><li>Vlož řetězec a ulož jako nový loadout.</li></ol>
     <p class="note">Buildy: Method.gg, patch 12.1. Po každém patchi je ověř.</p></div>`;
-  case "gear": return `${g.gearItems ? gearDoll(g) : ""}<div class="cols">
+  case "gear": return `${g.gearItems ? gearDoll(g) : g.bis ? bisDoll(g) : ""}<div class="cols">
       <div class="box"><h3>Priorita statů</h3><div class="statbar">${g.stats.map((st,i)=>`<div><span>${i+1}. ${esc(st)}</span><span class="bar"><i style="width:${100-i*16}%"></i></span></div>`).join("")}</div><p class="note">${esc(g.statNote)}</p></div>
       <div class="box"><h3>Gear a zbraň</h3><ul class="clean">${g.gear.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
         <div class="btns"><a class="btn" href="https://www.raidbots.com" target="_blank" rel="noopener">Raidbots sim ↗</a><a class="btn" href="${L.bis}" target="_blank" rel="noopener">Best in slot ↗</a></div></div></div>`;
@@ -2339,7 +3164,7 @@ function render(){
   setAccent((S.screen==="spec"||S.screen==="guide") && c ? c.color : S.screen==="class" && c ? c.color : null);
   renderStepper();
   const app = $("#app");
-  app.innerHTML = S.screen==="glossary" ? vGlossary() : S.screen==="leveling" ? vLeveling() : S.screen==="race" ? vRace() : S.screen==="class" ? vClass() : S.screen==="spec" ? vSpec() : S.screen==="guide" ? vGuide() : vHome();
+  app.innerHTML = S.screen==="dungeons" ? vDungeons() : S.screen==="glossary" ? vGlossary() : S.screen==="leveling" ? vLeveling() : S.screen==="race" ? vRace() : S.screen==="class" ? vClass() : S.screen==="spec" ? vSpec() : S.screen==="guide" ? vGuide() : vHome();
   toHash();
   TT.hide(); if (S.screen==="guide") mountScene(); else if (sceneStop2){ sceneStop2(); sceneStop2=null; }
   applyFocus();
@@ -2514,6 +3339,7 @@ function trStage(T){
     <div class="tr-hud">
       <div><div class="tr-l">Tvoje buffy</div><div class="auras">${H.buffs.length?H.buffs.map(a=>aura(a)).join(""):`<span class="muted">žádné</span>`}</div></div>
       <div><div class="tr-l">Nepřítel</div><div class="auras">${H.debuffs.length?H.debuffs.map(a=>aura(a,true)).join(""):`<span class="muted">bez debuffu</span>`}</div></div>
+      ${H.party?`<div class="tr-party"><div class="tr-l">Skupina</div>${H.party.map(m=>`<div class="pm ${m.role}"><span class="pn">${esc(m.n)}</span><span class="pb"><i style="width:${m.hp}%;background:${m.hp<35?"#e05b4d":m.hp<70?"#e8b64c":"#3ddc84"}"></i></span><span class="pv">${m.hp} %</span>${(m.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>`).join("")}</div>`:""}
       ${H.pips?`<div><div class="tr-l">${esc(H.pips.label)}</div><div class="pips">${Array.from({length:H.pips.max},(_,i)=>`<i class="${i<H.pips.n?"on":""}"></i>`).join("")}</div></div>`:""}
       <div><div class="tr-l">Situace</div><div class="chips">${H.info.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div></div>
     </div>
@@ -2532,7 +3358,7 @@ function trPick(i){
   TR.total++; TR.answered = true;
   if (ok){ TR.streak++; TR.score += TR.mode==="challenge" ? 1 + Math.floor(TR.streak/5) : 1; }
   else TR.streak = 0;
-  TR.feedback = { ok, picked:b.s, correct:r.s, why: b.cd && b.s===r.s ? "Kouzlo je na cooldownu." : (b.cd ? `${b.s} je na cooldownu. ` : "") + r.why };
+  TR.feedback = { ok, picked:b.s, correct:r.s, why: b.cd && b.s===r.s ? "Kouzlo je na cooldownu." : (b.cd ? `${b.s} je na cooldownu. ` : "") + (typeof r.why==="function" ? r.why(st) : r.why) };
   trRefresh();
   if (TR.mode==="challenge" && TR.left>0) setTimeout(()=>{ if (TR.mode==="challenge" && TR.left>0){ trNew(); trRefresh(); } }, ok?450:1300);
 }
@@ -2571,23 +3397,31 @@ function qzBuild(){
     out.push({ q:`Které kouzlo odpovídá popisu: „${txt}“`, opts:shuffle([sp.n,...wrong]), a:sp.n, why:`${sp.n}: ${sp.d}` });
   });
   // 2) mechaniky
-  shuffle(g.mechanics).slice(0,2).forEach(m => {
+  if (g.mechanics.length>=2) shuffle(g.mechanics).slice(0,2).forEach(m => {
     const wrong = shuffle(g.mechanics.filter(x=>x.n!==m.n)).slice(0,3).map(x=>x.d);
     out.push({ q:`Co dělá ${m.n}?`, opts:shuffle([m.d,...wrong]), a:m.d, why:m.t });
   });
   // 3) situace z trenažéru
   if (T){ for (let k=0;k<3;k++){
     const hero = T.heroes[0], aoe = k===2, st = T.gen(aoe, hero), H = T.hud(st), r = trCorrect(T, st, hero, aoe);
-    const desc = [...H.buffs.map(b=>b.n+(b.stack?` (${b.stack})`:"")), ...H.debuffs.map(d=>`${d.n} na nepříteli: ${d.stack}`), H.pips?`${H.pips.label}: ${H.pips.n}`:"", ...H.info].filter(Boolean).join(" · ");
+    const pdesc = H.party ? "Skupina: " + H.party.map(m=>`${m.n} ${m.hp} %`).join(", ") : "";
+    const desc = [pdesc, ...H.buffs.map(b=>b.n+(b.stack?` (${b.stack})`:"")), ...H.debuffs.map(d=>`${d.n} na nepříteli: ${d.stack}`), H.pips?`${H.pips.label}: ${H.pips.n}`:"", ...H.info].filter(Boolean).join(" · ");
     const names = [...new Set(trButtons(T,hero).map(b=>trBtnView(T,b,st,hero).s))];
     const wrong = shuffle(names.filter(n=>n!==r.s)).slice(0,3);
-    out.push({ q:`${hero}, ${aoe?"AoE":"single target"}. Situace: ${desc || "nic zvláštního"}. Co zmáčkneš?`, opts:shuffle([r.s,...wrong]), a:r.s, why:r.why });
+    out.push({ q:`${hero}, ${aoe?"AoE":"single target"}. Situace: ${desc || "nic zvláštního"}. Co zmáčkneš?`, opts:shuffle([r.s,...wrong]), a:r.s, why: typeof r.why==="function" ? r.why(st) : r.why });
   } }
   // 4) staty
   if (g.stats){ const sec = g.stats.slice(1); out.push({ q:"Který sekundární stat je podle priority pro tuto specializaci nejcennější?", opts:shuffle(sec.slice(0,4)), a:sec[0], why:`Priorita: ${g.stats.join(" > ")}.` }); }
   // 5) slovníček
   const gl = shuffle(GLOSSARY).slice(0,1)[0]; const glw = shuffle(GLOSSARY.filter(x=>x[0]!==gl[0])).slice(0,3).map(x=>x[1]);
   out.push({ q:`Co znamená „${gl[0]}“?`, opts:shuffle([gl[1],...glw]), a:gl[1], why:gl[1] });
+  // doplň otázkami na kouzla, ať je jich 10
+  const used = new Set(out.map(q=>q.a));
+  shuffle(spells).filter(sp=>!used.has(sp.n)).slice(0, Math.max(0, 10-out.length)).forEach(sp => {
+    const wrong = shuffle(spells.filter(x=>x.n!==sp.n)).slice(0,3).map(x=>x.n);
+    const txt = SPELL_TT[sp.n].cz.split(sp.n).join("___");
+    out.push({ q:`Které kouzlo odpovídá popisu: „${txt}“`, opts:shuffle([sp.n,...wrong]), a:sp.n, why:`${sp.n}: ${sp.d}` });
+  });
   return shuffle(out).slice(0,10);
 }
 function qzRender(){
@@ -2655,6 +3489,9 @@ function searchIndex(){
   const defRace = c => c.onlyRace || (S.race && !(raceById(S.race).noClasses||[]).includes(c.id) ? S.race : "human");
   out.push({t:"Slovníček pojmů", sub:"Obrazovka", go:()=>go("glossary")});
   if (typeof vLeveling==="function") out.push({t:"Levelování", sub:"Obrazovka", go:()=>go("leveling")});
+  out.push({t:"Dungeony a raid (Season 2)", sub:"Obrazovka", go:()=>go("dungeons")});
+  SEASON.raid.bosses.forEach(b => out.push({t:b.n, sub:"Raid boss · "+SEASON.raid.name, kw:b.k, go:()=>go("dungeons")}));
+  SEASON.dungeons.forEach(d => out.push({t:d.n, sub:"Mythic+ dungeon", kw:d.tips.join(" "), go:()=>go("dungeons")}));
   RACES.forEach(r => out.push({t:r.name, sub:`Rasa · ${r.cz}`, kw:r.racials.map(x=>x[0]).join(" "), go:()=>{ S.race=r.id; go("race"); }}));
   CLASSES.forEach(c => c.specs.forEach(s => out.push({t:`${s.name} ${c.name}`, sub:`${ROLE_CZ[s.role]}${GUIDES[c.id+"/"+s.id]?" · kompletní průvodce":""}`, kw:c.cz, go:()=>{ Object.assign(S,{race:defRace(c), cls:c.id, spec:s.id, tab:"overview", hero:null}); go("guide"); }})));
   Object.entries(GUIDES).forEach(([k,g]) => {
@@ -2926,6 +3763,68 @@ function vLeveling(){
     <div class="box"><h3>Zdroje</h3><ul class="clean">${L.sources.map(([n,u])=>`<li><a href="${u}" target="_blank" rel="noopener">${esc(n)}</a></li>`).join("")}</ul></div>
   </section>`;
 }
+
+/* ================================================================
+   FEATURES 2: BiS gear přes Wowhead, externí odkazy, dungeony
+   ================================================================ */
+
+/* odkazy na kouzla otevíráme samy (aby Wowhead nepřidával vlastní tooltip navíc) */
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[data-ext]"); if (!a) return;
+  if (!CAN_HOVER && a.closest(".tt") && !a.closest(".gtt")) return; // na mobilu klik otevře náš panel
+  e.preventDefault(); window.open(a.dataset.ext, "_blank", "noopener");
+});
+
+/* ---------- Wowhead tooltips jen pro BiS předměty ---------- */
+let whState = 0; // 0 nenačteno, 1 načítá, 2 hotovo
+function ensureWH(){
+  const refresh = () => { try{ if (window.WH && WH.Tooltips && WH.Tooltips.refreshLinks) WH.Tooltips.refreshLinks(); else if (window.$WowheadPower) $WowheadPower.refreshLinks(); }catch(e){} };
+  if (whState===2){ refresh(); return; }
+  if (whState===1) return;
+  whState = 1;
+  const s = document.createElement("script"); s.src = "https://wow.zamimg.com/js/tooltips.js"; s.async = true;
+  s.onload = () => { whState = 2; setTimeout(refresh, 200); };
+  s.onerror = () => { whState = 0; };
+  document.head.appendChild(s);
+}
+function bisDoll(g){
+  const by = k => g.bis.find(i=>i.slot===k);
+  const SLOT_CZ = {head:"Hlava",neck:"Krk",shoulder:"Ramena",back:"Plášť",chest:"Hrudník",wrist:"Zápěstí",hands:"Ruce",waist:"Pás",legs:"Nohy",feet:"Boty",ring1:"Prsten 1",ring2:"Prsten 2",trinket1:"Trinket 1",trinket2:"Trinket 2",main:"Hlavní ruka",off:"Druhá ruka"};
+  const row = k => { const it = by(k); if (!it) return ""; return `<div class="slot bis"><span><span class="ss">${SLOT_CZ[k]}</span><br><a class="whn" href="https://www.wowhead.com/item=${it.id}" target="_blank" rel="noopener">${esc(it.n)}</a><br><span class="il">${esc(it.src)}</span></span></div>`; };
+  setTimeout(ensureWH, 50);
+  return `<div class="box"><h3>Best in slot gear</h3>
+    <p style="margin-bottom:14px">${CAN_HOVER?"Najeď myší na předmět":"Klepni na předmět"} – herní popisek ukáže Wowhead (anglicky). Kde ho získáš, je česky pod názvem.</p>
+    <div class="doll">
+      <div class="col">${DOLL_L.map(row).join("")}</div>
+      <div class="mid"><div class="cinzel" style="color:var(--gold-2);font-size:15px">BiS Season 2</div>${mageSvg}<div style="font-size:12.5px;color:var(--muted)">Podle Method.gg, patch 12.1</div></div>
+      <div class="col r">${DOLL_R.map(row).join("")}</div>
+      <div class="weap">${["main","off"].map(row).join("")}</div>
+    </div>
+    <p class="note">„Catalyst“ = předmět si přeměníš na tier set v Revival Catalystu. Staty a item level se liší podle obtížnosti a upgradů.</p></div>`;
+}
+
+/* ---------- DUNGEONY A RAID ---------- */
+let dgRole = "all";
+function vDungeons(){
+  const S2 = SEASON, roleTxt = {tank:"Tank", heal:"Healer", dps:"DPS"};
+  const roles = dgRole==="all" ? ["tank","heal","dps"] : [dgRole];
+  return `<section class="screen">
+    <div class="screen-head"><h2>Dungeony a raid – Season 2</h2>${ornament}<p>Taháky na raid ${esc(S2.raid.name)} a 8 dungeonů Mythic+ v patchi 12.1.</p></div>
+    <div class="filters">${[["all","Všechny role"],["tank","Tank"],["heal","Healer"],["dps","DPS"]].map(([k,l])=>`<button class="chip ${dgRole===k?"on":""}" data-dgrole="${k}">${l}</button>`).join("")}</div>
+    <div class="box"><h3>Raid: ${esc(S2.raid.name)}</h3><p class="note" style="margin:-4px 0 12px">${esc(S2.raid.intro)}</p>
+      <div class="bosses">${S2.raid.bosses.map((b,i)=>`<details class="boss" ${i===0?"open":""}><summary><span class="bn">${i+1}</span>${esc(b.n)}</summary>
+        <p>${esc(b.k)}</p>
+        <div class="roles">${roles.map(r=>`<div class="role ${r}"><b>${roleTxt[r]}</b> ${esc(b[r])}</div>`).join("")}</div></details>`).join("")}</div></div>
+    <div class="box"><h3>Mythic+ dungeony</h3><div class="spell-list">${S2.dungeons.map(d=>`<div class="dg"><div class="dg-h"><b>${esc(d.n)}</b><span class="tag">${esc(d.tag)}</span><span class="tag">limit ${esc(d.time)}</span></div><ul class="clean">${d.tips.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`).join("")}</div></div>
+    <div class="cols">
+      <div class="box"><h3>Affixy podle úrovně klíče</h3><table class="t"><tbody>${S2.affixes.map(([a,b])=>`<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("")}</tbody></table></div>
+      <div class="box"><h3>Základy Mythic+</h3><ul class="clean">${S2.basics.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+    </div>
+    <div class="box"><h3>Zdroje a podrobné guidy</h3><ul class="clean">${S2.sources.map(([n,u])=>`<li><a href="${u}" target="_blank" rel="noopener">${esc(n)}</a></li>`).join("")}</ul>
+      <p class="note">Podrobné strategie na každého bosse (video, obrázky) najdeš na Method.gg nebo Icy Veins.</p></div>
+  </section>`;
+}
+document.addEventListener("click", e => { const b = e.target.closest("[data-dgrole]"); if (b){ dgRole = b.dataset.dgrole; render(); } });
 
 
 /* ---------- START ---------- */
