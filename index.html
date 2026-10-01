@@ -264,6 +264,11 @@ table.t td:first-child{color:var(--text);font-weight:600;white-space:nowrap}
 .gtt .sp{height:6px}
 .gtt .src{margin-top:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,.12);color:#9fe6fa;font-family:Inter,sans-serif;font-size:12px}
 .gtt .close{display:none}
+.gtt .whl{display:none;margin-top:10px;font-family:Inter,sans-serif;font-size:13px;color:#9fe6fa}
+.gtt.sheet .whl{display:inline-block}
+.spell.tt{cursor:help;transition:background .15s,border-color .15s}
+.spell.tt:hover,.spell.tt:focus-visible,.spell.tt.act{background:rgba(var(--accent-rgb),.09);border-color:rgba(var(--accent-rgb),.4)}
+.gi.q1{box-shadow:0 0 0 1px #000,0 0 0 2px #cfcfcf}.gi.q2{box-shadow:0 0 0 1px #000,0 0 0 2px #1eff00}.gi.q3{box-shadow:0 0 0 1px #000,0 0 0 2px #0070dd}
 .gtt.sheet{background:#0a1022;pointer-events:auto;left:0!important;right:0;bottom:0;top:auto!important;max-width:none;width:auto;border-radius:16px 16px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom));max-height:80vh;overflow:auto;transform:translateY(100%);transition:transform .25s cubic-bezier(.2,.8,.2,1),opacity .2s}
 .gtt.sheet.on{transform:none}
 .gtt.sheet .close{display:block;position:absolute;top:10px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:18px}
@@ -537,32 +542,32 @@ const GUIDES = {
     changes:["Icy Veins bylo odstraněno – hlavní cooldown je Ray of Frost","Winter's Chill bylo nahrazeno stacky Freezing","Icicles se generují samy, při 5 kusech se Frostbolt změní na Glacial Spike","Water Elemental se vrátil jako volitelný trvalý pet"],
     mechanics:[
       {n:"Freezing", u:WHS("Freezing"), s:"frost", d:"Debuff na nepříteli, stackuje se (max 20, vyprší po 8 s bez obnovení).", t:"Nenech ho vypršet, pravidelně ho rozbíjej."},
-      {n:"Shatter", ic:"spell_frost_frostshock", u:WH(12982), s:"frost", d:"Rozbití stacků Freezing – hlavní zdroj poškození.", t:"Spouštíš ho Ice Lance a Comet Stormem."},
-      {n:"Fingers of Frost", ic:"ability_mage_wintersgrasp", u:WH(112965), s:"frost", d:"Proc: další Ice Lance zasáhne, jako by rozbila stacky, ale nespotřebuje je. Max 2 stacky.", t:"Při 2 stacích hned Ice Lance."},
-      {n:"Brain Freeze", ic:"ability_mage_brainfreeze", u:WH(190447), s:"frost", d:"Proc: Flurry je okamžitý a mnohem silnější.", t:"Použij Flurry, když svítí Brain Freeze."},
-      {n:"Thermal Void", ic:"spell_mage_thermalvoid", u:WH(1247729), s:"frost", d:"Po spotřebování Brain Freeze rozbije příští Ice Lance o 4 stacky Freezing víc.", t:"Po Flurry dej Ice Lance dřív, než zase pošleš Flurry."},
-      {n:"Icicles", ic:"spell_frost_iceshard", u:WH(205473), s:"frost", d:"Generují se samy (rychleji s Haste). Při 5 se Frostbolt změní na Glacial Spike.", t:"Když se objeví Glacial Spike, sešli ho."},
+      {n:"Shatter", tt:{"kind": "Passive", "desc": "Multiplies the critical strike chance of your spells against frozen targets by 1.5, and adds an additional 50% critical strike chance.", "cz": "Proto je rozbíjení Freezing tak silné – kouzla na zmražené cíle skoro vždy kritnou."}, ic:"spell_frost_frostshock", u:WH(12982), s:"frost", d:"Rozbití stacků Freezing – hlavní zdroj poškození.", t:"Spouštíš ho Ice Lance a Comet Stormem."},
+      {n:"Fingers of Frost", tt:{"kind": "Talent", "desc": "Frostbolt has a 15% chance to grant a charge of Fingers of Frost. Fingers of Frost causes your next Ice Lance to deal Shatter damage equal to 4 stacks of Freezing and does not consume Freezing stacks. Maximum 2 charges.", "cz": "Proc: při 2 nabitích hned Ice Lance, ať o něj nepřijdeš."}, ic:"ability_mage_wintersgrasp", u:WH(112965), s:"frost", d:"Proc: další Ice Lance zasáhne, jako by rozbila stacky, ale nespotřebuje je. Max 2 stacky.", t:"Při 2 stacích hned Ice Lance."},
+      {n:"Brain Freeze", tt:{"kind": "Talent", "desc": "Frostbolt has a chance to reset the remaining cooldown on Flurry and cause your next Flurry to deal 50% increased damage.", "cz": "Proc: když svítí, pošli Flurry."}, ic:"ability_mage_brainfreeze", u:WH(190447), s:"frost", d:"Proc: Flurry je okamžitý a mnohem silnější.", t:"Použij Flurry, když svítí Brain Freeze."},
+      {n:"Thermal Void", tt:{"kind": "Talent", "desc": "Consuming Brain Freeze has a 100% chance to cause your next Ice Lance to Shatter 4 additional stacks of Freezing.", "cz": "Po Flurry s Brain Freeze dej Ice Lance – rozbije víc stacků."}, ic:"spell_mage_thermalvoid", u:WH(1247729), s:"frost", d:"Po spotřebování Brain Freeze rozbije příští Ice Lance o 4 stacky Freezing víc.", t:"Po Flurry dej Ice Lance dřív, než zase pošleš Flurry."},
+      {n:"Icicles", tt:{"kind": "Passive", "desc": "While in combat, Frost crystallizes around you, generating an Icicle every 6.0 sec. Upon generating 5 Icicles, Frostbolt upgrades to Glacial Spike for its next cast.", "cz": "Nic neřešíš – jen sešli Glacial Spike, když se objeví."}, ic:"spell_frost_iceshard", u:WH(205473), s:"frost", d:"Generují se samy (rychleji s Haste). Při 5 se Frostbolt změní na Glacial Spike.", t:"Když se objeví Glacial Spike, sešli ho."},
     ],
     spells:[
-      {n:"Frostbolt", ic:"spell_frost_frostbolt02", u:WH(116), cat:"core", key:"1", d:"Základní „filler“, dává Freezing. Sesílej, když není nic lepšího."},
-      {n:"Ice Lance", ic:"spell_frost_frostblast", u:WH(30455), cat:"core", key:"2", d:"Okamžité, rozbíjí Freezing. Dá se sesílat i v pohybu."},
-      {n:"Flurry", ic:"ability_deathknight_chillstreak", u:WH(44614), cat:"core", key:"3", d:"Rychlá salva střel, dává Freezing. S Brain Freeze okamžitá."},
-      {n:"Frozen Orb", ic:"spell_frost_frozenorb", u:WH(84714), cat:"core", key:"4", d:"Koule letí vpřed a zasahuje vše v cestě. Používej na cooldown."},
-      {n:"Blizzard", ic:"spell_frost_icestorm", u:WH(190356), cat:"core", key:"5", d:"AoE na zem. S Freezing Rain (během Frozen Orb) okamžité."},
-      {n:"Glacial Spike", ic:"ability_mage_glacialspike", u:WH(199786), cat:"core", key:"1", d:"Silná střela – sama nahradí Frostbolt při 5 Icicles."},
-      {n:"Ray of Frost", ic:"ability_mage_rayoffrost", u:WH(205021), cat:"cd", key:"Q", d:"Hlavní útočný cooldown. 5s paprsek, obrovské množství Freezing. Nepřerušuj ho."},
-      {n:"Comet Storm", ic:"spell_mage_cometstorm2", u:WH(153595), cat:"cd", key:"Q", d:"Po Ray of Frost se tlačítko změní na Comet Storm – déšť komet, který rozbíjí Freezing."},
-      {n:"Time Warp", ic:"ability_mage_timewarp", u:WH(80353), cat:"cd", key:"–", d:"Bloodlust pro celou skupinu. Použij před Ray of Frost."},
-      {n:"Ice Barrier", ic:"spell_ice_lament", u:WH(11426), cat:"def", key:"R", d:"Štít – drž ho nahozený skoro pořád."},
-      {n:"Ice Block", ic:"spell_frost_frost", u:WH(45438), cat:"def", key:"Shift+R", d:"Imunita na pár sekund (s Ice Cold velká redukce poškození a kouzlíš dál)."},
-      {n:"Mirror Image", ic:"spell_magic_lesserinvisibilty", u:WH(55342), cat:"def", key:"–", d:"V Midnight už nesnižuje poškození, spíš malý DPS bonus."},
-      {n:"Blink / Shimmer", ic:"spell_arcane_massdispel", u:WH(212653), cat:"util", key:"Mezerník/myš", d:"Teleport vpřed, Shimmer i během sesílání."},
-      {n:"Counterspell", ic:"spell_frost_iceshock", u:WH(2139), cat:"util", key:"E", d:"Interrupt – přeruší nepříteli kouzlo."},
-      {n:"Frost Nova", ic:"spell_frost_frostnova", u:WH(122), cat:"util", key:"F", d:"Zmrazí nepřátele kolem tebe na místě."},
-      {n:"Cone of Cold", ic:"spell_frost_glacier", u:WH(120), cat:"util", key:"–", d:"Kužel mrazu, zpomalí nepřátele před tebou."},
-      {n:"Dragon's Breath", ic:"inv_misc_head_dragon_01", u:WH(31661), cat:"util", key:"–", d:"Dezorientuje nepřátele před tebou."},
-      {n:"Remove Curse", ic:"spell_nature_removecurse", u:WH(475), cat:"util", key:"–", d:"Odstraní kletbu ze spoluhráče."},
-      {n:"Arcane Intellect", ic:"spell_holy_magicalsentry", u:WH(1459), cat:"buff", key:"–", d:"Buff Intellectu pro tebe i skupinu. Drž ho pořád, po smrti obnov."},
+      {n:"Frostbolt", tt:{"cost": "2% of base mana", "range": "40 yd range", "cast": "1.75 sec cast", "desc": "Launches a bolt of frost at the enemy, causing Frost damage and slowing movement speed by 50% for 8 sec.", "cz": "Tvůj základní útok. Sesílej ho, když nemáš nic lepšího – dává Freezing a šanci na Brain Freeze a Fingers of Frost."}, ic:"spell_frost_frostbolt02", u:WH(116), cat:"core", key:"1", d:"Základní „filler“, dává Freezing. Sesílej, když není nic lepšího."},
+      {n:"Ice Lance", tt:{"cost": "1% of base mana", "range": "40 yd range", "cast": "Instant", "desc": "Quickly fling a shard of ice at the target, dealing Frost damage. Shatters 4 stacks of Freezing.", "cz": "Rozbíjí stacky Freezing – hlavní zdroj poškození. Okamžitá, takže ideální v pohybu."}, ic:"spell_frost_frostblast", u:WH(30455), cat:"core", key:"2", d:"Okamžité, rozbíjí Freezing. Dá se sesílat i v pohybu."},
+      {n:"Flurry", tt:{"cost": "1% of base mana", "range": "40 yd range", "cast": "Instant", "cd": "30 sec recharge · 2 Charges", "desc": "Unleash a flurry of ice, striking the target 3 times for Frost damage. Applies 3 stacks of Freezing.", "cz": "Rychle nasype Freezing. S Brain Freeze je o 50 % silnější."}, ic:"ability_deathknight_chillstreak", u:WH(44614), cat:"core", key:"3", d:"Rychlá salva střel, dává Freezing. S Brain Freeze okamžitá."},
+      {n:"Frozen Orb", tt:{"cost": "1% of base mana", "range": "40 yd range", "cast": "Instant", "cd": "1 min cooldown", "desc": "Launches an orb of swirling ice in front of you, dealing Frost damage to all enemies it passes through over 15 sec. Enemies damaged by the Frozen Orb are slowed by 50% for 8 sec.", "cz": "Cooldown na AoE i jeden cíl. Míří tam, kam se díváš – otoč se k nepřátelům."}, ic:"spell_frost_frozenorb", u:WH(84714), cat:"core", key:"4", d:"Koule letí vpřed a zasahuje vše v cestě. Používej na cooldown."},
+      {n:"Blizzard", tt:{"cost": "2.5% of base mana", "range": "40 yd range", "cast": "2 sec cast", "cd": "12 sec cooldown", "desc": "Ice shards pelt the target area, dealing Frost damage over 12 sec and reducing movement speed by 50% for 3 sec.", "cz": "AoE na zem. Na 3+ nepřátele, s Freezing Rain je okamžitý."}, ic:"spell_frost_icestorm", u:WH(190356), cat:"core", key:"5", d:"AoE na zem. S Freezing Rain (během Frozen Orb) okamžité."},
+      {n:"Glacial Spike", tt:{"cost": "5% of base mana", "range": "40 yd range", "cast": "1.75 sec cast", "desc": "Conjures a massive spike of ice that impales your target, dealing damage and slowing movement speed by 50% for 8 sec. Applies 3 stacks of Freezing.", "cz": "Nejsilnější jednotlivá střela. Objeví se sama místo Frostboltu při 5 Icicles."}, ic:"ability_mage_glacialspike", u:WH(199786), cat:"core", key:"1", d:"Silná střela – sama nahradí Frostbolt při 5 Icicles."},
+      {n:"Ray of Frost", tt:{"cost": "2% of base mana", "range": "40 yd range", "cast": "Channeled (4 sec cast)", "cd": "1 min cooldown", "desc": "Channel an icy beam at the enemy for 4 sec, dealing Frost damage every 0.50 sec. Applies 8 stacks of Freezing over its duration.", "cz": "Hlavní burst cooldown. Nech ho doběhnout celý, pak se tlačítko změní na Comet Storm."}, ic:"ability_mage_rayoffrost", u:WH(205021), cat:"cd", key:"Q", d:"Hlavní útočný cooldown. 4s paprsek, obrovské množství Freezing. Nepřerušuj ho."},
+      {n:"Comet Storm", tt:{"cost": "1% of base mana", "range": "40 yd range", "cast": "Instant", "desc": "Calls down a series of 7 icy comets on and around the target, dealing Frost damage to all enemies within 6 yds of its impacts.", "cz": "Přijde hned po Ray of Frost. Silné AoE, které rozbíjí Freezing."}, ic:"spell_mage_cometstorm2", u:WH(153595), cat:"cd", key:"Q", d:"Po Ray of Frost se tlačítko změní na Comet Storm – déšť komet, který rozbíjí Freezing."},
+      {n:"Time Warp", tt:{"cost": "4% of base mana", "cast": "Instant", "cd": "5 min cooldown", "desc": "Warp the flow of time, increasing haste by 30% for all party and raid members for 40 sec. Allies will be unable to benefit from Bloodlust, Heroism, or Time Warp again for 10 min.", "cz": "Bloodlust pro celou skupinu. Dohodni se se skupinou, kdy ho použít (obvykle na začátku bosse)."}, ic:"ability_mage_timewarp", u:WH(80353), cat:"cd", key:"–", d:"Bloodlust pro celou skupinu. Použij před Ray of Frost."},
+      {n:"Ice Barrier", tt:{"cost": "3% of base mana", "cast": "Instant", "cd": "30 sec cooldown", "desc": "Shields you with ice, absorbing damage for 1 min. Melee attacks against you reduce the attacker's movement speed by 50%.", "cz": "Štít – nahazuj ho pořád, kdykoli je dostupný."}, ic:"spell_ice_lament", u:WH(11426), cat:"def", key:"R", d:"Štít – drž ho nahozený skoro pořád."},
+      {n:"Ice Block", tt:{"cast": "Instant", "cd": "4 min cooldown", "desc": "Encases you in a block of ice, protecting you from all attacks and damage for 10 sec, but during that time you cannot attack, move, or cast spells. Causes Hypothermia, preventing you from recasting Ice Block for 30 sec.", "cz": "Záchrana života – použij, když ti jde život rychle dolů nebo na smrtelnou mechaniku."}, ic:"spell_frost_frost", u:WH(45438), cat:"def", key:"Shift+R", d:"Imunita na pár sekund (s Ice Cold velká redukce poškození a kouzlíš dál)."},
+      {n:"Mirror Image", tt:{"cost": "2% of base mana", "cast": "Instant", "cd": "2 min cooldown", "desc": "Creates 3 copies of you nearby for 15 sec, which cast spells and attack your enemies. While active, you generate significantly reduced threat.", "cz": "Malý bonus k poškození a snížení aggra. Použij s Ray of Frost."}, ic:"spell_magic_lesserinvisibilty", u:WH(55342), cat:"def", key:"–", d:"V Midnight už nesnižuje poškození, spíš malý DPS bonus."},
+      {n:"Blink / Shimmer", tt:{"cost": "2% of base mana", "cast": "Instant", "cd": "30 sec cooldown", "desc": "Teleports you 20 yds forward, unless something is in the way. Unaffected by the global cooldown and castable while casting.", "cz": "Útěk z mechanik. Shimmer jde použít i během sesílání kouzla."}, ic:"spell_arcane_massdispel", u:WH(212653), cat:"util", key:"Mezerník/myš", d:"Teleport vpřed, Shimmer i během sesílání."},
+      {n:"Counterspell", tt:{"cost": "2% of base mana", "range": "40 yd range", "cast": "Instant", "cd": "25 sec cooldown", "desc": "Counters the enemy's spellcast, preventing any spell from that school of magic from being cast for 7 sec.", "cz": "Interrupt – přeruš nebezpečná kouzla nepřátel, hlavně v Mythic+."}, ic:"spell_frost_iceshock", u:WH(2139), cat:"util", key:"E", d:"Interrupt – přeruší nepříteli kouzlo."},
+      {n:"Frost Nova", tt:{"cost": "2% of base mana", "range": "12 yd", "cast": "Instant", "cd": "30 sec cooldown", "desc": "Blasts enemies within 12 yds of you for Frost damage and freezes them in place for 6 sec. Damage may interrupt the freeze effect.", "cz": "Zmrazí nepřátele kolem tebe. Pak odejdi do bezpečí."}, ic:"spell_frost_frostnova", u:WH(122), cat:"util", key:"F", d:"Zmrazí nepřátele kolem tebe na místě."},
+      {n:"Cone of Cold", tt:{"cost": "4% of base mana", "cast": "Instant", "cd": "25 sec cooldown", "desc": "Targets in a cone in front of you take Frost damage and have movement slowed by 50% for 8 sec.", "cz": "Zpomalení skupiny nepřátel před tebou."}, ic:"spell_frost_glacier", u:WH(120), cat:"util", key:"–", d:"Kužel mrazu, zpomalí nepřátele před tebou."},
+      {n:"Dragon's Breath", tt:{"cost": "4% of base mana", "range": "12 yd cone", "cast": "Instant", "cd": "45 sec cooldown", "desc": "Enemies in a 12 yd cone in front of you take Fire damage and are disoriented for 4 sec. Damage will cancel the effect.", "cz": "Krátké zneškodnění nepřátel – poškození ho zruší."}, ic:"inv_misc_head_dragon_01", u:WH(31661), cat:"util", key:"–", d:"Dezorientuje nepřátele před tebou."},
+      {n:"Remove Curse", tt:{"cost": "1.3% of base mana", "range": "40 yd range", "cast": "Instant", "cd": "8 sec cooldown", "desc": "Removes all Curses from a friendly target.", "cz": "Odstraní kletby ze spoluhráčů – v některých dungeonech důležité."}, ic:"spell_nature_removecurse", u:WH(475), cat:"util", key:"–", d:"Odstraní kletbu ze spoluhráče."},
+      {n:"Arcane Intellect", tt:{"cost": "1% of base mana", "range": "40 yd range", "cast": "Instant", "desc": "Infuses the target with brilliance, increasing their Intellect by 3% for 1 hour. If the target is in your party or raid, all party and raid members will be affected.", "cz": "Buff pro tebe i celou skupinu. Drž ho pořád, po smrti obnov."}, ic:"spell_holy_magicalsentry", u:WH(1459), cat:"buff", key:"–", d:"Buff Intellectu pro tebe i skupinu. Drž ho pořád, po smrti obnov."},
     ],
     rotations:{
       Spellslinger:{
@@ -614,12 +619,12 @@ const GUIDES = {
       "Do socketů dávej gemy se staty z priority.",
     ],
     consumables:[
-      ["Flask","Flask of the Shattered Sun","Před raidem nebo klíčem, 1 hodina"],
-      ["Jídlo","Harandar Celebration (feast)","Před bojem"],
-      ["Weapon oil","Thalassian Phoenix Oil","Na zbraň před raidem nebo klíčem"],
-      ["Augment rune","Void-Touched Augment Rune","Před bojem"],
-      ["Potion (DMG)","Potion of Recklessness","Na bossovi, spolu s Ray of Frost nebo Time Warp"],
-      ["Léčení","Concentrated Silvermoon Health Potion + Healthstone","Když ti klesá život"],
+      {t:"Flask", n:"Flask of the Shattered Sun", id:241326, ic:"inv_12_profession_alchemy_flask_sindoreipotion_red", q:1, ilvl:295, kind:"Consumable", use:"Increases your Critical Strike by 165 for 1 hour. Persists through death.", when:"Před raidem nebo klíčem, 1 hodina", cz:"Trvalý buff na hodinu – vydrží i smrt."},
+      {t:"Jídlo", n:"Harandar Celebration", id:255846, ic:"inv_misc_1h_soup_b_01_misc_1h_soup_b_01", q:3, ilvl:24, kind:"Feast", use:"Place a Harandar Celebration for all players to enjoy! Restores health and mana while seated. Well Fed: 98 Stamina and 50 primary stat for 1 hour (eat at least 10 sec).", when:"Před bojem", cz:"Hostina pro celou skupinu – sedni si a jez aspoň 10 s, ať dostaneš Well Fed."},
+      {t:"Weapon oil", n:"Thalassian Phoenix Oil", id:243733, ic:"inv_12_profession_enchanting_manaoil_red", q:2, ilvl:278, kind:"Weapon Coating", use:"Coat your weapon, increasing Critical Strike and Haste for 120 min.", when:"Na zbraň před raidem nebo klíčem", cz:"Nanes na zbraň (pravým klikem na olej, pak na zbraň)."},
+      {t:"Augment rune", n:"Void-Touched Augment Rune", id:259085, ic:"inv_10_enchanting_crystal_color2", q:3, ilvl:24, kind:"Augment Rune", use:"Increases Primary Stat by 25 for 1 hour.", when:"Před bojem", cz:"Malý bonus k Intellectu na hodinu."},
+      {t:"Potion (DMG)", n:"Potion of Recklessness", id:241288, ic:"inv_12_profession_alchemy_voidpotion_red", q:1, ilvl:295, kind:"Potion", use:"Gain 1725 of your highest secondary stat while losing 232 of your lowest secondary stat for 30 sec.", when:"Na bossovi, spolu s Ray of Frost nebo Time Warp", cz:"Jednou za boj – vypij spolu s burstem."},
+      {t:"Léčení", n:"Concentrated Silvermoon Health Potion", id:271883, ic:"inv_12_profession_alchemy_lightpotion_purple", q:1, ilvl:278, kind:"Potion", use:"Restores 359,499 health.", when:"Když ti klesá život", cz:"Nouzové léčení. Kombinuj s Healthstonem od warlocka."},
     ],
     mplus:["Frozen Orb hoď do středu skupiny, ať letí přes co nejvíc nepřátel.","Ray of Frost a Comet Storm šetři na velké packy.","Dohodni se se skupinou, které kouzlo přerušuješ Counterspellem.","Frost Nova, Ring of Frost a Dragon's Breath na utíkající nepřátele.","Remove Curse – odstraňuj kletby ze spoluhráčů.","Před velkým poškozením Ice Barrier, v nouzi Ice Block."],
     solo:["Pull: Frozen Orb → Blizzard → Frost Nova → odstup → Ice Lance / Flurry.","Silný nepřítel: zpomal ho a drž si odstup (kiting).","Water Elemental je v solo obsahu užitečný (Freeze + poškození).","V delves nahoď Ice Barrier před každým pullem."],
@@ -640,6 +645,186 @@ const GUIDES = {
       ["Icy Veins – PvP guide","https://www.icy-veins.com/wow/frost-mage-pvp-guide"],
     ],
   },
+};
+
+/* Herní popisky kouzel (Wowhead tooltip, patch 12.1) – klíč = název */
+const SPELL_TT = {
+"Frostbolt": {
+"cost": "2% of base mana",
+"range": "40 yd range",
+"cast": "1.75 sec cast",
+"desc": "Launches a bolt of frost at the enemy, causing Frost damage and slowing movement speed by 50% for 8 sec.",
+"cz": "Tvůj základní útok. Sesílej ho, když nemáš nic lepšího – dává Freezing a šanci na Brain Freeze a Fingers of Frost."
+},
+"Ice Lance": {
+"cost": "1% of base mana",
+"range": "40 yd range",
+"cast": "Instant",
+"desc": "Quickly fling a shard of ice at the target, dealing Frost damage. Shatters 4 stacks of Freezing.",
+"cz": "Rozbíjí stacky Freezing – hlavní zdroj poškození. Okamžitá, takže ideální v pohybu."
+},
+"Flurry": {
+"cost": "1% of base mana",
+"range": "40 yd range",
+"cast": "Instant",
+"cd": "30 sec recharge · 2 Charges",
+"desc": "Unleash a flurry of ice, striking the target 3 times for Frost damage. Applies 3 stacks of Freezing.",
+"cz": "Rychle nasype Freezing. S Brain Freeze je o 50 % silnější."
+},
+"Frozen Orb": {
+"cost": "1% of base mana",
+"range": "40 yd range",
+"cast": "Instant",
+"cd": "1 min cooldown",
+"desc": "Launches an orb of swirling ice in front of you, dealing Frost damage to all enemies it passes through over 15 sec. Enemies damaged by the Frozen Orb are slowed by 50% for 8 sec.",
+"cz": "Cooldown na AoE i jeden cíl. Míří tam, kam se díváš – otoč se k nepřátelům."
+},
+"Blizzard": {
+"cost": "2.5% of base mana",
+"range": "40 yd range",
+"cast": "2 sec cast",
+"cd": "12 sec cooldown",
+"desc": "Ice shards pelt the target area, dealing Frost damage over 12 sec and reducing movement speed by 50% for 3 sec.",
+"cz": "AoE na zem. Na 3+ nepřátele, s Freezing Rain je okamžitý."
+},
+"Glacial Spike": {
+"cost": "5% of base mana",
+"range": "40 yd range",
+"cast": "1.75 sec cast",
+"desc": "Conjures a massive spike of ice that impales your target, dealing damage and slowing movement speed by 50% for 8 sec. Applies 3 stacks of Freezing.",
+"cz": "Nejsilnější jednotlivá střela. Objeví se sama místo Frostboltu při 5 Icicles."
+},
+"Ray of Frost": {
+"cost": "2% of base mana",
+"range": "40 yd range",
+"cast": "Channeled (4 sec cast)",
+"cd": "1 min cooldown",
+"desc": "Channel an icy beam at the enemy for 4 sec, dealing Frost damage every 0.50 sec. Applies 8 stacks of Freezing over its duration.",
+"cz": "Hlavní burst cooldown. Nech ho doběhnout celý, pak se tlačítko změní na Comet Storm."
+},
+"Comet Storm": {
+"cost": "1% of base mana",
+"range": "40 yd range",
+"cast": "Instant",
+"desc": "Calls down a series of 7 icy comets on and around the target, dealing Frost damage to all enemies within 6 yds of its impacts.",
+"cz": "Přijde hned po Ray of Frost. Silné AoE, které rozbíjí Freezing."
+},
+"Time Warp": {
+"cost": "4% of base mana",
+"cast": "Instant",
+"cd": "5 min cooldown",
+"desc": "Warp the flow of time, increasing haste by 30% for all party and raid members for 40 sec. Allies will be unable to benefit from Bloodlust, Heroism, or Time Warp again for 10 min.",
+"cz": "Bloodlust pro celou skupinu. Dohodni se se skupinou, kdy ho použít (obvykle na začátku bosse)."
+},
+"Ice Barrier": {
+"cost": "3% of base mana",
+"cast": "Instant",
+"cd": "30 sec cooldown",
+"desc": "Shields you with ice, absorbing damage for 1 min. Melee attacks against you reduce the attacker's movement speed by 50%.",
+"cz": "Štít – nahazuj ho pořád, kdykoli je dostupný."
+},
+"Ice Block": {
+"cast": "Instant",
+"cd": "4 min cooldown",
+"desc": "Encases you in a block of ice, protecting you from all attacks and damage for 10 sec, but during that time you cannot attack, move, or cast spells. Causes Hypothermia, preventing you from recasting Ice Block for 30 sec.",
+"cz": "Záchrana života – použij, když ti jde život rychle dolů nebo na smrtelnou mechaniku."
+},
+"Mirror Image": {
+"cost": "2% of base mana",
+"cast": "Instant",
+"cd": "2 min cooldown",
+"desc": "Creates 3 copies of you nearby for 15 sec, which cast spells and attack your enemies. While active, you generate significantly reduced threat.",
+"cz": "Malý bonus k poškození a snížení aggra. Použij s Ray of Frost."
+},
+"Blink / Shimmer": {
+"cost": "2% of base mana",
+"cast": "Instant",
+"cd": "30 sec cooldown",
+"desc": "Teleports you 20 yds forward, unless something is in the way. Unaffected by the global cooldown and castable while casting.",
+"cz": "Útěk z mechanik. Shimmer jde použít i během sesílání kouzla."
+},
+"Counterspell": {
+"cost": "2% of base mana",
+"range": "40 yd range",
+"cast": "Instant",
+"cd": "25 sec cooldown",
+"desc": "Counters the enemy's spellcast, preventing any spell from that school of magic from being cast for 7 sec.",
+"cz": "Interrupt – přeruš nebezpečná kouzla nepřátel, hlavně v Mythic+."
+},
+"Frost Nova": {
+"cost": "2% of base mana",
+"range": "12 yd",
+"cast": "Instant",
+"cd": "30 sec cooldown",
+"desc": "Blasts enemies within 12 yds of you for Frost damage and freezes them in place for 6 sec. Damage may interrupt the freeze effect.",
+"cz": "Zmrazí nepřátele kolem tebe. Pak odejdi do bezpečí."
+},
+"Cone of Cold": {
+"cost": "4% of base mana",
+"cast": "Instant",
+"cd": "25 sec cooldown",
+"desc": "Targets in a cone in front of you take Frost damage and have movement slowed by 50% for 8 sec.",
+"cz": "Zpomalení skupiny nepřátel před tebou."
+},
+"Dragon's Breath": {
+"cost": "4% of base mana",
+"range": "12 yd cone",
+"cast": "Instant",
+"cd": "45 sec cooldown",
+"desc": "Enemies in a 12 yd cone in front of you take Fire damage and are disoriented for 4 sec. Damage will cancel the effect.",
+"cz": "Krátké zneškodnění nepřátel – poškození ho zruší."
+},
+"Remove Curse": {
+"cost": "1.3% of base mana",
+"range": "40 yd range",
+"cast": "Instant",
+"cd": "8 sec cooldown",
+"desc": "Removes all Curses from a friendly target.",
+"cz": "Odstraní kletby ze spoluhráčů – v některých dungeonech důležité."
+},
+"Arcane Intellect": {
+"cost": "1% of base mana",
+"range": "40 yd range",
+"cast": "Instant",
+"desc": "Infuses the target with brilliance, increasing their Intellect by 3% for 1 hour. If the target is in your party or raid, all party and raid members will be affected.",
+"cz": "Buff pro tebe i celou skupinu. Drž ho pořád, po smrti obnov."
+},
+"Summon Water Elemental": {
+"cost": "3% of base mana",
+"cast": "1.5 sec cast",
+"cd": "15 sec cooldown",
+"desc": "Summons a Water Elemental to follow and fight for you.",
+"cz": "Trvalý pet (jen s talentem). Přidává poškození a umí zmrazit nepřátele (Freeze)."
+},
+"Fingers of Frost": {
+"kind": "Talent",
+"desc": "Frostbolt has a 15% chance to grant a charge of Fingers of Frost. Fingers of Frost causes your next Ice Lance to deal Shatter damage equal to 4 stacks of Freezing and does not consume Freezing stacks. Maximum 2 charges.",
+"cz": "Proc: při 2 nabitích hned Ice Lance, ať o něj nepřijdeš."
+},
+"Brain Freeze": {
+"kind": "Talent",
+"desc": "Frostbolt has a chance to reset the remaining cooldown on Flurry and cause your next Flurry to deal 50% increased damage.",
+"cz": "Proc: když svítí, pošli Flurry."
+},
+"Thermal Void": {
+"kind": "Talent",
+"desc": "Consuming Brain Freeze has a 100% chance to cause your next Ice Lance to Shatter 4 additional stacks of Freezing.",
+"cz": "Po Flurry s Brain Freeze dej Ice Lance – rozbije víc stacků."
+},
+"Shatter": {
+"kind": "Passive",
+"desc": "Multiplies the critical strike chance of your spells against frozen targets by 1.5, and adds an additional 50% critical strike chance.",
+"cz": "Proto je rozbíjení Freezing tak silné – kouzla na zmražené cíle skoro vždy kritnou."
+},
+"Icicles": {
+"kind": "Passive",
+"desc": "While in combat, Frost crystallizes around you, generating an Icicle every 6.0 sec. Upon generating 5 Icicles, Frostbolt upgrades to Glacial Spike for its next cast.",
+"cz": "Nic neřešíš – jen sešli Glacial Spike, když se objeví."
+},
+"Freezing": {
+"kind": "Debuff",
+"cz": "Sbírej ho na nepříteli a rozbíjej Ice Lance. Bez obnovení vyprší po 8 s."
+}
 };
 
 </script>
@@ -900,7 +1085,7 @@ function gicon(ic, fb, cls=""){
 }
 function spellRow(sp){
   const letter = sp.n.replace(/[^A-Za-z]/g,"").slice(0,2);
-  return `<div class="spell">${gicon(sp.ic, letter)}
+  return `<div class="spell tt" tabindex="0" data-tt="spell" data-name="${esc(sp.n)}" data-key="${esc(sp.key||"")}" data-u="${sp.u}" data-ic="${sp.ic||""}">${gicon(sp.ic, letter)}
     <div><div class="name"><a href="${sp.u}" target="_blank" rel="noopener">${esc(sp.n)}</a></div><div class="d">${esc(sp.d)}</div></div>
     ${sp.key && sp.key!=="–" ? `<span class="key" title="Doporučená klávesa">${esc(sp.key)}</span>`:""}</div>`;
 }
@@ -917,13 +1102,13 @@ function fullTab(c,s,r,g){
       <div class="box"><h3>Slabé stránky</h3><ul class="clean bad">${g.weaknesses.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
     </div>
     <div class="box"><h3>Co je v Midnight nového</h3><ul class="clean">${g.changes.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
-    <div class="box"><h3>Mechaniky, kterým musíš rozumět</h3><div class="spell-list">${g.mechanics.map(m=>`
-      <div class="spell">${gicon(m.ic, m.n.slice(0,2))}<div><div class="name"><a href="${m.u}" target="_blank" rel="noopener">${esc(m.n)}</a></div><div class="d">${esc(m.d)}</div><div class="d" style="color:var(--gold-2)">→ ${esc(m.t)}</div></div></div>`).join("")}</div></div>
+    <div class="box"><h3>Mechaniky, kterým musíš rozumět</h3><p class="note" style="margin:-4px 0 12px">${HOVER_HINT} pro herní popis.</p><div class="spell-list">${g.mechanics.map(m=>`
+      <div class="spell tt" tabindex="0" data-tt="spell" data-name="${esc(m.n)}" data-u="${m.u}" data-ic="${m.ic||""}">${gicon(m.ic, m.n.slice(0,2))}<div><div class="name"><a href="${m.u}" target="_blank" rel="noopener">${esc(m.n)}</a></div><div class="d">${esc(m.d)}</div><div class="d" style="color:var(--gold-2)">→ ${esc(m.t)}</div></div></div>`).join("")}</div></div>
     ${racialBox(r)}`;
   case "spells": {
     const cats = [["core","Hlavní kouzla"],["cd","Cooldowny"],["def","Obrana"],["util","Užitečná kouzla"],["buff","Buffy"]];
     return `<div class="box">${cats.map(([k,l])=>`<div class="cat-title">${l}</div><div class="spell-list">${g.spells.filter(x=>x.cat===k).map(spellRow).join("")}</div>`).join("")}
-      <p class="note">Najeď myší na název kouzla – zobrazí se popisek přímo ze hry. Klávesy jsou jen návrh.</p></div>`;
+      <p class="note">${HOVER_HINT} – zobrazí se popisek jako ve hře a česky k čemu kouzlo slouží. Klávesy jsou jen návrh.</p></div>`;
   }
   case "rotation": {
     const R = g.rotations[S.hero];
@@ -936,7 +1121,7 @@ function fullTab(c,s,r,g){
       <h4>Opener (začátek boje)</h4><div class="opener">${R.opener.map((x,i)=>`${i?"<i>→</i>":""}<span>${esc(x)}</span>`).join("")}</div>
       <h4>Priorita – ${S.rotMode==="st"?"single target":"AoE"}</h4>
       <ol class="prio">${R[S.rotMode].map(x=>`<li>${esc(x)}</li>`).join("")}</ol>
-      <p class="note">Ray of Frost nech vždy doběhnout celý – předtím si stoupni tam, kde se 5 s nebudeš hýbat.</p></div>`;
+      <p class="note">Ray of Frost nech vždy doběhnout celý – předtím si stoupni tam, kde se 4 s nebudeš hýbat.</p></div>`;
   }
   case "talents": return `${heroBox(s,g)}
     <div class="box"><h3>Hotové buildy</h3><p>Klikni na <b>Zobrazit strom</b> a uvidíš celý hotový strom talentů, nebo zkopíruj řetězec a naimportuj ho do hry.</p>
@@ -954,9 +1139,10 @@ function fullTab(c,s,r,g){
       ${spellRow({n:"Summon Water Elemental",ic:"spell_frost_summonwaterelemental_2",u:WH(31687),d:"Jen pokud ho máš v talentech. Drž ho pořád vyvolaného – přidává poškození."})}
       ${spellRow({n:"Ice Barrier",ic:"spell_ice_lament",u:WH(11426),d:"DMG nepřidá, ale díky štítu nemusíš utíkat a sesíláš dál."})}</div>
       <p class="note">Icy Veins už v Midnight neexistuje – jeho roli převzal Ray of Frost.</p></div>
-    <div class="box"><h3>Co si koupit: lektvary a jídlo</h3><div class="tscroll"><table class="t"><thead><tr><th>Typ</th><th>Název</th><th>Kdy</th></tr></thead><tbody>
-      ${g.consumables.map(([a,b,cc])=>`<tr><td>${esc(a)}</td><td><a href="https://www.wowhead.com/search?q=${encodeURIComponent(b.split(" + ")[0])}" target="_blank" rel="noopener">${esc(b)}</a></td><td>${esc(cc)}</td></tr>`).join("")}
-    </tbody></table></div><p class="note">Na levelování stačí Arcane Intellect. Flask a jídlo si nech na raidy a Mythic+. Koupíš je v Aukci (Auction House).</p></div>`;
+    <div class="box"><h3>Co si koupit: lektvary a jídlo</h3><p class="note" style="margin:-4px 0 12px">${HOVER_HINT} pro herní popis.</p><div class="spell-list">
+      ${g.consumables.map((x,i)=>`<div class="spell tt" tabindex="0" data-tt="cons" data-i="${i}">${gicon(x.ic, x.t.slice(0,2), "q"+x.q)}
+        <div><div class="ss" style="font-size:11.5px;color:var(--muted)">${esc(x.t)}</div><div class="name" style="color:${QCOL[x.q]}">${esc(x.n)}</div><div class="d">${esc(x.when)}</div></div></div>`).join("")}
+    </div><p class="note">Na levelování stačí Arcane Intellect. Flask a jídlo si nech na raidy a Mythic+. Koupíš je v Aukci (Auction House).</p></div>`;
   case "content": return `<div class="cols">
       <div class="box"><h3>Mythic+</h3><ul class="clean">${g.mplus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
       <div class="box"><h3>Levelování, open world, delves</h3><ul class="clean">${g.solo.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
@@ -969,6 +1155,10 @@ function fullTab(c,s,r,g){
   return "";
 }
 
+const CAN_HOVER = matchMedia("(hover:hover) and (pointer:fine)").matches;
+const HOVER_HINT = CAN_HOVER ? "Najeď myší na ikonu" : "Klepni na ikonu";
+const QCOL = {1:"#ffffff",2:"#1eff00",3:"#0070dd",4:"#a335ee"};
+
 /* ---------- GEAR: postava + tooltipy ---------- */
 const DOLL_L = ["head","neck","shoulder","back","chest","wrist"];
 const DOLL_R = ["hands","waist","legs","feet","ring1","ring2","trinket1","trinket2"];
@@ -976,14 +1166,14 @@ const mageSvg = `<svg viewBox="0 0 120 260" aria-hidden="true"><defs><linearGrad
   <g fill="url(#dg)" stroke="var(--accent)" stroke-opacity=".5"><path d="M60 18c-14 0-22 14-24 30l-8 12c10 2 20 2 32 2s22 0 32-2l-8-12c-2-16-10-30-24-30z"/><path d="M34 64c-10 10-14 40-18 70-4 34-8 80-10 118h108c-2-38-6-84-10-118-4-30-8-60-18-70-8 4-16 6-26 6s-18-2-26-6z"/></g>
   <line x1="104" y1="40" x2="96" y2="250" stroke="var(--accent)" stroke-width="3" stroke-opacity=".7"/><circle cx="104" cy="36" r="7" fill="var(--accent)"><animate attributeName="r" values="6;9;6" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values=".6;1;.6" dur="2.4s" repeatCount="indefinite"/></circle></svg>`;
 function slotBtn(it){
-  return `<button class="slot" data-item="${it.slot}" aria-label="${esc(it.cz)}: ${esc(it.n)} – podrobnosti">
+  return `<button class="slot tt" data-tt="item" data-item="${it.slot}" aria-label="${esc(it.cz)}: ${esc(it.n)} – podrobnosti">
     ${gicon(it.ic, it.cz.slice(0,2), "q4")}
     <span><span class="ss">${esc(it.cz)}</span><br><span class="sn">${esc(it.n)}</span><br><span class="il">ilvl ${it.ilvl}${it.tier?" · tier":""}${it.crafted?" · crafted":""}</span></span></button>`;
 }
 function gearDoll(g){
   const by = k => g.gearItems.find(i=>i.slot===k);
   return `<div class="box"><h3>Best in slot gear</h3>
-    <p style="margin-bottom:14px">${matchMedia("(hover:hover)").matches?"Najeď myší na předmět":"Klepni na předmět"} a zobrazí se podrobnosti jako ve hře.</p>
+    <p style="margin-bottom:14px">${HOVER_HINT} a zobrazí se podrobnosti jako ve hře.</p>
     <div class="doll">
       <div class="col">${DOLL_L.map(k=>slotBtn(by(k))).join("")}</div>
       <div class="mid"><div class="cinzel" style="color:var(--gold-2);font-size:15px">Tier set</div>${mageSvg}<div style="font-size:12.5px;color:var(--muted)">${esc(g.gearSet.name)}<br>4 kusy: ramena, hrudník, ruce, nohy</div></div>
@@ -1009,12 +1199,30 @@ function tooltipHtml(it, g){
     <div class="src">Kde získat: ${esc(it.src)}</div>
     <button class="close" data-ttclose aria-label="Zavřít">×</button>`;
 }
+function spellTooltipHtml(b){
+  const n = b.dataset.name, t = SPELL_TT[n] || {}, ic = b.dataset.ic;
+  return `<div class="h">${gicon(ic, n.slice(0,2))}<div><div class="nm" style="color:#fff">${esc(n)}</div>${t.kind?`<div class="gr">${esc(t.kind)}</div>`:""}</div></div>
+    ${(t.cost||t.range)?`<div class="row w"><span>${esc(t.cost||"")}</span><span>${esc(t.range||"")}</span></div>`:""}
+    ${(t.cast||t.cd)?`<div class="row w"><span>${esc(t.cast||"")}</span><span>${esc(t.cd||"")}</span></div>`:""}
+    ${t.desc?`<div class="sp"></div><div class="y">${esc(t.desc)}</div>`:""}
+    ${t.cz?`<div class="src"><b>K čemu to je:</b> ${esc(t.cz)}${b.dataset.key && b.dataset.key!=="–"?`<br><b>Doporučená klávesa:</b> ${esc(b.dataset.key)}`:""}</div>`:""}
+    ${b.dataset.u?`<a class="whl" href="${b.dataset.u}" target="_blank" rel="noopener">Otevřít na Wowhead ↗</a>`:""}
+    <button class="close" data-ttclose aria-label="Zavřít">×</button>`;
+}
+function consTooltipHtml(x){
+  return `<div class="h">${gicon(x.ic, x.t.slice(0,2), "q"+x.q)}<div><div class="nm" style="color:${QCOL[x.q]}">${esc(x.n)}</div><div class="y">Item Level ${x.ilvl}</div></div></div>
+    <div class="w">${esc(x.kind)}</div>
+    <div class="sp"></div><div class="g">Use: ${esc(x.use)}</div>
+    <div class="src"><b>K čemu to je:</b> ${esc(x.cz)}<br><b>Kdy:</b> ${esc(x.when)}<br><b>Kde koupit:</b> Aukce (Auction House) nebo vyrobit</div>
+    <a class="whl" href="https://www.wowhead.com/item=${x.id}" target="_blank" rel="noopener">Otevřít na Wowhead ↗</a>
+    <button class="close" data-ttclose aria-label="Zavřít">×</button>`;
+}
 const TT = (() => {
   const el = document.createElement("div"); el.className="gtt"; el.setAttribute("role","tooltip");
   const scrim = document.createElement("div"); scrim.className="scrim";
   document.body.append(scrim, el);
   let cur=null;
-  const hoverable = () => matchMedia("(hover:hover) and (pointer:fine)").matches;
+  const hoverable = () => CAN_HOVER;
   function place(x,y){
     const r = el.getBoundingClientRect(), pad=14;
     let L = x+18, T = y+18;
@@ -1024,23 +1232,27 @@ const TT = (() => {
   }
   function show(btn, x, y, sheet){
     const g = guideOf(); if (!g) return;
-    const it = g.gearItems.find(i=>i.slot===btn.dataset.item); if (!it) return;
-    document.querySelectorAll(".slot.act").forEach(b=>b.classList.remove("act"));
+    let html = "";
+    const kind = btn.dataset.tt;
+    if (kind==="item"){ const it = g.gearItems.find(i=>i.slot===btn.dataset.item); if (!it) return; html = tooltipHtml(it, g); }
+    else if (kind==="cons"){ const x = g.consumables[+btn.dataset.i]; if (!x) return; html = consTooltipHtml(x); }
+    else html = spellTooltipHtml(btn);
+    document.querySelectorAll(".tt.act").forEach(b=>b.classList.remove("act"));
     btn.classList.add("act"); cur=btn;
-    el.innerHTML = tooltipHtml(it, g);
+    el.innerHTML = html;
     el.classList.toggle("sheet", !!sheet); scrim.classList.toggle("on", !!sheet);
     if (!sheet){ el.style.bottom=""; if (x==null){ const b=btn.getBoundingClientRect(); x=b.right-10; y=b.top; } place(x,y); }
     requestAnimationFrame(()=>el.classList.add("on"));
   }
   function hide(){ el.classList.remove("on"); scrim.classList.remove("on"); if(cur) cur.classList.remove("act"); cur=null; }
-  document.addEventListener("pointerover", e => { const b=e.target.closest(".slot[data-item]"); if (b && hoverable()) show(b, e.clientX, e.clientY, false); });
+  document.addEventListener("pointerover", e => { const b=e.target.closest(".tt[data-tt]"); if (b && hoverable()) show(b, e.clientX, e.clientY, false); });
   document.addEventListener("pointermove", e => { if (cur && hoverable() && !el.classList.contains("sheet")) place(e.clientX, e.clientY); });
-  document.addEventListener("pointerout", e => { const b=e.target.closest(".slot[data-item]"); if (b && hoverable() && !b.contains(e.relatedTarget)) hide(); });
-  document.addEventListener("focusin", e => { const b=e.target.closest(".slot[data-item]"); if (b && hoverable()) show(b,null,null,false); });
-  document.addEventListener("focusout", e => { if (e.target.closest(".slot[data-item]") && hoverable()) hide(); });
+  document.addEventListener("pointerout", e => { const b=e.target.closest(".tt[data-tt]"); if (b && hoverable() && !b.contains(e.relatedTarget)) hide(); });
+  document.addEventListener("focusin", e => { const b=e.target.closest(".tt[data-tt]"); if (b && hoverable()) show(b,null,null,false); });
+  document.addEventListener("focusout", e => { if (e.target.closest(".tt[data-tt]") && hoverable()) hide(); });
   document.addEventListener("click", e => {
-    const b = e.target.closest(".slot[data-item]");
-    if (b && !hoverable()){ e.preventDefault(); cur===b ? hide() : show(b,null,null,true); return; }
+    const b = e.target.closest(".tt[data-tt]");
+    if (b && !hoverable()){ if (e.target.closest(".gtt")) return; e.preventDefault(); cur===b ? hide() : show(b,null,null,true); return; }
     if (e.target.closest("[data-ttclose]") || e.target===scrim) hide();
   });
   document.addEventListener("keydown", e => { if (e.key==="Escape") hide(); });
@@ -1263,11 +1475,6 @@ setVideo(store.get("video", !small && !BG.reduce));
 /* ---------- START ---------- */
 fromHash(); render();
 
-/* Wowhead tooltips (ikony kouzel) – načti asynchronně */
-const wh = document.createElement("script");
-wh.src = "https://wow.zamimg.com/js/tooltips.js"; wh.async = true;
-wh.onload = () => { setTimeout(()=>{ refreshTooltips(); }, 400); };
-document.head.appendChild(wh);
 })();
 </script>
 </body>
