@@ -434,7 +434,7 @@ const RACES = [
     ["Wide-Eyed Wonder","Občas najdeš víc materiálu."]]},
   { id:"haranir", name:"Haranir", cz:"Haranir", faction:"N", allied:true, isNew:true, noClasses:["deathknight","demonhunter","evoker","paladin"], racials:[
     ["Thorn Bloom","Aktivní: trny poškozují nepřátele a léčí spojence v okolí 12 s."],
-    ["Lash Out","O 1 % vyšší kritické poškození a léčení."],
+    ["Lash Out","O 1 % vyšší kritické poškození a léčení."],
     ["Rootwalking","Teleport ke kořenům světových stromů."]]},
 ];
 
@@ -538,36 +538,36 @@ const GUIDES = {
   "mage/frost": {
     summary:"Frost Mage v Midnight točí celou rotaci kolem jedné věci: nasbírat na nepříteli stacky Freezing a „rozbít“ je kouzlem Ice Lance (Shatter). Je spolehlivý, má hodně kontroly nad nepřáteli a dá se hrát i naslepo.",
     strengths:["Nejsilnější cleave na 2 cíle ve hře","Silný burst AoE přes Ray of Frost a Comet Storm","Spousta zpomalení, rootů a užitečných kouzel"],
-    weaknesses:["Hodně kouzel se sesílá – při velkém pohybu ztrácíš DPS","Patch 12.1 oslabil cleave: vedlejší cíl dostává 50 %"],
+    weaknesses:["Hodně kouzel se sesílá – při velkém pohybu ztrácíš DPS","Patch 12.1 oslabil cleave: vedlejší cíl dostává 50 %"],
     changes:["Icy Veins bylo odstraněno – hlavní cooldown je Ray of Frost","Winter's Chill bylo nahrazeno stacky Freezing","Icicles se generují samy, při 5 kusech se Frostbolt změní na Glacial Spike","Water Elemental se vrátil jako volitelný trvalý pet"],
     mechanics:[
       {n:"Freezing", u:WHS("Freezing"), s:"frost", d:"Debuff na nepříteli, stackuje se (max 20, vyprší po 8 s bez obnovení).", t:"Nenech ho vypršet, pravidelně ho rozbíjej."},
-      {n:"Shatter", tt:{"kind": "Passive", "desc": "Multiplies the critical strike chance of your spells against frozen targets by 1.5, and adds an additional 50% critical strike chance.", "cz": "Proto je rozbíjení Freezing tak silné – kouzla na zmražené cíle skoro vždy kritnou."}, ic:"spell_frost_frostshock", u:WH(12982), s:"frost", d:"Rozbití stacků Freezing – hlavní zdroj poškození.", t:"Spouštíš ho Ice Lance a Comet Stormem."},
-      {n:"Fingers of Frost", tt:{"kind": "Talent", "desc": "Frostbolt has a 15% chance to grant a charge of Fingers of Frost. Fingers of Frost causes your next Ice Lance to deal Shatter damage equal to 4 stacks of Freezing and does not consume Freezing stacks. Maximum 2 charges.", "cz": "Proc: při 2 nabitích hned Ice Lance, ať o něj nepřijdeš."}, ic:"ability_mage_wintersgrasp", u:WH(112965), s:"frost", d:"Proc: další Ice Lance zasáhne, jako by rozbila stacky, ale nespotřebuje je. Max 2 stacky.", t:"Při 2 stacích hned Ice Lance."},
-      {n:"Brain Freeze", tt:{"kind": "Talent", "desc": "Frostbolt has a chance to reset the remaining cooldown on Flurry and cause your next Flurry to deal 50% increased damage.", "cz": "Proc: když svítí, pošli Flurry."}, ic:"ability_mage_brainfreeze", u:WH(190447), s:"frost", d:"Proc: Flurry je okamžitý a mnohem silnější.", t:"Použij Flurry, když svítí Brain Freeze."},
-      {n:"Thermal Void", tt:{"kind": "Talent", "desc": "Consuming Brain Freeze has a 100% chance to cause your next Ice Lance to Shatter 4 additional stacks of Freezing.", "cz": "Po Flurry s Brain Freeze dej Ice Lance – rozbije víc stacků."}, ic:"spell_mage_thermalvoid", u:WH(1247729), s:"frost", d:"Po spotřebování Brain Freeze rozbije příští Ice Lance o 4 stacky Freezing víc.", t:"Po Flurry dej Ice Lance dřív, než zase pošleš Flurry."},
-      {n:"Icicles", tt:{"kind": "Passive", "desc": "While in combat, Frost crystallizes around you, generating an Icicle every 6.0 sec. Upon generating 5 Icicles, Frostbolt upgrades to Glacial Spike for its next cast.", "cz": "Nic neřešíš – jen sešli Glacial Spike, když se objeví."}, ic:"spell_frost_iceshard", u:WH(205473), s:"frost", d:"Generují se samy (rychleji s Haste). Při 5 se Frostbolt změní na Glacial Spike.", t:"Když se objeví Glacial Spike, sešli ho."},
+      {n:"Shatter", ic:"spell_frost_frostshock", u:WH(12982), s:"frost", d:"Rozbití stacků Freezing – hlavní zdroj poškození.", t:"Spouštíš ho Ice Lance a Comet Stormem."},
+      {n:"Fingers of Frost", ic:"ability_mage_wintersgrasp", u:WH(112965), s:"frost", d:"Proc: další Ice Lance zasáhne, jako by rozbila stacky, ale nespotřebuje je. Max 2 stacky.", t:"Při 2 stacích hned Ice Lance."},
+      {n:"Brain Freeze", ic:"ability_mage_brainfreeze", u:WH(190447), s:"frost", d:"Proc: Flurry je okamžitý a mnohem silnější.", t:"Použij Flurry, když svítí Brain Freeze."},
+      {n:"Thermal Void", ic:"spell_mage_thermalvoid", u:WH(1247729), s:"frost", d:"Po spotřebování Brain Freeze rozbije příští Ice Lance o 4 stacky Freezing víc.", t:"Po Flurry dej Ice Lance dřív, než zase pošleš Flurry."},
+      {n:"Icicles", ic:"spell_frost_iceshard", u:WH(205473), s:"frost", d:"Generují se samy (rychleji s Haste). Při 5 se Frostbolt změní na Glacial Spike.", t:"Když se objeví Glacial Spike, sešli ho."},
     ],
     spells:[
-      {n:"Frostbolt", tt:{"cost": "2% of base mana", "range": "40 yd range", "cast": "1.75 sec cast", "desc": "Launches a bolt of frost at the enemy, causing Frost damage and slowing movement speed by 50% for 8 sec.", "cz": "Tvůj základní útok. Sesílej ho, když nemáš nic lepšího – dává Freezing a šanci na Brain Freeze a Fingers of Frost."}, ic:"spell_frost_frostbolt02", u:WH(116), cat:"core", key:"1", d:"Základní „filler“, dává Freezing. Sesílej, když není nic lepšího."},
-      {n:"Ice Lance", tt:{"cost": "1% of base mana", "range": "40 yd range", "cast": "Instant", "desc": "Quickly fling a shard of ice at the target, dealing Frost damage. Shatters 4 stacks of Freezing.", "cz": "Rozbíjí stacky Freezing – hlavní zdroj poškození. Okamžitá, takže ideální v pohybu."}, ic:"spell_frost_frostblast", u:WH(30455), cat:"core", key:"2", d:"Okamžité, rozbíjí Freezing. Dá se sesílat i v pohybu."},
-      {n:"Flurry", tt:{"cost": "1% of base mana", "range": "40 yd range", "cast": "Instant", "cd": "30 sec recharge · 2 Charges", "desc": "Unleash a flurry of ice, striking the target 3 times for Frost damage. Applies 3 stacks of Freezing.", "cz": "Rychle nasype Freezing. S Brain Freeze je o 50 % silnější."}, ic:"ability_deathknight_chillstreak", u:WH(44614), cat:"core", key:"3", d:"Rychlá salva střel, dává Freezing. S Brain Freeze okamžitá."},
-      {n:"Frozen Orb", tt:{"cost": "1% of base mana", "range": "40 yd range", "cast": "Instant", "cd": "1 min cooldown", "desc": "Launches an orb of swirling ice in front of you, dealing Frost damage to all enemies it passes through over 15 sec. Enemies damaged by the Frozen Orb are slowed by 50% for 8 sec.", "cz": "Cooldown na AoE i jeden cíl. Míří tam, kam se díváš – otoč se k nepřátelům."}, ic:"spell_frost_frozenorb", u:WH(84714), cat:"core", key:"4", d:"Koule letí vpřed a zasahuje vše v cestě. Používej na cooldown."},
-      {n:"Blizzard", tt:{"cost": "2.5% of base mana", "range": "40 yd range", "cast": "2 sec cast", "cd": "12 sec cooldown", "desc": "Ice shards pelt the target area, dealing Frost damage over 12 sec and reducing movement speed by 50% for 3 sec.", "cz": "AoE na zem. Na 3+ nepřátele, s Freezing Rain je okamžitý."}, ic:"spell_frost_icestorm", u:WH(190356), cat:"core", key:"5", d:"AoE na zem. S Freezing Rain (během Frozen Orb) okamžité."},
-      {n:"Glacial Spike", tt:{"cost": "5% of base mana", "range": "40 yd range", "cast": "1.75 sec cast", "desc": "Conjures a massive spike of ice that impales your target, dealing damage and slowing movement speed by 50% for 8 sec. Applies 3 stacks of Freezing.", "cz": "Nejsilnější jednotlivá střela. Objeví se sama místo Frostboltu při 5 Icicles."}, ic:"ability_mage_glacialspike", u:WH(199786), cat:"core", key:"1", d:"Silná střela – sama nahradí Frostbolt při 5 Icicles."},
-      {n:"Ray of Frost", tt:{"cost": "2% of base mana", "range": "40 yd range", "cast": "Channeled (4 sec cast)", "cd": "1 min cooldown", "desc": "Channel an icy beam at the enemy for 4 sec, dealing Frost damage every 0.50 sec. Applies 8 stacks of Freezing over its duration.", "cz": "Hlavní burst cooldown. Nech ho doběhnout celý, pak se tlačítko změní na Comet Storm."}, ic:"ability_mage_rayoffrost", u:WH(205021), cat:"cd", key:"Q", d:"Hlavní útočný cooldown. 4s paprsek, obrovské množství Freezing. Nepřerušuj ho."},
-      {n:"Comet Storm", tt:{"cost": "1% of base mana", "range": "40 yd range", "cast": "Instant", "desc": "Calls down a series of 7 icy comets on and around the target, dealing Frost damage to all enemies within 6 yds of its impacts.", "cz": "Přijde hned po Ray of Frost. Silné AoE, které rozbíjí Freezing."}, ic:"spell_mage_cometstorm2", u:WH(153595), cat:"cd", key:"Q", d:"Po Ray of Frost se tlačítko změní na Comet Storm – déšť komet, který rozbíjí Freezing."},
-      {n:"Time Warp", tt:{"cost": "4% of base mana", "cast": "Instant", "cd": "5 min cooldown", "desc": "Warp the flow of time, increasing haste by 30% for all party and raid members for 40 sec. Allies will be unable to benefit from Bloodlust, Heroism, or Time Warp again for 10 min.", "cz": "Bloodlust pro celou skupinu. Dohodni se se skupinou, kdy ho použít (obvykle na začátku bosse)."}, ic:"ability_mage_timewarp", u:WH(80353), cat:"cd", key:"–", d:"Bloodlust pro celou skupinu. Použij před Ray of Frost."},
-      {n:"Ice Barrier", tt:{"cost": "3% of base mana", "cast": "Instant", "cd": "30 sec cooldown", "desc": "Shields you with ice, absorbing damage for 1 min. Melee attacks against you reduce the attacker's movement speed by 50%.", "cz": "Štít – nahazuj ho pořád, kdykoli je dostupný."}, ic:"spell_ice_lament", u:WH(11426), cat:"def", key:"R", d:"Štít – drž ho nahozený skoro pořád."},
-      {n:"Ice Block", tt:{"cast": "Instant", "cd": "4 min cooldown", "desc": "Encases you in a block of ice, protecting you from all attacks and damage for 10 sec, but during that time you cannot attack, move, or cast spells. Causes Hypothermia, preventing you from recasting Ice Block for 30 sec.", "cz": "Záchrana života – použij, když ti jde život rychle dolů nebo na smrtelnou mechaniku."}, ic:"spell_frost_frost", u:WH(45438), cat:"def", key:"Shift+R", d:"Imunita na pár sekund (s Ice Cold velká redukce poškození a kouzlíš dál)."},
-      {n:"Mirror Image", tt:{"cost": "2% of base mana", "cast": "Instant", "cd": "2 min cooldown", "desc": "Creates 3 copies of you nearby for 15 sec, which cast spells and attack your enemies. While active, you generate significantly reduced threat.", "cz": "Malý bonus k poškození a snížení aggra. Použij s Ray of Frost."}, ic:"spell_magic_lesserinvisibilty", u:WH(55342), cat:"def", key:"–", d:"V Midnight už nesnižuje poškození, spíš malý DPS bonus."},
-      {n:"Blink / Shimmer", tt:{"cost": "2% of base mana", "cast": "Instant", "cd": "30 sec cooldown", "desc": "Teleports you 20 yds forward, unless something is in the way. Unaffected by the global cooldown and castable while casting.", "cz": "Útěk z mechanik. Shimmer jde použít i během sesílání kouzla."}, ic:"spell_arcane_massdispel", u:WH(212653), cat:"util", key:"Mezerník/myš", d:"Teleport vpřed, Shimmer i během sesílání."},
-      {n:"Counterspell", tt:{"cost": "2% of base mana", "range": "40 yd range", "cast": "Instant", "cd": "25 sec cooldown", "desc": "Counters the enemy's spellcast, preventing any spell from that school of magic from being cast for 7 sec.", "cz": "Interrupt – přeruš nebezpečná kouzla nepřátel, hlavně v Mythic+."}, ic:"spell_frost_iceshock", u:WH(2139), cat:"util", key:"E", d:"Interrupt – přeruší nepříteli kouzlo."},
-      {n:"Frost Nova", tt:{"cost": "2% of base mana", "range": "12 yd", "cast": "Instant", "cd": "30 sec cooldown", "desc": "Blasts enemies within 12 yds of you for Frost damage and freezes them in place for 6 sec. Damage may interrupt the freeze effect.", "cz": "Zmrazí nepřátele kolem tebe. Pak odejdi do bezpečí."}, ic:"spell_frost_frostnova", u:WH(122), cat:"util", key:"F", d:"Zmrazí nepřátele kolem tebe na místě."},
-      {n:"Cone of Cold", tt:{"cost": "4% of base mana", "cast": "Instant", "cd": "25 sec cooldown", "desc": "Targets in a cone in front of you take Frost damage and have movement slowed by 50% for 8 sec.", "cz": "Zpomalení skupiny nepřátel před tebou."}, ic:"spell_frost_glacier", u:WH(120), cat:"util", key:"–", d:"Kužel mrazu, zpomalí nepřátele před tebou."},
-      {n:"Dragon's Breath", tt:{"cost": "4% of base mana", "range": "12 yd cone", "cast": "Instant", "cd": "45 sec cooldown", "desc": "Enemies in a 12 yd cone in front of you take Fire damage and are disoriented for 4 sec. Damage will cancel the effect.", "cz": "Krátké zneškodnění nepřátel – poškození ho zruší."}, ic:"inv_misc_head_dragon_01", u:WH(31661), cat:"util", key:"–", d:"Dezorientuje nepřátele před tebou."},
-      {n:"Remove Curse", tt:{"cost": "1.3% of base mana", "range": "40 yd range", "cast": "Instant", "cd": "8 sec cooldown", "desc": "Removes all Curses from a friendly target.", "cz": "Odstraní kletby ze spoluhráčů – v některých dungeonech důležité."}, ic:"spell_nature_removecurse", u:WH(475), cat:"util", key:"–", d:"Odstraní kletbu ze spoluhráče."},
-      {n:"Arcane Intellect", tt:{"cost": "1% of base mana", "range": "40 yd range", "cast": "Instant", "desc": "Infuses the target with brilliance, increasing their Intellect by 3% for 1 hour. If the target is in your party or raid, all party and raid members will be affected.", "cz": "Buff pro tebe i celou skupinu. Drž ho pořád, po smrti obnov."}, ic:"spell_holy_magicalsentry", u:WH(1459), cat:"buff", key:"–", d:"Buff Intellectu pro tebe i skupinu. Drž ho pořád, po smrti obnov."},
+      {n:"Frostbolt", ic:"spell_frost_frostbolt02", u:WH(116), cat:"core", key:"1", d:"Základní „filler“, dává Freezing. Sesílej, když není nic lepšího."},
+      {n:"Ice Lance", ic:"spell_frost_frostblast", u:WH(30455), cat:"core", key:"2", d:"Okamžité, rozbíjí Freezing. Dá se sesílat i v pohybu."},
+      {n:"Flurry", ic:"ability_deathknight_chillstreak", u:WH(44614), cat:"core", key:"3", d:"Rychlá salva střel, dává Freezing. S Brain Freeze okamžitá."},
+      {n:"Frozen Orb", ic:"spell_frost_frozenorb", u:WH(84714), cat:"core", key:"4", d:"Koule letí vpřed a zasahuje vše v cestě. Používej na cooldown."},
+      {n:"Blizzard", ic:"spell_frost_icestorm", u:WH(190356), cat:"core", key:"5", d:"AoE na zem. S Freezing Rain (během Frozen Orb) okamžité."},
+      {n:"Glacial Spike", ic:"ability_mage_glacialspike", u:WH(199786), cat:"core", key:"1", d:"Silná střela – sama nahradí Frostbolt při 5 Icicles."},
+      {n:"Ray of Frost", ic:"ability_mage_rayoffrost", u:WH(205021), cat:"cd", key:"Q", d:"Hlavní útočný cooldown. 4s paprsek, obrovské množství Freezing. Nepřerušuj ho."},
+      {n:"Comet Storm", ic:"spell_mage_cometstorm2", u:WH(153595), cat:"cd", key:"Q", d:"Po Ray of Frost se tlačítko změní na Comet Storm – déšť komet, který rozbíjí Freezing."},
+      {n:"Time Warp", ic:"ability_mage_timewarp", u:WH(80353), cat:"cd", key:"–", d:"Bloodlust pro celou skupinu. Použij před Ray of Frost."},
+      {n:"Ice Barrier", ic:"spell_ice_lament", u:WH(11426), cat:"def", key:"R", d:"Štít – drž ho nahozený skoro pořád."},
+      {n:"Ice Block", ic:"spell_frost_frost", u:WH(45438), cat:"def", key:"Shift+R", d:"Imunita na pár sekund (s Ice Cold velká redukce poškození a kouzlíš dál)."},
+      {n:"Mirror Image", ic:"spell_magic_lesserinvisibilty", u:WH(55342), cat:"def", key:"–", d:"V Midnight už nesnižuje poškození, spíš malý DPS bonus."},
+      {n:"Blink / Shimmer", ic:"spell_arcane_massdispel", u:WH(212653), cat:"util", key:"Mezerník/myš", d:"Teleport vpřed, Shimmer i během sesílání."},
+      {n:"Counterspell", ic:"spell_frost_iceshock", u:WH(2139), cat:"util", key:"E", d:"Interrupt – přeruší nepříteli kouzlo."},
+      {n:"Frost Nova", ic:"spell_frost_frostnova", u:WH(122), cat:"util", key:"F", d:"Zmrazí nepřátele kolem tebe na místě."},
+      {n:"Cone of Cold", ic:"spell_frost_glacier", u:WH(120), cat:"util", key:"–", d:"Kužel mrazu, zpomalí nepřátele před tebou."},
+      {n:"Dragon's Breath", ic:"inv_misc_head_dragon_01", u:WH(31661), cat:"util", key:"–", d:"Dezorientuje nepřátele před tebou."},
+      {n:"Remove Curse", ic:"spell_nature_removecurse", u:WH(475), cat:"util", key:"–", d:"Odstraní kletbu ze spoluhráče."},
+      {n:"Arcane Intellect", ic:"spell_holy_magicalsentry", u:WH(1459), cat:"buff", key:"–", d:"Buff Intellectu pro tebe i skupinu. Drž ho pořád, po smrti obnov."},
     ],
     rotations:{
       Spellslinger:{
@@ -590,24 +590,24 @@ const GUIDES = {
        Když soubor chybí, zobrazí se animace vytvořená v aplikaci. */
     bannerVideo:"media/frost-mage.mp4",
     /* BiS gear (Method.gg, patch 12.1). Staty = hodnoty z Wowhead tooltipu na uvedeném item levelu. */
-    gearSet:{ name:"Primal Leywarden's Attire", bonus2:"Each stack of Freezing Shattered has a 4% chance to generate an Icicle. Glacial Spike damage increased by 20%.", bonus4:"Casting Glacial Spike has a chance to rapidly generate 5 Icicles over 1 sec. Shatter damage increased by 5%." },
+    gearSet:{ name:"Primal Leywarden's Attire", bonus2:"Každý rozbitý stack Freezing má 4% šanci vytvořit Icicle. Poškození Glacial Spike zvýšeno o 20 %.", bonus4:"Seslání Glacial Spike má šanci během 1 s rychle vytvořit 5 Icicles. Poškození Shatter zvýšeno o 5 %." },
     gearItems:[
-      {slot:"head",  cz:"Hlava",   id:271874, ic:"inv_helm_cloth_raidwarlockulatek_d_01", n:"Venomkeeper's Horrific Cowl", ilvl:344, type:["Head","Cloth"], armor:92, stats:["+207 Intellect","+4,385 Stamina"], sec:["+209 Mastery"], equip:["Your spells and abilities have a chance to increase your Mastery by 378, but reduce your other secondary stats by 63 for 12 sec."], src:"Ula'tek (raid)"},
-      {slot:"neck",  cz:"Krk",     id:268265, ic:"inv_121_jewelry_neck03_green", n:"Aqirbane Reliquary", ilvl:344, type:["Neck",""], stats:["+2,466 Stamina"], sec:["+107 Critical Strike","+107 Haste","+107 Versatility","+107 Mastery"], socket:true, equip:["Your spells and abilities have a chance to increase a random secondary stat by 434 but reduce your other secondary stats by 73 for 12 sec."], src:"Ula'tek (raid)"},
-      {slot:"shoulder", cz:"Ramena", id:271562, ic:"inv_shoulder_cloth_raidmageulatek_d_01", n:"Primal Leywarden's Manaflux", ilvl:334, type:["Shoulder","Cloth"], armor:78, stats:["+141 Intellect","+2,932 Stamina"], sec:["+102 Critical Strike","+48 Haste"], tier:true, src:"The Lost Explorers (raid) – tier set"},
-      {slot:"back",  cz:"Plášť",   id:268253, ic:"inv_cape_leather_raidrogueulatek_d_01", n:"Silken Voodoo Drape", ilvl:344, type:["Back",""], armor:84, stats:["+116 Intellect","+2,466 Stamina"], sec:["+35 Haste","+83 Mastery"], src:"The Coiled Altar (raid)"},
-      {slot:"chest", cz:"Hrudník", id:271567, ic:"inv_robe_cloth_raidmageulatek_d_01", n:"Crest of the Primal Leywarden", ilvl:334, type:["Chest","Cloth"], armor:114, stats:["+189 Intellect","+3,910 Stamina"], sec:["+130 Critical Strike","+71 Haste"], tier:true, src:"Vashnik the Malignant (raid) – tier set"},
-      {slot:"wrist", cz:"Zápěstí", id:239648, ic:"inv_bracer_cloth_questbloodelf_b_01", n:"Martyr's Bindings", ilvl:246, type:["Wrist","Cloth"], armor:34, stats:["+47 Intellect","+779 Stamina"], sec:["+36 [náhodný stat 1]","+36 [náhodný stat 2]"], crafted:true, src:"Vyrobené (crafting) – staty si vybereš při výrobě"},
-      {slot:"hands", cz:"Ruce",    id:271565, ic:"inv_glove_cloth_raidmageulatek_d_01", n:"Primal Leywarden's Manashapers", ilvl:334, type:["Hands","Cloth"], armor:64, stats:["+141 Intellect","+2,932 Stamina"], sec:["+50 Haste","+101 Mastery"], tier:true, src:"Entombed Sentinels (raid) – tier set"},
-      {slot:"waist", cz:"Pás",     id:239664, ic:"inv_belt_cloth_questbloodelf_b_01", n:"Arcanoweave Cord", ilvl:246, type:["Waist","Cloth"], armor:38, stats:["+62 Intellect","+1,039 Stamina"], sec:["+49 Critical Strike","+49 Haste"], equip:["Your healing and damaging spells have a chance to increase your Mastery by 136 for 12 sec."], unique:"Unique-Equipped: Embellished (2)", crafted:true, src:"Vyrobené (crafting)"},
-      {slot:"legs",  cz:"Nohy",    id:271563, ic:"inv_pant_cloth_raidmageulatek_d_01", n:"Primal Leywarden's Tailored Legwraps", ilvl:334, type:["Legs","Cloth"], armor:100, stats:["+189 Intellect","+3,910 Stamina"], sec:["+62 Critical Strike","+139 Versatility"], tier:true, src:"Sszorak (raid) – tier set"},
-      {slot:"feet",  cz:"Boty",    id:268255, ic:"inv_boot_cloth_raidmageulatek_d_01", n:"Cackling Soultreads", ilvl:344, type:["Feet","Cloth"], armor:76, stats:["+155 Intellect","+3,288 Stamina"], sec:["+105 Haste","+52 Mastery"], src:"The Coiled Altar (raid)"},
-      {slot:"ring1", cz:"Prsten 1", id:268249, ic:"inv_121_jewelry_ring01_purple", n:"Vile Alchemist's Band", ilvl:334, type:["Finger",""], stats:["+2,199 Stamina"], sec:["+73 Critical Strike","+332 Mastery"], unique:"Unique-Equipped", src:"Vashnik the Malignant (raid)"},
-      {slot:"ring2", cz:"Prsten 2", id:158366, ic:"inv_ring_80_03d", n:"Charged Sandstone Band", ilvl:334, type:["Finger",""], stats:["+2,199 Stamina"], sec:["+232 Critical Strike","+174 Mastery"], unique:"Unique-Equipped", src:"Temple of Sethraliss (Mythic+) – Galvazzt"},
-      {slot:"trinket1", cz:"Trinket 1", id:270167, ic:"inv_tradeskillitem_sorcererswater", n:"Wavecaller's Seastone", ilvl:334, type:["Trinket",""], stats:[], sec:["+143 Haste"], equip:["Your spells have a high chance to call to the sea, granting Tidal Insight to increase your Intellect by 65 up to 6 times. After reaching its peak, your spells instead diminish Tidal Insight before beginning the cycle anew."], unique:"Unique-Equipped", src:"Nymrissa Wavecaller (raid)"},
-      {slot:"trinket2", cz:"Trinket 2", id:270164, ic:"inv_10_tailoring_bag1_color2", n:"Gebbo's Bottomless Bag", ilvl:334, type:["Trinket",""], stats:["+179 Intellect"], sec:[], equip:["You have a chance to pull an artifact of questionable value out of the bag when casting spells and abilities, enhancing your secondary stats in various ways."], unique:"Unique-Equipped", src:"The Lost Explorers (raid) – Mor'zahi"},
-      {slot:"main",  cz:"Hlavní ruka", id:271092, ic:"inv_knife_1h_ulatekfang_d_01_spirit", n:"Jan'thrazet, the Soul Fang", ilvl:344, type:["One-Hand","Dagger"], weapon:{dmg:"79 - 132 Damage", speed:"Speed 1.80", dps:"(58.6 damage per second)"}, stats:["+603 Intellect","+2,192 Stamina"], sec:["+104 Haste"], equip:["Your spells have a chance to drain a nearby enemy's will, reducing their cast speed by 10% and increasing your Haste by 138 for 12 sec."], unique:"Unique-Equipped", src:"Ula'tek (raid)"},
-      {slot:"off",   cz:"Druhá ruka", id:159667, ic:"inv_offhand_1h_battledungeon_c_02", n:"Vessel of Last Rites", ilvl:334, type:["Held In Off-hand",""], stats:["+289 Intellect","+1,955 Stamina"], sec:["+61 Haste","+39 Versatility"], src:"King's Rest (Mythic+) – Mchimba the Embalmer"},
+      {slot:"head",  cz:"Hlava",   id:271874, ic:"inv_helm_cloth_raidwarlockulatek_d_01", n:"Venomkeeper's Horrific Cowl", ilvl:344, type:["Hlava","Látka"], armor:92, stats:["+207 Intellect","+4,385 Stamina"], sec:["+209 Mastery"], equip:["Tvá kouzla a schopnosti mají šanci zvýšit Mastery o 378, ale na 12 s sníží ostatní sekundární staty o 63."], src:"Ula'tek (raid)"},
+      {slot:"neck",  cz:"Krk",     id:268265, ic:"inv_121_jewelry_neck03_green", n:"Aqirbane Reliquary", ilvl:344, type:["Krk",""], stats:["+2,466 Stamina"], sec:["+107 Critical Strike","+107 Haste","+107 Versatility","+107 Mastery"], socket:true, equip:["Tvá kouzla a schopnosti mají šanci zvýšit náhodný sekundární stat o 434, ale na 12 s sníží ostatní sekundární staty o 73."], src:"Ula'tek (raid)"},
+      {slot:"shoulder", cz:"Ramena", id:271562, ic:"inv_shoulder_cloth_raidmageulatek_d_01", n:"Primal Leywarden's Manaflux", ilvl:334, type:["Ramena","Látka"], armor:78, stats:["+141 Intellect","+2,932 Stamina"], sec:["+102 Critical Strike","+48 Haste"], tier:true, src:"The Lost Explorers (raid) – tier set"},
+      {slot:"back",  cz:"Plášť",   id:268253, ic:"inv_cape_leather_raidrogueulatek_d_01", n:"Silken Voodoo Drape", ilvl:344, type:["Záda",""], armor:84, stats:["+116 Intellect","+2,466 Stamina"], sec:["+35 Haste","+83 Mastery"], src:"The Coiled Altar (raid)"},
+      {slot:"chest", cz:"Hrudník", id:271567, ic:"inv_robe_cloth_raidmageulatek_d_01", n:"Crest of the Primal Leywarden", ilvl:334, type:["Hrudník","Látka"], armor:114, stats:["+189 Intellect","+3,910 Stamina"], sec:["+130 Critical Strike","+71 Haste"], tier:true, src:"Vashnik the Malignant (raid) – tier set"},
+      {slot:"wrist", cz:"Zápěstí", id:239648, ic:"inv_bracer_cloth_questbloodelf_b_01", n:"Martyr's Bindings", ilvl:246, type:["Zápěstí","Látka"], armor:34, stats:["+47 Intellect","+779 Stamina"], sec:["+36 [náhodný stat 1]","+36 [náhodný stat 2]"], crafted:true, src:"Vyrobené (crafting) – staty si vybereš při výrobě"},
+      {slot:"hands", cz:"Ruce",    id:271565, ic:"inv_glove_cloth_raidmageulatek_d_01", n:"Primal Leywarden's Manashapers", ilvl:334, type:["Ruce","Látka"], armor:64, stats:["+141 Intellect","+2,932 Stamina"], sec:["+50 Haste","+101 Mastery"], tier:true, src:"Entombed Sentinels (raid) – tier set"},
+      {slot:"waist", cz:"Pás",     id:239664, ic:"inv_belt_cloth_questbloodelf_b_01", n:"Arcanoweave Cord", ilvl:246, type:["Pás","Látka"], armor:38, stats:["+62 Intellect","+1,039 Stamina"], sec:["+49 Critical Strike","+49 Haste"], equip:["Tvá léčivá a útočná kouzla mají šanci zvýšit Mastery o 136 na 12 s."], unique:"Jedinečné: Embellished (max. 2)", crafted:true, src:"Vyrobené (crafting)"},
+      {slot:"legs",  cz:"Nohy",    id:271563, ic:"inv_pant_cloth_raidmageulatek_d_01", n:"Primal Leywarden's Tailored Legwraps", ilvl:334, type:["Nohy","Látka"], armor:100, stats:["+189 Intellect","+3,910 Stamina"], sec:["+62 Critical Strike","+139 Versatility"], tier:true, src:"Sszorak (raid) – tier set"},
+      {slot:"feet",  cz:"Boty",    id:268255, ic:"inv_boot_cloth_raidmageulatek_d_01", n:"Cackling Soultreads", ilvl:344, type:["Chodidla","Látka"], armor:76, stats:["+155 Intellect","+3,288 Stamina"], sec:["+105 Haste","+52 Mastery"], src:"The Coiled Altar (raid)"},
+      {slot:"ring1", cz:"Prsten 1", id:268249, ic:"inv_121_jewelry_ring01_purple", n:"Vile Alchemist's Band", ilvl:334, type:["Prst",""], stats:["+2,199 Stamina"], sec:["+73 Critical Strike","+332 Mastery"], unique:"Lze nasadit jen jednou", src:"Vashnik the Malignant (raid)"},
+      {slot:"ring2", cz:"Prsten 2", id:158366, ic:"inv_ring_80_03d", n:"Charged Sandstone Band", ilvl:334, type:["Prst",""], stats:["+2,199 Stamina"], sec:["+232 Critical Strike","+174 Mastery"], unique:"Lze nasadit jen jednou", src:"Temple of Sethraliss (Mythic+) – Galvazzt"},
+      {slot:"trinket1", cz:"Trinket 1", id:270167, ic:"inv_tradeskillitem_sorcererswater", n:"Wavecaller's Seastone", ilvl:334, type:["Trinket",""], stats:[], sec:["+143 Haste"], equip:["Tvá kouzla mají vysokou šanci přivolat moře a dát ti Tidal Insight, který zvyšuje Intellect o 65 (až 6×). Po dosažení maxima kouzla Tidal Insight postupně snižují a pak cyklus začne znovu."], unique:"Lze nasadit jen jednou", src:"Nymrissa Wavecaller (raid)"},
+      {slot:"trinket2", cz:"Trinket 2", id:270164, ic:"inv_10_tailoring_bag1_color2", n:"Gebbo's Bottomless Bag", ilvl:334, type:["Trinket",""], stats:["+179 Intellect"], sec:[], equip:["Při sesílání kouzel a schopností máš šanci vytáhnout z vaku artefakt pochybné hodnoty, který různými způsoby posílí tvé sekundární staty."], unique:"Lze nasadit jen jednou", src:"The Lost Explorers (raid) – Mor'zahi"},
+      {slot:"main",  cz:"Hlavní ruka", id:271092, ic:"inv_knife_1h_ulatekfang_d_01_spirit", n:"Jan'thrazet, the Soul Fang", ilvl:344, type:["Jednoruční","Dýka"], weapon:{dmg:"79–132 poškození", speed:"Rychlost 1,80", dps:"(58,6 poškození za sekundu)"}, stats:["+603 Intellect","+2,192 Stamina"], sec:["+104 Haste"], equip:["Tvá kouzla mají šanci vysát vůli blízkého nepřítele: na 12 s mu zpomalí sesílání o 10 % a tobě zvýší Haste o 138."], unique:"Lze nasadit jen jednou", src:"Ula'tek (raid)"},
+      {slot:"off",   cz:"Druhá ruka", id:159667, ic:"inv_offhand_1h_battledungeon_c_02", n:"Vessel of Last Rites", ilvl:334, type:["Drží se v druhé ruce",""], stats:["+289 Intellect","+1,955 Stamina"], sec:["+61 Haste","+39 Versatility"], src:"King's Rest (Mythic+) – Mchimba the Embalmer"},
     ],
     stats:["Intellect","Mastery","Critical Strike","Haste","Versatility"],
     statNote:"S lepším gearem se Mastery, Crit a Haste vyrovnávají – nic extrémně nestackuj. Nejpřesnější je sim na Raidbots.",
@@ -619,12 +619,12 @@ const GUIDES = {
       "Do socketů dávej gemy se staty z priority.",
     ],
     consumables:[
-      {t:"Flask", n:"Flask of the Shattered Sun", id:241326, ic:"inv_12_profession_alchemy_flask_sindoreipotion_red", q:1, ilvl:295, kind:"Consumable", use:"Increases your Critical Strike by 165 for 1 hour. Persists through death.", when:"Před raidem nebo klíčem, 1 hodina", cz:"Trvalý buff na hodinu – vydrží i smrt."},
-      {t:"Jídlo", n:"Harandar Celebration", id:255846, ic:"inv_misc_1h_soup_b_01_misc_1h_soup_b_01", q:3, ilvl:24, kind:"Feast", use:"Place a Harandar Celebration for all players to enjoy! Restores health and mana while seated. Well Fed: 98 Stamina and 50 primary stat for 1 hour (eat at least 10 sec).", when:"Před bojem", cz:"Hostina pro celou skupinu – sedni si a jez aspoň 10 s, ať dostaneš Well Fed."},
-      {t:"Weapon oil", n:"Thalassian Phoenix Oil", id:243733, ic:"inv_12_profession_enchanting_manaoil_red", q:2, ilvl:278, kind:"Weapon Coating", use:"Coat your weapon, increasing Critical Strike and Haste for 120 min.", when:"Na zbraň před raidem nebo klíčem", cz:"Nanes na zbraň (pravým klikem na olej, pak na zbraň)."},
-      {t:"Augment rune", n:"Void-Touched Augment Rune", id:259085, ic:"inv_10_enchanting_crystal_color2", q:3, ilvl:24, kind:"Augment Rune", use:"Increases Primary Stat by 25 for 1 hour.", when:"Před bojem", cz:"Malý bonus k Intellectu na hodinu."},
-      {t:"Potion (DMG)", n:"Potion of Recklessness", id:241288, ic:"inv_12_profession_alchemy_voidpotion_red", q:1, ilvl:295, kind:"Potion", use:"Gain 1725 of your highest secondary stat while losing 232 of your lowest secondary stat for 30 sec.", when:"Na bossovi, spolu s Ray of Frost nebo Time Warp", cz:"Jednou za boj – vypij spolu s burstem."},
-      {t:"Léčení", n:"Concentrated Silvermoon Health Potion", id:271883, ic:"inv_12_profession_alchemy_lightpotion_purple", q:1, ilvl:278, kind:"Potion", use:"Restores 359,499 health.", when:"Když ti klesá život", cz:"Nouzové léčení. Kombinuj s Healthstonem od warlocka."},
+      {t:"Flask", n:"Flask of the Shattered Sun", id:241326, ic:"inv_12_profession_alchemy_flask_sindoreipotion_red", q:1, ilvl:295, kind:"Spotřební předmět", use:"Zvýší Critical Strike o 165 na 1 hodinu. Vydrží i po smrti.", when:"Před raidem nebo klíčem, 1 hodina", cz:"Trvalý buff na hodinu – vydrží i smrt."},
+      {t:"Jídlo", n:"Harandar Celebration", id:255846, ic:"inv_misc_1h_soup_b_01_misc_1h_soup_b_01", q:3, ilvl:24, kind:"Hostina", use:"Postaví hostinu pro všechny hráče. Vsedě obnovuje život a manu. Well Fed: +98 Stamina a +50 hlavního statu na 1 hodinu (jez aspoň 10 s).", when:"Před bojem", cz:"Hostina pro celou skupinu – sedni si a jez aspoň 10 s, ať dostaneš Well Fed."},
+      {t:"Weapon oil", n:"Thalassian Phoenix Oil", id:243733, ic:"inv_12_profession_enchanting_manaoil_red", q:2, ilvl:278, kind:"Nátěr na zbraň", use:"Natře zbraň a na 120 min zvýší Critical Strike a Haste.", when:"Na zbraň před raidem nebo klíčem", cz:"Nanes na zbraň (pravým klikem na olej, pak na zbraň)."},
+      {t:"Augment rune", n:"Void-Touched Augment Rune", id:259085, ic:"inv_10_enchanting_crystal_color2", q:3, ilvl:24, kind:"Augment runa", use:"Zvýší hlavní stat o 25 na 1 hodinu.", when:"Před bojem", cz:"Malý bonus k Intellectu na hodinu."},
+      {t:"Potion (DMG)", n:"Potion of Recklessness", id:241288, ic:"inv_12_profession_alchemy_voidpotion_red", q:1, ilvl:295, kind:"Lektvar", use:"Na 30 s získáš +1725 svého nejvyššího sekundárního statu a ztratíš 232 nejnižšího.", when:"Na bossovi, spolu s Ray of Frost nebo Time Warp", cz:"Jednou za boj – vypij spolu s burstem."},
+      {t:"Léčení", n:"Concentrated Silvermoon Health Potion", id:271883, ic:"inv_12_profession_alchemy_lightpotion_purple", q:1, ilvl:278, kind:"Lektvar", use:"Obnoví 359 499 životů.", when:"Když ti klesá život", cz:"Nouzové léčení. Kombinuj s Healthstonem od warlocka."},
     ],
     mplus:["Frozen Orb hoď do středu skupiny, ať letí přes co nejvíc nepřátel.","Ray of Frost a Comet Storm šetři na velké packy.","Dohodni se se skupinou, které kouzlo přerušuješ Counterspellem.","Frost Nova, Ring of Frost a Dragon's Breath na utíkající nepřátele.","Remove Curse – odstraňuj kletby ze spoluhráčů.","Před velkým poškozením Ice Barrier, v nouzi Ice Block."],
     solo:["Pull: Frozen Orb → Blizzard → Frost Nova → odstup → Ice Lance / Flurry.","Silný nepřítel: zpomal ho a drž si odstup (kiting).","Water Elemental je v solo obsahu užitečný (Freeze + poškození).","V delves nahoď Ice Barrier před každým pullem."],
@@ -650,175 +650,175 @@ const GUIDES = {
 /* Herní popisky kouzel (Wowhead tooltip, patch 12.1) – klíč = název */
 const SPELL_TT = {
 "Frostbolt": {
-"cost": "2% of base mana",
-"range": "40 yd range",
-"cast": "1.75 sec cast",
-"desc": "Launches a bolt of frost at the enemy, causing Frost damage and slowing movement speed by 50% for 8 sec.",
+"cost": "2 % základní many",
+"range": "dosah 40 yd",
+"cast": "sesílání 1,75 s",
+"desc": "Vystřelí na nepřítele mrazivou střelu, která způsobí Frost poškození a na 8 s zpomalí jeho pohyb o 50 %.",
 "cz": "Tvůj základní útok. Sesílej ho, když nemáš nic lepšího – dává Freezing a šanci na Brain Freeze a Fingers of Frost."
 },
 "Ice Lance": {
-"cost": "1% of base mana",
-"range": "40 yd range",
-"cast": "Instant",
-"desc": "Quickly fling a shard of ice at the target, dealing Frost damage. Shatters 4 stacks of Freezing.",
+"cost": "1 % základní many",
+"range": "dosah 40 yd",
+"cast": "Okamžité",
+"desc": "Rychle vrhne na cíl ledový střep, který způsobí Frost poškození. Rozbije (Shatter) 4 stacky Freezing.",
 "cz": "Rozbíjí stacky Freezing – hlavní zdroj poškození. Okamžitá, takže ideální v pohybu."
 },
 "Flurry": {
-"cost": "1% of base mana",
-"range": "40 yd range",
-"cast": "Instant",
-"cd": "30 sec recharge · 2 Charges",
-"desc": "Unleash a flurry of ice, striking the target 3 times for Frost damage. Applies 3 stacks of Freezing.",
-"cz": "Rychle nasype Freezing. S Brain Freeze je o 50 % silnější."
+"cost": "1 % základní many",
+"range": "dosah 40 yd",
+"cast": "Okamžité",
+"cd": "obnova 30 s · 2 nabití",
+"desc": "Vypustí smršť ledu, která zasáhne cíl 3× a způsobí Frost poškození. Přidá 3 stacky Freezing.",
+"cz": "Rychle nasype Freezing. S Brain Freeze je o 50 % silnější."
 },
 "Frozen Orb": {
-"cost": "1% of base mana",
-"range": "40 yd range",
-"cast": "Instant",
-"cd": "1 min cooldown",
-"desc": "Launches an orb of swirling ice in front of you, dealing Frost damage to all enemies it passes through over 15 sec. Enemies damaged by the Frozen Orb are slowed by 50% for 8 sec.",
+"cost": "1 % základní many",
+"range": "dosah 40 yd",
+"cast": "Okamžité",
+"cd": "cooldown 1 min",
+"desc": "Vypustí před tebe kouli vířícího ledu, která 15 s poškozuje všechny nepřátele, kterými proletí. Zasažení nepřátelé jsou na 8 s zpomaleni o 50 %.",
 "cz": "Cooldown na AoE i jeden cíl. Míří tam, kam se díváš – otoč se k nepřátelům."
 },
 "Blizzard": {
-"cost": "2.5% of base mana",
-"range": "40 yd range",
-"cast": "2 sec cast",
-"cd": "12 sec cooldown",
-"desc": "Ice shards pelt the target area, dealing Frost damage over 12 sec and reducing movement speed by 50% for 3 sec.",
+"cost": "2,5 % základní many",
+"range": "dosah 40 yd",
+"cast": "sesílání 2 s",
+"cd": "cooldown 12 s",
+"desc": "Na vybrané místo padají ledové střepy, které 12 s způsobují Frost poškození a na 3 s zpomalí pohyb o 50 %.",
 "cz": "AoE na zem. Na 3+ nepřátele, s Freezing Rain je okamžitý."
 },
 "Glacial Spike": {
-"cost": "5% of base mana",
-"range": "40 yd range",
-"cast": "1.75 sec cast",
-"desc": "Conjures a massive spike of ice that impales your target, dealing damage and slowing movement speed by 50% for 8 sec. Applies 3 stacks of Freezing.",
+"cost": "5 % základní many",
+"range": "dosah 40 yd",
+"cast": "sesílání 1,75 s",
+"desc": "Vytvoří obrovský ledový bodec, který probodne cíl, způsobí velké poškození a na 8 s zpomalí jeho pohyb o 50 %. Přidá 3 stacky Freezing.",
 "cz": "Nejsilnější jednotlivá střela. Objeví se sama místo Frostboltu při 5 Icicles."
 },
 "Ray of Frost": {
-"cost": "2% of base mana",
-"range": "40 yd range",
-"cast": "Channeled (4 sec cast)",
-"cd": "1 min cooldown",
-"desc": "Channel an icy beam at the enemy for 4 sec, dealing Frost damage every 0.50 sec. Applies 8 stacks of Freezing over its duration.",
+"cost": "2 % základní many",
+"range": "dosah 40 yd",
+"cast": "Kanálované (4 s)",
+"cd": "cooldown 1 min",
+"desc": "Po dobu 4 s vysílá na nepřítele ledový paprsek, který každých 0,5 s způsobí Frost poškození. Během trvání přidá 8 stacků Freezing.",
 "cz": "Hlavní burst cooldown. Nech ho doběhnout celý, pak se tlačítko změní na Comet Storm."
 },
 "Comet Storm": {
-"cost": "1% of base mana",
-"range": "40 yd range",
-"cast": "Instant",
-"desc": "Calls down a series of 7 icy comets on and around the target, dealing Frost damage to all enemies within 6 yds of its impacts.",
+"cost": "1 % základní many",
+"range": "dosah 40 yd",
+"cast": "Okamžité",
+"desc": "Přivolá na cíl a jeho okolí 7 ledových komet. Každý dopad způsobí Frost poškození všem nepřátelům do 6 yd.",
 "cz": "Přijde hned po Ray of Frost. Silné AoE, které rozbíjí Freezing."
 },
 "Time Warp": {
-"cost": "4% of base mana",
-"cast": "Instant",
-"cd": "5 min cooldown",
-"desc": "Warp the flow of time, increasing haste by 30% for all party and raid members for 40 sec. Allies will be unable to benefit from Bloodlust, Heroism, or Time Warp again for 10 min.",
+"cost": "4 % základní many",
+"cast": "Okamžité",
+"cd": "cooldown 5 min",
+"desc": "Zkřiví tok času a na 40 s zvýší Haste všem členům skupiny a raidu o 30 %. Spojenci pak 10 min nemohou znovu dostat Bloodlust, Heroism ani Time Warp.",
 "cz": "Bloodlust pro celou skupinu. Dohodni se se skupinou, kdy ho použít (obvykle na začátku bosse)."
 },
 "Ice Barrier": {
-"cost": "3% of base mana",
-"cast": "Instant",
-"cd": "30 sec cooldown",
-"desc": "Shields you with ice, absorbing damage for 1 min. Melee attacks against you reduce the attacker's movement speed by 50%.",
+"cost": "3 % základní many",
+"cast": "Okamžité",
+"cd": "cooldown 30 s",
+"desc": "Obalí tě ledovým štítem, který na 1 min pohlcuje poškození. Útoky zblízka proti tobě zpomalí útočníka o 50 %.",
 "cz": "Štít – nahazuj ho pořád, kdykoli je dostupný."
 },
 "Ice Block": {
-"cast": "Instant",
-"cd": "4 min cooldown",
-"desc": "Encases you in a block of ice, protecting you from all attacks and damage for 10 sec, but during that time you cannot attack, move, or cast spells. Causes Hypothermia, preventing you from recasting Ice Block for 30 sec.",
+"cast": "Okamžité",
+"cd": "cooldown 4 min",
+"desc": "Uzavře tě na 10 s do ledového bloku, který tě chrání před všemi útoky a poškozením. Během té doby nemůžeš útočit, hýbat se ani kouzlit. Způsobí Hypothermia – Ice Block nejde znovu použít 30 s.",
 "cz": "Záchrana života – použij, když ti jde život rychle dolů nebo na smrtelnou mechaniku."
 },
 "Mirror Image": {
-"cost": "2% of base mana",
-"cast": "Instant",
-"cd": "2 min cooldown",
-"desc": "Creates 3 copies of you nearby for 15 sec, which cast spells and attack your enemies. While active, you generate significantly reduced threat.",
+"cost": "2 % základní many",
+"cast": "Okamžité",
+"cd": "cooldown 2 min",
+"desc": "Vytvoří na 15 s 3 tvoje kopie, které sesílají kouzla a útočí na nepřátele. Mezitím vytváříš mnohem méně aggra (threat).",
 "cz": "Malý bonus k poškození a snížení aggra. Použij s Ray of Frost."
 },
 "Blink / Shimmer": {
-"cost": "2% of base mana",
-"cast": "Instant",
-"cd": "30 sec cooldown",
-"desc": "Teleports you 20 yds forward, unless something is in the way. Unaffected by the global cooldown and castable while casting.",
+"cost": "2 % základní many",
+"cast": "Okamžité",
+"cd": "cooldown 30 s",
+"desc": "Teleportuje tě 20 yd dopředu, pokud ti nic nestojí v cestě. Nespouští globální cooldown a jde použít i během sesílání.",
 "cz": "Útěk z mechanik. Shimmer jde použít i během sesílání kouzla."
 },
 "Counterspell": {
-"cost": "2% of base mana",
-"range": "40 yd range",
-"cast": "Instant",
-"cd": "25 sec cooldown",
-"desc": "Counters the enemy's spellcast, preventing any spell from that school of magic from being cast for 7 sec.",
+"cost": "2 % základní many",
+"range": "dosah 40 yd",
+"cast": "Okamžité",
+"cd": "cooldown 25 s",
+"desc": "Přeruší nepříteli sesílané kouzlo a na 7 s mu zakáže kouzla stejné školy magie.",
 "cz": "Interrupt – přeruš nebezpečná kouzla nepřátel, hlavně v Mythic+."
 },
 "Frost Nova": {
-"cost": "2% of base mana",
-"range": "12 yd",
-"cast": "Instant",
-"cd": "30 sec cooldown",
-"desc": "Blasts enemies within 12 yds of you for Frost damage and freezes them in place for 6 sec. Damage may interrupt the freeze effect.",
+"cost": "2 % základní many",
+"range": "okruh 12 yd",
+"cast": "Okamžité",
+"cd": "cooldown 30 s",
+"desc": "Zasáhne nepřátele do 12 yd kolem tebe Frost poškozením a na 6 s je zmrazí na místě. Poškození může zmrazení zrušit.",
 "cz": "Zmrazí nepřátele kolem tebe. Pak odejdi do bezpečí."
 },
 "Cone of Cold": {
-"cost": "4% of base mana",
-"cast": "Instant",
-"cd": "25 sec cooldown",
-"desc": "Targets in a cone in front of you take Frost damage and have movement slowed by 50% for 8 sec.",
+"cost": "4 % základní many",
+"cast": "Okamžité",
+"cd": "cooldown 25 s",
+"desc": "Nepřátelé v kuželu před tebou utrpí Frost poškození a jsou na 8 s zpomaleni o 50 %.",
 "cz": "Zpomalení skupiny nepřátel před tebou."
 },
 "Dragon's Breath": {
-"cost": "4% of base mana",
-"range": "12 yd cone",
-"cast": "Instant",
-"cd": "45 sec cooldown",
-"desc": "Enemies in a 12 yd cone in front of you take Fire damage and are disoriented for 4 sec. Damage will cancel the effect.",
+"cost": "4 % základní many",
+"range": "kužel 12 yd",
+"cast": "Okamžité",
+"cd": "cooldown 45 s",
+"desc": "Nepřátelé v kuželu 12 yd před tebou utrpí Fire poškození a jsou na 4 s dezorientovaní. Poškození efekt zruší.",
 "cz": "Krátké zneškodnění nepřátel – poškození ho zruší."
 },
 "Remove Curse": {
-"cost": "1.3% of base mana",
-"range": "40 yd range",
-"cast": "Instant",
-"cd": "8 sec cooldown",
-"desc": "Removes all Curses from a friendly target.",
+"cost": "1,3 % základní many",
+"range": "dosah 40 yd",
+"cast": "Okamžité",
+"cd": "cooldown 8 s",
+"desc": "Odstraní ze spřátelené postavy všechny kletby (Curse).",
 "cz": "Odstraní kletby ze spoluhráčů – v některých dungeonech důležité."
 },
 "Arcane Intellect": {
-"cost": "1% of base mana",
-"range": "40 yd range",
-"cast": "Instant",
-"desc": "Infuses the target with brilliance, increasing their Intellect by 3% for 1 hour. If the target is in your party or raid, all party and raid members will be affected.",
+"cost": "1 % základní many",
+"range": "dosah 40 yd",
+"cast": "Okamžité",
+"desc": "Zvýší cíli Intellect o 3 % na 1 hodinu. Pokud je cíl ve tvé skupině nebo raidu, dostanou buff všichni členové.",
 "cz": "Buff pro tebe i celou skupinu. Drž ho pořád, po smrti obnov."
 },
 "Summon Water Elemental": {
-"cost": "3% of base mana",
-"cast": "1.5 sec cast",
-"cd": "15 sec cooldown",
-"desc": "Summons a Water Elemental to follow and fight for you.",
+"cost": "3 % základní many",
+"cast": "sesílání 1,5 s",
+"cd": "cooldown 15 s",
+"desc": "Vyvolá vodního elementála, který tě následuje a bojuje za tebe.",
 "cz": "Trvalý pet (jen s talentem). Přidává poškození a umí zmrazit nepřátele (Freeze)."
 },
 "Fingers of Frost": {
 "kind": "Talent",
-"desc": "Frostbolt has a 15% chance to grant a charge of Fingers of Frost. Fingers of Frost causes your next Ice Lance to deal Shatter damage equal to 4 stacks of Freezing and does not consume Freezing stacks. Maximum 2 charges.",
+"desc": "Frostbolt má 15% šanci dát ti nabití Fingers of Frost. Další Ice Lance pak způsobí Shatter poškození jako za 4 stacky Freezing a stacky nespotřebuje. Maximálně 2 nabití.",
 "cz": "Proc: při 2 nabitích hned Ice Lance, ať o něj nepřijdeš."
 },
 "Brain Freeze": {
 "kind": "Talent",
-"desc": "Frostbolt has a chance to reset the remaining cooldown on Flurry and cause your next Flurry to deal 50% increased damage.",
+"desc": "Frostbolt má šanci obnovit cooldown Flurry a tvoje další Flurry způsobí o 50 % vyšší poškození.",
 "cz": "Proc: když svítí, pošli Flurry."
 },
 "Thermal Void": {
 "kind": "Talent",
-"desc": "Consuming Brain Freeze has a 100% chance to cause your next Ice Lance to Shatter 4 additional stacks of Freezing.",
+"desc": "Spotřebování Brain Freeze způsobí, že tvoje další Ice Lance rozbije o 4 stacky Freezing navíc.",
 "cz": "Po Flurry s Brain Freeze dej Ice Lance – rozbije víc stacků."
 },
 "Shatter": {
-"kind": "Passive",
-"desc": "Multiplies the critical strike chance of your spells against frozen targets by 1.5, and adds an additional 50% critical strike chance.",
+"kind": "Pasivní",
+"desc": "Šance na kritický zásah tvých kouzel proti zmraženým cílům se vynásobí 1,5× a přičte se k ní dalších 50 %.",
 "cz": "Proto je rozbíjení Freezing tak silné – kouzla na zmražené cíle skoro vždy kritnou."
 },
 "Icicles": {
-"kind": "Passive",
-"desc": "While in combat, Frost crystallizes around you, generating an Icicle every 6.0 sec. Upon generating 5 Icicles, Frostbolt upgrades to Glacial Spike for its next cast.",
+"kind": "Pasivní",
+"desc": "V boji kolem tebe každých 6 s vznikne rampouch (Icicle). Při 5 rampouších se tvůj další Frostbolt změní na Glacial Spike.",
 "cz": "Nic neřešíš – jen sešli Glacial Spike, když se objeví."
 },
 "Freezing": {
@@ -1184,18 +1184,18 @@ function gearDoll(g){
 }
 function tooltipHtml(it, g){
   const tierN = g.gearItems.filter(i=>i.tier).length;
-  return `<div class="h">${gicon(it.ic, it.cz.slice(0,2), "q4")}<div><div class="nm">${esc(it.n)}</div><div class="y">Item Level ${it.ilvl}</div></div></div>
-    <div class="w">Binds when picked up</div>
+  return `<div class="h">${gicon(it.ic, it.cz.slice(0,2), "q4")}<div><div class="nm">${esc(it.n)}</div><div class="y">Úroveň předmětu ${it.ilvl}</div></div></div>
+    <div class="w">Váže se při sebrání</div>
     ${it.unique?`<div class="w">${esc(it.unique)}</div>`:""}
     <div class="row w"><span>${esc(it.type[0])}</span><span>${esc(it.type[1])}</span></div>
     ${it.weapon?`<div class="row w"><span>${esc(it.weapon.dmg)}</span><span>${esc(it.weapon.speed)}</span></div><div class="w">${esc(it.weapon.dps)}</div>`:""}
-    ${it.armor?`<div class="w">${it.armor} Armor</div>`:""}
+    ${it.armor?`<div class="w">Zbroj: ${it.armor}</div>`:""}
     ${it.stats.map(x=>`<div class="w">${esc(x)}</div>`).join("")}
     ${it.sec.map(x=>`<div class="g">${esc(x)}</div>`).join("")}
-    ${it.socket?`<div class="gr">◇ Prismatic Socket</div>`:""}
-    ${(it.equip||[]).map(x=>`<div class="sp"></div><div class="g">Equip: ${esc(x)}</div>`).join("")}
-    ${it.tier?`<div class="sp"></div><div class="y">${esc(g.gearSet.name)} (0/5)</div><div class="gr">(2) Set: ${esc(g.gearSet.bonus2)}</div><div class="gr">(4) Set: ${esc(g.gearSet.bonus4)}</div>`:""}
-    <div class="sp"></div><div class="w">Requires Level 90</div>
+    ${it.socket?`<div class="gr">◇ Prismatický socket (na gem)</div>`:""}
+    ${(it.equip||[]).map(x=>`<div class="sp"></div><div class="g">Při nasazení: ${esc(x)}</div>`).join("")}
+    ${it.tier?`<div class="sp"></div><div class="y">${esc(g.gearSet.name)} (0/5)</div><div class="gr">(2 kusy): ${esc(g.gearSet.bonus2)}</div><div class="gr">(4 kusy): ${esc(g.gearSet.bonus4)}</div>`:""}
+    <div class="sp"></div><div class="w">Vyžaduje úroveň 90</div>
     <div class="src">Kde získat: ${esc(it.src)}</div>
     <button class="close" data-ttclose aria-label="Zavřít">×</button>`;
 }
@@ -1210,9 +1210,9 @@ function spellTooltipHtml(b){
     <button class="close" data-ttclose aria-label="Zavřít">×</button>`;
 }
 function consTooltipHtml(x){
-  return `<div class="h">${gicon(x.ic, x.t.slice(0,2), "q"+x.q)}<div><div class="nm" style="color:${QCOL[x.q]}">${esc(x.n)}</div><div class="y">Item Level ${x.ilvl}</div></div></div>
+  return `<div class="h">${gicon(x.ic, x.t.slice(0,2), "q"+x.q)}<div><div class="nm" style="color:${QCOL[x.q]}">${esc(x.n)}</div><div class="y">Úroveň předmětu ${x.ilvl}</div></div></div>
     <div class="w">${esc(x.kind)}</div>
-    <div class="sp"></div><div class="g">Use: ${esc(x.use)}</div>
+    <div class="sp"></div><div class="g">Použití: ${esc(x.use)}</div>
     <div class="src"><b>K čemu to je:</b> ${esc(x.cz)}<br><b>Kdy:</b> ${esc(x.when)}<br><b>Kde koupit:</b> Aukce (Auction House) nebo vyrobit</div>
     <a class="whl" href="https://www.wowhead.com/item=${x.id}" target="_blank" rel="noopener">Otevřít na Wowhead ↗</a>
     <button class="close" data-ttclose aria-label="Zavřít">×</button>`;
