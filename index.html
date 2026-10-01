@@ -6,6 +6,11 @@
 <title>Průvodce Azerothem – WoW Midnight pro nováčky</title>
 <meta name="description" content="Vyber rasu, classu a specializaci a získej kompletní návod: kouzla, rotace, talenty, gear, buffy a videa. World of Warcraft: Midnight.">
 <meta name="theme-color" content="#07080f">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Azeroth">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 3 58 14v18c0 15-11 25-26 29C17 57 6 47 6 32V14z' fill='%23140f07' stroke='%23e8b64c' stroke-width='3'/%3E%3Cpath d='M32 14 38 30 32 50 26 30z' fill='%23e8b64c'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -168,6 +173,7 @@ ol.prio li::before{content:counter(p);flex:none;width:26px;height:26px;border-ra
 /* kouzla */
 .spell-list{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
 .spell{display:flex;gap:12px;padding:12px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);align-items:flex-start}
+.spell>.crest{width:44px;height:44px;flex:none}
 .spell .ico{flex:none;width:44px;height:44px;border-radius:9px;display:grid;place-items:center;font-family:Cinzel;font-weight:900;font-size:17px;color:#fff;
   background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.35),transparent 45%),linear-gradient(145deg,var(--sc,#2a6f9b),#0a1830);
   box-shadow:0 0 0 1px rgba(0,0,0,.6),0 0 0 2px rgba(255,255,255,.15) inset;text-shadow:0 1px 3px #000}
@@ -275,6 +281,101 @@ table.t td:first-child{color:var(--text);font-weight:600;white-space:nowrap}
 .scrim{position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .2s}
 .scrim.on{opacity:1;pointer-events:auto}
 
+[hidden]{display:none!important}
+ol.lvl{list-style:none;display:grid;gap:0;position:relative}
+ol.lvl>li{display:grid;grid-template-columns:86px 1fr;gap:14px;padding:12px 0;border-left:2px solid rgba(var(--accent-rgb),.35);margin-left:42px;padding-left:0;position:relative}
+ol.lvl>li .lv{margin-left:-44px;align-self:start;text-align:center;font:700 13px Inter;color:#111;background:var(--accent);border-radius:999px;padding:4px 8px;box-shadow:0 0 0 4px #0e101c}
+ol.lvl>li b{color:var(--gold-2);font-family:Cinzel}
+ol.lvl ul.clean{margin-top:6px}
+
+/* nav */
+.topnav{display:flex;gap:6px;margin-right:6px}
+.navb{display:flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;border:1px solid var(--line);font-size:13px;color:var(--muted);transition:.2s}
+.navb:hover{color:var(--text);border-color:var(--accent)}
+.navb kbd{font:11px ui-monospace,monospace;padding:1px 6px;border-radius:5px;border:1px solid rgba(255,255,255,.15)}
+@media (max-width:640px){.navb{padding:8px}.navb .lbl{display:none}.topnav{gap:4px;margin-right:2px}#t-video{display:none}header.top{gap:8px}.logo{font-size:15px;gap:7px}.logo svg{width:26px;height:26px}}
+label.btn{cursor:pointer}
+.btn svg{flex:none}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);z-index:200;background:#111527;border:1px solid var(--accent);color:var(--text);padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px -10px #000}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.flash{animation:flash 2.2s ease}
+@keyframes flash{0%,60%{box-shadow:0 0 0 3px var(--accent),0 0 30px rgba(var(--accent-rgb),.6)}100%{box-shadow:none}}
+.inp{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:rgba(0,0,0,.35);color:var(--text);font:inherit;font-size:15px}
+.inp:focus{outline:none;border-color:var(--accent)}
+.muted{color:var(--faint);font-size:13px}
+.big{font-size:40px;color:var(--gold-2)}
+
+/* hledání */
+#search{position:fixed;inset:0;z-index:150;background:rgba(3,4,10,.7);backdrop-filter:blur(6px);display:none;align-items:flex-start;justify-content:center;padding:10vh 16px 16px}
+#search.on{display:flex}
+.sr-box{width:min(640px,100%);background:#0d1020;border:1px solid var(--line);border-radius:14px;box-shadow:0 30px 80px -20px #000;overflow:hidden;animation:rise .25s}
+.sr-in{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.08);color:var(--muted)}
+.sr-in input{flex:1;min-width:0;background:none;border:0;color:var(--text);font:inherit;font-size:16px;outline:none}
+.sr-x{font:11px ui-monospace,monospace;padding:3px 7px;border-radius:6px;border:1px solid rgba(255,255,255,.15);color:var(--muted)}
+.sr-res{max-height:60vh;overflow:auto;padding:6px}
+.sr-r{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:8px 10px;border-radius:10px}
+.sr-r .gi{width:34px;height:34px}
+.sr-r b{display:block;font-weight:600;font-size:14.5px}
+.sr-r small{color:var(--muted);font-size:12px}
+.sr-r.sel,.sr-r:hover{background:rgba(var(--accent-rgb),.12)}
+
+/* slovníček */
+dl.gloss{display:grid;gap:10px}
+dl.gloss>div{padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05)}
+dl.gloss dt{font-weight:700;color:var(--gold-2)}
+dl.gloss dd{color:#d3ccba;font-size:14px;margin-top:2px}
+
+/* trenažér */
+.tr-score{display:flex;gap:18px;flex-wrap:wrap;font-size:14px;color:var(--muted);margin-bottom:12px}
+.tr-score b{color:var(--text)}
+.tr-hud{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));padding:14px;border-radius:12px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.07);margin-bottom:14px}
+.tr-l{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.auras,.chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.aura{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;width:62px;text-align:center}
+.aura .gi{width:40px;height:40px;box-shadow:0 0 0 1px #000,0 0 0 2px #3fc7eb}
+.aura.deb .gi{box-shadow:0 0 0 1px #000,0 0 0 2px #e05b4d}
+.aura b{position:absolute;top:24px;right:9px;font-size:13px;color:#fff;text-shadow:0 0 3px #000,0 0 3px #000}
+.aura span{font-size:10.5px;color:var(--muted);line-height:1.15}
+.pips{display:flex;gap:6px}
+.pips i{width:16px;height:26px;clip-path:polygon(50% 0,100% 30%,50% 100%,0 30%);background:rgba(255,255,255,.1)}
+.pips i.on{background:linear-gradient(#e9fbff,var(--accent));filter:drop-shadow(0 0 4px var(--accent))}
+.actionbar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:12px;border-radius:12px;background:linear-gradient(180deg,#1b1a14,#0e0d0a);border:1px solid #5a4a26;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.abtn{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;width:78px;padding:6px 2px;border-radius:10px;transition:.15s}
+.abtn .gi{width:52px;height:52px;box-shadow:0 0 0 1px #000,0 0 0 2px #6b5a32;transition:.15s}
+.abtn:hover:not([disabled]) .gi{box-shadow:0 0 0 1px #000,0 0 0 2px var(--gold-2),0 0 14px rgba(232,182,76,.6);transform:translateY(-2px)}
+.abtn kbd{position:absolute;top:8px;right:14px;font:700 11px Inter;color:#fff;text-shadow:0 0 3px #000,0 0 3px #000}
+.abtn small{font-size:11px;color:var(--muted);line-height:1.15;text-align:center}
+.abtn.oncd .gi img{filter:grayscale(.85) brightness(.45)}
+.abtn.oncd .gi .fbx{filter:grayscale(.85) brightness(.45)}
+.abtn .cdo{position:absolute;top:22px;left:0;right:0;text-align:center;font:700 12px Inter;color:#fff;text-shadow:0 0 4px #000}
+.abtn.right .gi{box-shadow:0 0 0 2px #000,0 0 0 4px #3ddc84,0 0 18px #3ddc84}
+.abtn.wrong .gi{box-shadow:0 0 0 2px #000,0 0 0 4px #e05b4d,0 0 18px #e05b4d}
+.abtn[disabled]{cursor:default}
+@media (max-width:640px){.abtn{width:64px}.abtn .gi{width:46px;height:46px}.abtn kbd{right:10px}.actionbar{gap:4px;padding:8px}}
+.tr-fb{margin-top:14px;padding:12px 14px;border-radius:10px;font-size:14.5px;border:1px solid}
+.tr-fb.ok{background:rgba(61,220,132,.1);border-color:rgba(61,220,132,.45)}
+.tr-fb.bad{background:rgba(224,91,77,.1);border-color:rgba(224,91,77,.45)}
+.tr-end{text-align:center;padding:24px 10px}
+/* kvíz */
+.qz-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:14px}
+.qz-bar{height:6px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden;margin:8px 0 12px}
+.qz-bar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.qz-q{font-size:16px;color:var(--text);margin-bottom:12px}
+.qz-opts{display:grid;gap:8px}
+.qz-o{text-align:left;padding:11px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);font-size:14.5px;transition:.15s}
+.qz-o:hover:not([disabled]){border-color:var(--accent);background:rgba(var(--accent-rgb),.08)}
+.qz-o.right{border-color:#3ddc84;background:rgba(61,220,132,.12)}
+.qz-o.wrong{border-color:#e05b4d;background:rgba(224,91,77,.12)}
+/* checklist */
+.cklist{display:grid;gap:8px;margin-bottom:6px}
+.ck{position:relative;display:flex;gap:12px;align-items:center;padding:11px 12px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:.15s}
+.ck input{position:absolute;opacity:0;pointer-events:none}
+.ck .box-ck{flex:none;width:22px;height:22px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;transition:.15s}
+.ck.on .box-ck{background:var(--accent);border-color:var(--accent)}
+.ck.on .box-ck::after{content:"";width:6px;height:11px;border:solid #111;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.ck.on span:last-child{color:var(--muted);text-decoration:line-through}
+.ck:has(input:focus-visible){outline:2px solid var(--accent)}
+
 footer{text-align:center;color:var(--faint);font-size:12px;padding:30px 16px 40px;border-top:1px solid rgba(255,255,255,.05)}
 footer a{color:var(--muted)}
 
@@ -306,6 +407,11 @@ footer a{color:var(--muted)}
     <div>Průvodce Azerothem<small>WoW Midnight · pro nováčky</small></div>
   </a>
   <div class="spacer"></div>
+  <nav class="topnav">
+    <button class="navb" data-search title="Hledat (klávesa /)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M10 2a8 8 0 0 1 6.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1 1 10 2zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/></svg><span class="lbl">Hledat</span><kbd class="lbl">/</kbd></button>
+    <button class="navb" data-go="leveling" id="nav-lvl"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M3 17h4v4H3zm7-6h4v10h-4zm7-8h4v18h-4z"/></svg><span class="lbl">Levelování</span></button>
+    <button class="navb" data-go="glossary"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h12V4zm2 3h8v2H8zm0 4h8v2H8zm0 4h5v2H8z"/></svg><span class="lbl">Slovníček</span></button>
+  </nav>
   <button class="toggle" id="t-video" aria-pressed="false" title="Filmové pozadí z oficiálního traileru"><i class="dot"></i><span class="lbl">Filmové pozadí</span></button>
   <button class="toggle" id="t-anim" aria-pressed="true" title="Animace pozadí"><i class="dot"></i><span class="lbl">Animace</span></button>
 </header>
@@ -325,7 +431,7 @@ footer a{color:var(--muted)}
    ============================================================ */
 
 const PATCH = "12.1 (Midnight, Season 2)";
-const UPDATED = "29. 9. 2026";
+const UPDATED = "1. 10. 2026";
 
 /* ---------- RASY ---------- */
 const RACES = [
@@ -589,6 +695,11 @@ const GUIDES = {
     /* Vlastní klip do banneru: nahraj svůj záznam hry (OBS) do repa jako media/frost-mage.mp4.
        Když soubor chybí, zobrazí se animace vytvořená v aplikaci. */
     bannerVideo:"media/frost-mage.mp4",
+    extraBuffs:[
+      {n:"Summon Water Elemental", ic:"spell_frost_summonwaterelemental_2", u:WH(31687), d:"Jen pokud ho máš v talentech. Drž ho pořád vyvolaného – přidává poškození."},
+      {n:"Ice Barrier", ic:"spell_ice_lament", u:WH(11426), d:"DMG nepřidá, ale díky štítu nemusíš utíkat a sesíláš dál."},
+    ],
+    buffNote:"Icy Veins už v Midnight neexistuje – jeho roli převzal Ray of Frost.",
     /* BiS gear (Method.gg, patch 12.1). Staty = hodnoty z Wowhead tooltipu na uvedeném item levelu. */
     gearSet:{ name:"Primal Leywarden's Attire", bonus2:"Každý rozbitý stack Freezing má 4% šanci vytvořit Icicle. Poškození Glacial Spike zvýšeno o 20 %.", bonus4:"Seslání Glacial Spike má šanci během 1 s rychle vytvořit 5 Icicles. Poškození Shatter zvýšeno o 5 %." },
     gearItems:[
@@ -827,6 +938,931 @@ const SPELL_TT = {
 }
 };
 
+/* ---------- SLOVNÍČEK POJMŮ ---------- */
+const GLOSSARY = [
+  ["Aggro / Threat","Kdo má pozornost nepřítele. Tank ji má držet, DPS a healer ji „ukrást“ nechtějí.","Boj"],
+  ["AoE","Area of Effect – kouzlo nebo útok, který zasáhne víc nepřátel najednou.","Boj"],
+  ["Single target (ST)","Boj proti jednomu cíli, typicky boss.","Boj"],
+  ["Cleave","Poškození, které zasáhne hlavní cíl a ještě jeden nebo pár dalších.","Boj"],
+  ["DPS","Damage per second – poškození za sekundu. Taky označení role, která dává poškození.","Role"],
+  ["Tank","Role, která drží nepřátele na sobě a vydrží nejvíc poškození.","Role"],
+  ["Healer","Role, která léčí skupinu.","Role"],
+  ["Melee / Ranged","Boj zblízka / na dálku.","Role"],
+  ["Cooldown (CD)","Doba, než můžeš kouzlo použít znovu. „Mám to na CD“ = ještě nejde.","Mechaniky"],
+  ["GCD","Global cooldown – krátká pauza (~1,5 s, zkracuje ji Haste) po většině kouzel, kdy nejde sesílat nic jiného.","Mechaniky"],
+  ["Proc","Náhodně spuštěný efekt (např. Brain Freeze), který ti na chvíli dá silnější kouzlo.","Mechaniky"],
+  ["Buff","Pozitivní efekt na tobě nebo na spojenci.","Mechaniky"],
+  ["Debuff","Negativní efekt na nepříteli nebo na tobě.","Mechaniky"],
+  ["DoT / HoT","Damage / Heal over Time – poškození nebo léčení postupně v čase.","Mechaniky"],
+  ["Stack","Počet „vrstev“ efektu, např. 8 stacků Freezing.","Mechaniky"],
+  ["Charge (nabití)","Kouzlo s nabitími jde použít víckrát po sobě (např. Flurry má 2).","Mechaniky"],
+  ["Cast / Instant / Channel","Sesílané (čekáš, než se dokončí) / okamžité / kanálované (drží se, např. Ray of Frost).","Mechaniky"],
+  ["Interrupt / Kick","Přerušení nepřátelského kouzla (u mága Counterspell).","Mechaniky"],
+  ["Dispel / Decurse","Odstranění negativního efektu ze spojence (u mága Remove Curse na kletby).","Mechaniky"],
+  ["CC","Crowd control – omráčení, zmrazení, ovce (Polymorph), strach…","Mechaniky"],
+  ["Kiting","Udržování nepřítele v odstupu – zpomalíš ho a utíkáš, přitom útočíš.","Mechaniky"],
+  ["Pull","Začátek boje se skupinou nepřátel. „Pullnout“ = začít boj.","Mechaniky"],
+  ["Wipe","Celá skupina zemřela.","Mechaniky"],
+  ["Bloodlust / Heroism / Time Warp","Velký buff Haste pro celou skupinu na 40 s. Dá se použít jednou za 10 min.","Mechaniky"],
+  ["Opener","Pevně dané pořadí kouzel na začátku boje.","Rotace"],
+  ["Rotace / priorita","Pořadí, ve kterém mačkáš kouzla. Priorita = vezmi první řádek, který jde použít.","Rotace"],
+  ["Filler","Kouzlo, které sesíláš, když není nic lepšího (u Frost Mage Frostbolt).","Rotace"],
+  ["Burst","Krátké okno s velkým poškozením, typicky s hlavními cooldowny.","Rotace"],
+  ["ABC","Always Be Casting – pořád něco sesílej, nestůj bez akce.","Rotace"],
+  ["Item level (ilvl)","Síla předmětu. Vyšší ilvl = lepší staty.","Gear"],
+  ["BiS","Best in Slot – nejlepší předmět pro daný slot.","Gear"],
+  ["Tier set","Sada předmětů pro tvou classu se speciálními bonusy za 2 a 4 kusy.","Gear"],
+  ["Trinket","Speciální předmět (2 sloty) s pasivním nebo aktivním efektem.","Gear"],
+  ["Enchant / Gem","Vylepšení předmětu – enchant na slot, gem do socketu.","Gear"],
+  ["Crafted","Předmět vyrobený profesí, často si vybereš staty.","Gear"],
+  ["Primary stat","Hlavní stat: Strength, Agility nebo Intellect – podle classy.","Staty"],
+  ["Critical Strike","Šance na kritický zásah (dvojnásobné poškození).","Staty"],
+  ["Haste","Rychlejší sesílání a kratší GCD.","Staty"],
+  ["Mastery","Bonus specifický pro každou specializaci.","Staty"],
+  ["Versatility","Víc poškození a léčení a menší přijaté poškození.","Staty"],
+  ["Stamina","Víc životů.","Staty"],
+  ["Sim (Raidbots)","Simulace tvé postavy, která spočítá, který gear a staty jsou pro tebe nejlepší.","Gear"],
+  ["Mythic+ (M+, klíč)","Dungeon na čas s rostoucí obtížností. Úroveň určuje Keystone (klíč).","Obsah"],
+  ["Affix","Extra modifikátor v Mythic+, který mění dungeon.","Obsah"],
+  ["Raid","Velký obsah pro 10–30 hráčů s bossy.","Obsah"],
+  ["LFR / Normal / Heroic / Mythic","Obtížnosti raidu od nejlehčí po nejtěžší.","Obsah"],
+  ["Delve","Krátký dungeon pro 1–5 hráčů, dá se chodit i sólo.","Obsah"],
+  ["Hero talenty","Třetí strom talentů na max levelu – vybíráš jeden ze dvou.","Talenty"],
+  ["Loadout","Uložená sada talentů. Můžeš mít víc a přepínat mezi nimi.","Talenty"],
+  ["Racial","Schopnost tvé rasy.","Postava"],
+];
+
+/* ============================================================
+   TRENAŽÉR ROTACE – data pro jednotlivé specializace
+   Každý trenažér: buttons (akční lišta), gen (náhodný stav),
+   hud (co se ukáže hráči), rules[hero][st|aoe] (priorita).
+   Správná odpověď = první pravidlo, jehož podmínka platí.
+   ============================================================ */
+const rnd = n => Math.floor(Math.random()*n);
+const chance = p => Math.random() < p;
+const pick = arr => arr[rnd(arr.length)];
+
+const TRAINERS = {};
+
+TRAINERS["mage/frost"] = {
+  heroes:["Spellslinger","Frostfire"],
+  buttons:[
+    {s:"Frostbolt", ic:"spell_frost_frostbolt02", key:"1", hero:{Frostfire:{s:"Frostfire Bolt"}}, alt:{s:"Glacial Spike", ic:"ability_mage_glacialspike", when:st=>st.icicles>=5}},
+    {s:"Ice Lance", ic:"spell_frost_frostblast", key:"2"},
+    {s:"Flurry", ic:"ability_deathknight_chillstreak", key:"3", cd:st=>st.flurry<1 && !st.bf ? "0 nabití" : null},
+    {s:"Frozen Orb", ic:"spell_frost_frozenorb", key:"4", cd:st=>st.orb ? null : st.orbCd+" s"},
+    {s:"Blizzard", ic:"spell_frost_icestorm", key:"5", cd:st=>st.bliz ? null : "cooldown"},
+    {s:"Ray of Frost", ic:"ability_mage_rayoffrost", key:"Q", alt:{s:"Comet Storm", ic:"spell_mage_cometstorm2", when:st=>st.comet}, cd:st=>(st.ray||st.comet) ? null : st.rayCd+" s"},
+  ],
+  gen(aoe, hero){
+    const bf = chance(.35);
+    const st = {
+      bf, tv: !bf && chance(.3),
+      fof: pick([0,0,0,1,1,2]),
+      icicles: chance(.22) ? 5 : rnd(5),
+      freezing: rnd(16),
+      orb: chance(.3), orbCd: 5+rnd(50),
+      ray: false, rayCd: 5+rnd(50), comet:false,
+      flurry: bf ? 1+rnd(2) : rnd(3),
+      bliz: chance(.7), frain:false,
+      targets: aoe ? 3+rnd(7) : 1+rnd(2),
+    };
+    if (hero==="Frostfire" && chance(.25)) st.comet = true; else st.ray = chance(.3);
+    if (aoe && chance(.35)) { st.frain = true; st.bliz = true; }
+    return st;
+  },
+  hud(st){
+    return {
+      buffs:[
+        st.bf && {n:"Brain Freeze", ic:"ability_mage_brainfreeze"},
+        st.tv && {n:"Thermal Void", ic:"spell_mage_thermalvoid"},
+        st.fof && {n:"Fingers of Frost", ic:"ability_mage_wintersgrasp", stack:st.fof},
+        st.frain && {n:"Freezing Rain", ic:"spell_frost_icestorm"},
+      ].filter(Boolean),
+      debuffs:[ st.freezing && {n:"Freezing", ic:"spell_frost_frostshock", stack:st.freezing} ].filter(Boolean),
+      pips:{label:"Icicles", n:st.icicles, max:5},
+      info:[`Nepřátel: ${st.targets}`, `Flurry nabití: ${st.flurry}`],
+    };
+  },
+  rules:{
+    Spellslinger:{
+      st:[
+        {s:"Flurry", when:st=>st.bf && !st.tv, why:"Svítí Brain Freeze a nemáš Thermal Void – Flurry je teď nejsilnější tah."},
+        {s:"Ice Lance", when:st=>st.fof===2, why:"Máš 2 nabití Fingers of Frost – utrať je, jinak o další proc přijdeš."},
+        {s:"Frozen Orb", when:st=>st.orb, why:"Frozen Orb je připravený – používá se na cooldown."},
+        {s:"Glacial Spike", when:st=>st.icicles>=5, why:"Máš 5 Icicles – sešli Glacial Spike."},
+        {s:"Ice Lance", when:st=>st.fof>=1, why:"Máš Fingers of Frost – Ice Lance zasáhne jako Shatter."},
+        {s:"Ice Lance", when:st=>st.freezing>=6, why:"Cíl má 6 nebo víc stacků Freezing – rozbij je."},
+        {s:"Ray of Frost", when:st=>st.ray && st.icicles<=3, why:"Ray of Frost je připravený a máš 3 nebo méně Icicles."},
+        {s:"Flurry", when:st=>st.flurry>0, why:"Flurry má nabití – přidá Freezing."},
+        {s:"Frostbolt", when:()=>true, why:"Nic lepšího není – Frostbolt jako filler."},
+      ],
+      aoe:[
+        {s:"Flurry", when:st=>st.bf && !st.tv, why:"Brain Freeze bez Thermal Void – Flurry."},
+        {s:"Ice Lance", when:st=>st.fof===2, why:"2 nabití Fingers of Frost – utrať je."},
+        {s:"Frozen Orb", when:st=>st.orb, why:"Frozen Orb je připravený – na AoE je klíčový."},
+        {s:"Glacial Spike", when:st=>st.icicles>=5, why:"5 Icicles – Glacial Spike."},
+        {s:"Blizzard", when:st=>st.frain, why:"Máš Freezing Rain – Blizzard je okamžitý."},
+        {s:"Ice Lance", when:st=>st.fof>=1, why:"Máš Fingers of Frost."},
+        {s:"Ice Lance", when:st=>st.freezing>=6, why:"6+ stacků Freezing – rozbij je."},
+        {s:"Ray of Frost", when:st=>st.ray && st.icicles<=3, why:"Ray of Frost je připravený a máš ≤ 3 Icicles."},
+        {s:"Flurry", when:st=>st.flurry>0, why:"Flurry má nabití."},
+        {s:"Blizzard", when:st=>st.bliz, why:"Na víc nepřátel je Blizzard lepší filler než Frostbolt."},
+        {s:"Frostbolt", when:()=>true, why:"Nic lepšího není – Frostbolt."},
+      ],
+    },
+    Frostfire:{
+      st:[
+        {s:"Glacial Spike", when:st=>st.icicles>=5, why:"S Frostfire má Glacial Spike nejvyšší prioritu."},
+        {s:"Comet Storm", when:st=>st.comet, why:"Comet Storm je připravený (po Ray of Frost)."},
+        {s:"Flurry", when:st=>st.bf && !st.tv, why:"Brain Freeze bez Thermal Void – Flurry."},
+        {s:"Ice Lance", when:st=>st.fof===2, why:"2 nabití Fingers of Frost – utrať je."},
+        {s:"Ray of Frost", when:st=>st.ray, why:"Ray of Frost je připravený."},
+        {s:"Frozen Orb", when:st=>st.orb, why:"Frozen Orb je připravený."},
+        {s:"Ice Lance", when:st=>st.fof>=1 && st.tv, why:"Fingers of Frost i Thermal Void – silná Ice Lance."},
+        {s:"Ice Lance", when:st=>st.freezing>=12, why:"S Frostfire rozbíjíš až při 12+ stacích Freezing."},
+        {s:"Flurry", when:st=>st.flurry>0, why:"Flurry má nabití."},
+        {s:"Frostfire Bolt", when:()=>true, why:"Nic lepšího není – Frostfire Bolt."},
+      ],
+      aoe:[
+        {s:"Glacial Spike", when:st=>st.icicles>=5, why:"Glacial Spike má nejvyšší prioritu."},
+        {s:"Comet Storm", when:st=>st.comet, why:"Comet Storm je připravený."},
+        {s:"Flurry", when:st=>st.bf && !st.tv, why:"Brain Freeze bez Thermal Void – Flurry."},
+        {s:"Ice Lance", when:st=>st.fof===2, why:"2 nabití Fingers of Frost."},
+        {s:"Ray of Frost", when:st=>st.ray, why:"Ray of Frost je připravený."},
+        {s:"Frozen Orb", when:st=>st.orb, why:"Frozen Orb je připravený."},
+        {s:"Blizzard", when:st=>st.frain, why:"Freezing Rain – okamžitý Blizzard."},
+        {s:"Blizzard", when:st=>st.bliz && st.targets>=8, why:"Na 8+ nepřátel se vyplatí Blizzard."},
+        {s:"Ice Lance", when:st=>st.fof>=1 && st.tv, why:"Fingers of Frost i Thermal Void."},
+        {s:"Ice Lance", when:st=>st.freezing>=12, why:"12+ stacků Freezing – rozbij je."},
+        {s:"Flurry", when:st=>st.flurry>0, why:"Flurry má nabití."},
+        {s:"Frostfire Bolt", when:()=>true, why:"Nic lepšího není – Frostfire Bolt."},
+      ],
+    },
+  },
+};
+
+/* ============================================================
+   DALŠÍ SPECIALIZACE (patch 12.1) – Arcane, Fire, BM Hunter,
+   Havoc DH, Protection Paladin, Destruction Warlock
+   Zdroje: Wowhead (rotace), Method.gg (talenty, staty, rasy,
+   consumables), Wowhead tooltipy (kouzla).
+   ============================================================ */
+
+/* ---------- herní popisky kouzel (česky) ---------- */
+Object.assign(SPELL_TT, {
+  /* ARCANE */
+  "Arcane Blast":{cost:"2,75 % základní many", range:"dosah 40 yd", cast:"sesílání 2,25 s", desc:"Zasáhne cíl energií a způsobí Arcane poškození. Každý Arcane Charge zvyšuje poškození o 60 %, cenu many o 100 % a zkracuje sesílání o 8 %. Dá 1 Arcane Charge.", cz:"Hlavní kouzlo, které staví Arcane Charges."},
+  "Arcane Barrage":{range:"dosah 40 yd", cast:"Okamžité", desc:"Vystřelí střely arkánní energie. Každý Arcane Charge přidá 90 % poškození. Spotřebuje všechny Arcane Charges, zasáhne i 1 další cíl za 40 % a vrátí 2 % maximální many.", cz:"Spotřebuje Charges a Arcane Salvo – „vybije“ nasbíranou sílu."},
+  "Arcane Missiles":{cost:"15 % základní many", range:"dosah 40 yd", cast:"Kanálované (2,5 s)", desc:"Během 2,5 s vypustí na nepřítele 5 vln Arcane Missiles. Vyžaduje Clearcasting.", cz:"Použij, když svítí Clearcasting – přidává stacky Arcane Salvo."},
+  "Arcane Orb":{cost:"1 % základní many", range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 20 s", desc:"Vypustí kouli, která letí až 40 yd a poškozuje nepřátele, kterými proletí. Dá 1 Arcane Charge při seslání a za každý zásah.", cz:"Rychlé Arcane Charges, hlavně na AoE."},
+  "Arcane Pulse":{cost:"3,5 % základní many", range:"dosah 40 yd", cast:"Okamžité", desc:"Arkánní výbuch kolem cíle, který generuje Arcane Charges. Má 50% šanci výbuch zopakovat se 30% účinností.", cz:"Generátor Arcane Charges, když jich máš málo."},
+  "Prismatic Bolt":{cost:"2,75 % základní many", range:"dosah 40 yd", cast:"sesílání 2,5 s", desc:"Zdrtí cíl obrovskou energií a způsobí velké Arcane poškození jemu i okolním nepřátelům (snížené nad 5 cílů). Dá 4 Arcane Charges.", cz:"Silný proc (Apex talent) – sešli ho, když je připravený."},
+  "Touch of the Magi":{cost:"5 % základní many", range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 45 s", desc:"Označí cíl: 12 s sbírá 20 % poškození, které mu způsobíš, a pak vybuchne. Dá 4 Arcane Charges.", cz:"Burst okno – během něj dávej co nejvíc poškození."},
+  "Arcane Surge":{cast:"sesílání 2,5 s", cd:"cooldown 1,5 min", desc:"Spotřebuje všechnu manu a zasáhne cíl a okolí. Poté 15 s zvyšuje regeneraci many o 425 % a poškození kouzel o 35 %. Dá Clearcasting.", cz:"Hlavní cooldown – začíná s ním opener."},
+  "Evocation":{cast:"Kanálované (3 s)", cd:"cooldown 45 s", desc:"Na 3 s zvýší regeneraci many o 1500 %.", cz:"Doplnění many, když dojde."},
+  "Prismatic Barrier":{cost:"3 % základní many", cast:"Okamžité", cd:"cooldown 30 s", desc:"Štít, který na 1 min pohlcuje poškození a snižuje magické poškození o 15 %. Škodlivé magické efekty trvají o 25 % kratší dobu.", cz:"Nejsilnější mágův štít – drž ho nahozený."},
+  "Arcane Explosion":{cost:"10 % základní many", range:"okruh 10 yd", cast:"Okamžité", desc:"Výbuch magie kolem tebe zasáhne nepřátele do 10 yd. Dá 1 Arcane Charge, pokud něco zasáhne.", cz:"Okamžité AoE kolem tebe – hlavně na levelování."},
+  "Clearcasting":{kind:"Proc", desc:"Arkánní kouzla mají 12% šanci zpřístupnit Arcane Missiles nebo zdarma Arcane Explosion.", cz:"Když svítí, použij Arcane Missiles."},
+  "Arcane Salvo":{kind:"Talent", desc:"Každá vlna Arcane Missiles zvyšuje poškození Arcane Barrage o 3 %, až o 60 %.", cz:"Sbírá se z Missiles, vybíjí se Barrage."},
+  "Arcane Charges":{kind:"Zdroj", desc:"Zvyšují poškození Arcane Blast, Missiles, Explosion a Barrage a cenu many Arcane Blast. Spotřebuje je Arcane Barrage.", cz:"Tvůj hlavní zdroj – max 4. Stavíš je a vybíjíš."},
+  /* FIRE */
+  "Fireball":{cost:"1 % základní many", range:"dosah 40 yd", cast:"sesílání 1,75 s", desc:"Vrhne ohnivou kouli, která způsobí Fire poškození.", cz:"Filler – sesílej, když nemáš Hot Streak."},
+  "Pyroblast":{cost:"1,5 % základní many", range:"dosah 40 yd", cast:"sesílání 4 s (s Hot Streak okamžité)", desc:"Vrhne obrovský ohnivý balvan a způsobí velké Fire poškození plus další poškození během 6 s.", cz:"Hlavní spender – sesílej okamžitě s Hot Streak."},
+  "Fire Blast":{cost:"1 % základní many", range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 14 s", desc:"Výbuch, který vždy kriticky zasáhne. Jde použít i během sesílání jiného kouzla.", cz:"Přemění Heating Up na Hot Streak – vždy kritne."},
+  "Combustion":{cost:"10 % základní many", cast:"Okamžité", cd:"cooldown 2 min", desc:"Na 10 s tě zahalí plameny: šance na kritický zásah +100 % a Mastery zvýšena o 75 % šance na krit. Jde použít i během sesílání.", cz:"Hlavní burst – všechno kritne, sypeš Pyroblasty."},
+  "Flamestrike":{cost:"1,5 % základní many", range:"dosah 40 yd", cast:"sesílání 3,5 s (s Hot Streak okamžité)", desc:"Sešle sloup ohně na oblast a nechá hořící zem, která 6 s pálí nepřátele. Snížené poškození nad 8 cílů.", cz:"AoE verze Pyroblastu – na 3+ nepřátele s Hot Streak."},
+  "Scorch":{cost:"1 % základní many", range:"dosah 40 yd", cast:"sesílání 1,5 s", desc:"Spálí nepřítele. Na cíl pod 30 % života vždy kritne. Jde sesílat v pohybu.", cz:"Kouzlo do pohybu a na konec boje (execute)."},
+  "Meteor":{cost:"1 % základní many", range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 45 s", desc:"Přivolá meteor, který po 3 s dopadne na místo, poškodí všechny nepřátele a 4 s pálí zem.", cz:"Silné AoE na cooldown."},
+  "Blazing Barrier":{cost:"3 % základní many", cast:"Okamžité", cd:"cooldown 30 s", desc:"Ohnivý štít, který 1 min pohlcuje poškození. Útočníci zblízka utrpí Fire poškození.", cz:"Štít Fire mága – nahazuj pořád."},
+  "Heating Up":{kind:"Proc", desc:"Kritický zásah kouzlem. Druhý kritický zásah po sobě udělá z dalšího Pyroblastu nebo Flamestriku okamžité kouzlo.", cz:"Máš 1 krit – Fire Blastem z něj udělej Hot Streak."},
+  "Hot Streak":{kind:"Proc", desc:"Dva kritické zásahy ohnivými kouzly po sobě: další Pyroblast nebo Flamestrike je okamžitý a dává víc poškození přes Ignite.", cz:"Okamžitý Pyroblast (nebo Flamestrike na AoE)."},
+  /* BM HUNTER */
+  "Barbed Shot":{range:"dosah 40 yd", cast:"Okamžité", cd:"obnova 18 s · 2 nabití", desc:"Výstřel, který 12 s způsobuje krvácení. Během 8 s vygeneruje 20 Focus.", cz:"Udržuje Frenzy na petovi a dává Focus. Nenech nabití přetéct."},
+  "Bestial Wrath":{range:"dosah 100 yd", cast:"Okamžité", cd:"cooldown 1,5 min", desc:"Pošle tebe i peta do zuřivosti: okamžité poškození a na 15 s o 20 % vyšší poškození. Zruší ovládání (CC) na petovi.", cz:"Hlavní cooldown – používej na cooldown."},
+  "Kill Command":{cost:"30 Focus", range:"dosah 50 yd", cast:"Okamžité", cd:"cooldown 7,5 s", desc:"Pet zaútočí na cíl a způsobí velké fyzické poškození.", cz:"Hlavní útok peta – na cooldown, hlavně s buffy."},
+  "Cobra Shot":{cost:"35 Focus", range:"dosah 40 yd", cast:"Okamžité", desc:"Rychlý výstřel. Zkrátí cooldown Kill Command o 1 s.", cz:"Filler na utrácení Focus."},
+  "Wild Thrash":{cost:"35 Focus", range:"dosah 50 yd", cast:"Okamžité", cd:"cooldown 8 s", desc:"Pet mlátí všechny nepřátele do 10 yd. Na 2+ nepřátele o 300 % silnější.", cz:"AoE – spouští Beast Cleave."},
+  "Hunter's Mark":{range:"dosah 100 yd", cast:"Okamžité", desc:"Označí cíl, který pak vždy vidíš. Cíl dostává o 3 % víc poškození.", cz:"Dej na bosse před bojem."},
+  "Aspect of the Turtle":{cast:"Okamžité", cd:"cooldown 3 min", desc:"Na 8 s se ti všechna kouzla a útoky vyhnou a přijaté poškození je o 30 % nižší, ale nemůžeš útočit.", cz:"Hunterův „Ice Block“ – záchrana života."},
+  "Counter Shot":{range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 24 s", desc:"Přeruší sesílání a na 5 s zakáže kouzla stejné školy.", cz:"Interrupt."},
+  "Binding Shot":{range:"dosah 30 yd", cast:"Okamžité", cd:"cooldown 45 s", desc:"Připoutá nepřátele do 5 yd. Když se vzdálí o víc než 5 yd, jsou na 3 s omráčeni.", cz:"AoE kontrola – zastaví utíkající nepřátele."},
+  "Frenzy":{kind:"Buff peta", desc:"Zvyšuje rychlost útoků tvého peta o 20 %. Udržuješ ho Barbed Shotem.", cz:"Barbed Shot ho obnovuje."},
+  "Beast Cleave":{kind:"Talent", desc:"Po Wild Thrash zasahují útoky peta 10 s i všechny okolní nepřátele za 70 % poškození.", cz:"Na AoE ho drž aktivní."},
+  /* HAVOC */
+  "Chaos Strike":{cost:"40 Fury", range:"na blízko", cast:"Okamžité", desc:"Sekne cíl a způsobí Chaos poškození. Má šanci vrátit 20 Fury. V Metamorphosis se mění na Annihilation.", cz:"Hlavní spender Fury."},
+  "Annihilation":{cost:"40 Fury", range:"na blízko", cast:"Okamžité", desc:"Silnější Chaos Strike během Metamorphosis.", cz:"Chaos Strike v démonní podobě."},
+  "Blade Dance":{cost:"35 Fury", range:"okolní nepřátelé", cast:"Okamžité", cd:"cooldown 15 s", desc:"Zasáhne okolní nepřátele fyzickým poškozením. Snížené nad 5 cílů. V Metamorphosis se mění na Death Sweep.", cz:"Na cooldown – i na jeden cíl."},
+  "Death Sweep":{cost:"35 Fury", range:"okolní nepřátelé", cast:"Okamžité", cd:"cooldown 15 s", desc:"Silnější Blade Dance během Metamorphosis.", cz:"Blade Dance v démonní podobě."},
+  "Eye Beam":{cost:"30 Fury", range:"20 yd před tebou", cast:"Kanálované (2 s)", cd:"cooldown 30 s", desc:"Paprsek zasáhne všechny nepřátele před tebou Chaos poškozením (jisté kritické zásahy s talentem). Po dokončení zvyšuje Haste.", cz:"Velký útok – otoč se k nepřátelům a nech doběhnout."},
+  "Immolation Aura":{range:"okruh 8 yd", cast:"Okamžité", cd:"cooldown 30 s", desc:"Zahalí tě plameny, které 6 s pálí okolní nepřátele a vygenerují 20 Fury.", cz:"Fury + AoE poškození."},
+  "Essence Break":{range:"10 yd před tebou", cast:"Okamžité", cd:"cooldown 40 s", desc:"Sekne nepřátele před tebou a na 4 s zesílí jejich poškození od Chaos Strike a Blade Dance.", cz:"Krátké okno – hned po něm Blade Dance a Chaos Strike."},
+  "Metamorphosis":{range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 2 min", desc:"Skočíš a dopadneš s výbuchem (omráčí nepřátele na 3 s). Na 20 s se změníš v démona: obnoví cooldown Eye Beam a Blade Dance a zesílí Chaos Strike a Blade Dance.", cz:"Hlavní cooldown – použij, když jsou Eye Beam a Blade Dance na cooldownu."},
+  "The Hunt":{range:"dosah 50 yd", cast:"sesílání 1 s", cd:"cooldown 1,5 min", desc:"Vrhneš se na cíl, zasáhneš ho velkým Chaos poškozením, na 1,5 s ho znehybníš a zraníš až 5 nepřátel v cestě.", cz:"Velký útok + přiblížení k cíli."},
+  "Felblade":{range:"dosah 15 yd", cast:"Okamžité", desc:"Skočíš k cíli, způsobíš Fire poškození a vygeneruješ 15 Fury.", cz:"Generátor Fury a přiblížení."},
+  "Blur":{cast:"Okamžité", cd:"cooldown 1 min", desc:"Na 10 s sníží všechno přijaté poškození o 25 %.", cz:"Obranný cooldown."},
+  "Disrupt":{range:"na blízko", cast:"Okamžité", cd:"cooldown 15 s", desc:"Přeruší sesílání a na 5 s zakáže kouzla stejné školy.", cz:"Interrupt – dá ti i 30 Fury."},
+  "Fel Rush":{cast:"Okamžité", cd:"cooldown 10 s", desc:"Vyrazíš dopředu a spálíš vše v cestě.", cz:"Pohyb (a filler, když nic jiného nejde)."},
+  "Vengeful Retreat":{cast:"Okamžité", cd:"cooldown 25 s", desc:"Odstraní zpomalení a odskočíš dozadu. Okolní nepřátelé utrpí poškození a jsou zpomaleni. Při zásahu vygeneruje 80 Fury během 10 s.", cz:"Fury + únik."},
+  /* PROT PALADIN */
+  "Holy Power":{kind:"Zdroj", desc:"Max 5. Generuješ ho Judgment, Blessed Hammer, Avenger's Shield a dalšími. Utrácíš Shield of the Righteous a Word of Glory.", cz:"Při 3+ utrať Shield of the Righteous."},
+  "Shield of the Righteous":{cost:"3 Holy Power", range:"na blízko", cast:"Okamžité", cd:"cooldown 1 s", desc:"Udeří štítem nepřátele před tebou a na 4,5 s zvýší tvou zbroj (víc, když máš málo životů).", cz:"Hlavní obrana – utrácej Holy Power."},
+  "Word of Glory":{cost:"3 Holy Power", range:"dosah 40 yd", cast:"Okamžité", desc:"Vyléčí spřátelený cíl. Na sebe až o 300 % silnější podle chybějícího života.", cz:"Léčení v nouzi."},
+  "Judgment":{cost:"0,6 % základní many", range:"dosah 30 yd", cast:"Okamžité", cd:"cooldown 11 s", desc:"Způsobí Holy poškození a další Holy Power schopnost zasáhne cíl silněji. Dá 1 Holy Power. Během Avenging Wrath se mění na Hammer of Wrath.", cz:"Generátor Holy Power na cooldown."},
+  "Blessed Hammer":{range:"kolem tebe", cast:"Okamžité", cd:"obnova 5 s · 3 nabití", desc:"Kladivo krouží kolem tebe, poškodí nepřátele a sníží jejich další útok na tebe. Dá 1 Holy Power.", cz:"Generátor Holy Power a filler."},
+  "Avenger's Shield":{range:"dosah 30 yd", cast:"Okamžité", cd:"cooldown 15 s", desc:"Hodíš štít, který zraní cíl a odrazí se na 2 další. Přeruší a umlčí nepřítele na 3 s a dá ti absorpční štít.", cz:"Na cooldown – zároveň interrupt na víc nepřátel."},
+  "Divine Toll":{cost:"3 % základní many", range:"dosah 30 yd", cast:"Okamžité", cd:"cooldown 1 min", desc:"Okamžitě sešle Avenger's Shield na až 5 cílů do 30 yd.", cz:"Použij při 0 Holy Power."},
+  "Consecration":{cast:"Okamžité", cd:"cooldown 9 s", desc:"Posvětí zem pod tebou. 12 s poškozuje nepřátele v oblasti a zpomaluje je o 50 %.", cz:"Filler – drž ji pod sebou."},
+  "Avenging Wrath":{cast:"Okamžité", cd:"cooldown 2 min", desc:"Na 20 s se staneš avatarem Světla: +20 % poškození, léčení a šance na krit. Judgment dává Holy Power navíc.", cz:"Hlavní cooldown na cooldown."},
+  "Ardent Defender":{cast:"Okamžité", cd:"cooldown 1,5 min", desc:"Na 12 s snižuje přijaté poškození o 30 %. Útok, který by tě zabil, tě místo toho nechá na 20 % života.", cz:"Obranný cooldown – na velké poškození."},
+  "Guardian of Ancient Kings":{range:"dosah 30 yd", cast:"Okamžité", cd:"cooldown 3 min", desc:"Na 8 s snižuje přijaté poškození o 50 %.", cz:"Největší obranný cooldown."},
+  "Rebuke":{range:"na blízko", cast:"Okamžité", cd:"cooldown 15 s", desc:"Přeruší sesílání a na 5 s zakáže kouzla stejné školy.", cz:"Interrupt."},
+  "Holy Bulwark":{range:"dosah 40 yd", cast:"Okamžité", cd:"obnova 1 min · 2 nabití", desc:"Vytvoří Svatou zbroj pro spřátelený cíl: 20 s absorpční štít (15 % max. života, roste). Poté se mění na Sacred Weapon.", cz:"Lightsmith: štít pro tebe nebo spojence."},
+  /* DESTRO */
+  "Immolate":{cost:"1,5 % základní many", range:"dosah 40 yd", cast:"sesílání 1,5 s", desc:"Zapálí nepřítele: okamžité Fire poškození a dalších 18 s hoření. Hoření generuje Soul Shard Fragments.", cz:"DoT – drž ho na cíli pořád."},
+  "Wither":{range:"dosah 40 yd", cast:"sesílání 1,5 s", desc:"Hellcaller: nahrazuje Immolate. Okamžité Shadowflame poškození a dalších 18 s. Generuje Soul Shard Fragments.", cz:"Hellcaller verze Immolate."},
+  "Chaos Bolt":{cost:"2 Soul Shards", range:"dosah 40 yd", cast:"sesílání 3 s", desc:"Ničivý výboj chaosu, který vždy kriticky zasáhne. Poškození dál roste s tvou šancí na krit.", cz:"Hlavní spender Soul Shards."},
+  "Conflagrate":{cost:"1 % základní many", range:"dosah 40 yd", cast:"Okamžité", cd:"obnova 13 s · 2 nabití", desc:"Exploze na cíli. Dá Backdraft (další Incinerate nebo Chaos Bolt se sesílá o 30 % rychleji) a 5 Soul Shard Fragments.", cz:"Shardy + Backdraft. Nenech nabití přetéct."},
+  "Incinerate":{cost:"1,5 % základní many", range:"dosah 40 yd", cast:"sesílání 2 s", desc:"Způsobí Fire poškození. Dá 2 Soul Shard Fragments (při kritu o 1 víc).", cz:"Filler – generuje Soul Shards."},
+  "Shadowburn":{cost:"1 Soul Shard", range:"dosah 40 yd", cast:"Okamžité", desc:"Zasáhne cíl Shadowflame poškozením. Jen na nepřátele pod 20 % života. Když cíl do 5 s zemře, vrátí Soul Shard.", cz:"Execute – na konec boje a do pohybu."},
+  "Soul Fire":{cost:"2 % základní many", range:"dosah 40 yd", cast:"sesílání 3 s", cd:"cooldown 45 s", desc:"Spálí duši nepřítele obrovským Fire poškozením a nahodí Immolate. Dá 1 Soul Shard.", cz:"Silné kouzlo na cooldown (když nemáš plno Shards)."},
+  "Rain of Fire":{cost:"3 Soul Shards", range:"dosah 40 yd", cast:"Okamžité", desc:"Na oblast prší pekelný oheň a 8 s poškozuje nepřátele.", cz:"AoE spender na 3+ nepřátele."},
+  "Summon Infernal":{cost:"2 % základní many", range:"dosah 30 yd", cast:"Okamžité", cd:"cooldown 2 min", desc:"Přivolá Infernala, který při dopadu omráčí nepřátele. 30 s bojuje a generuje Soul Shard Fragments.", cz:"Hlavní cooldown – s lektvary a trinkety."},
+  "Havoc":{cost:"2 % základní many", range:"dosah 40 yd", cast:"Okamžité", cd:"cooldown 30 s", desc:"Označí cíl na 15 s: tvá kouzla na jeden cíl zasáhnou i označeného nepřítele (asi za 60 %).", cz:"Cleave na 2 cíle – dej na vedlejší cíl."},
+  "Backdraft":{kind:"Talent", desc:"Conflagrate zkrátí sesílání dalšího Incinerate, Chaos Bolt nebo Soul Fire o 30 %.", cz:"Chaos Bolt s Backdraftem je rychlejší."},
+  "Unending Resolve":{cost:"2 % základní many", cast:"Okamžité", cd:"cooldown 3 min", desc:"Na 8 s sníží přijaté poškození o 25 % a dá imunitu vůči přerušení a umlčení.", cz:"Obranný cooldown."},
+  "Soul Shards":{kind:"Zdroj", desc:"Max 5. Generuješ je Incinerate, Conflagrate, Immolate a Infernalem, utrácíš Chaos Bolt, Rain of Fire a Shadowburn.", cz:"Nenech je přetéct nad 5."},
+});
+(()=>{ const re=/(\d) %/g; Object.values(SPELL_TT).forEach(t=>{ for (const k in t) if (typeof t[k]==="string") t[k]=t[k].replace(re,"$1 %"); }); })();
+
+/* ---------- společné consumables ---------- */
+const CONS = {
+  crit:{t:"Flask", n:"Flask of the Shattered Sun", id:241326, ic:"inv_12_profession_alchemy_flask_sindoreipotion_red", q:1, ilvl:295, kind:"Spotřební předmět", use:"Zvýší Critical Strike o 165 na 1 hodinu. Vydrží i po smrti.", when:"Před raidem nebo klíčem", cz:"Flask na Critical Strike."},
+  mastery:{t:"Flask", n:"Flask of the Magisters", id:241322, ic:"inv_12_profession_alchemy_flask_sindoreipotion_black", q:1, ilvl:295, kind:"Spotřební předmět", use:"Zvýší Mastery o 165 na 1 hodinu. Vydrží i po smrti.", when:"Před raidem nebo klíčem", cz:"Flask na Mastery."},
+  haste:{t:"Flask", n:"Flask of the Blood Knights", id:241324, ic:"inv_12_profession_alchemy_flask_sindoreipotion_white", q:1, ilvl:295, kind:"Spotřební předmět", use:"Zvýší Haste o 165 na 1 hodinu. Vydrží i po smrti.", when:"Před raidem nebo klíčem", cz:"Flask na Haste."},
+  feast:{t:"Jídlo", n:"Harandar Celebration", id:255846, ic:"inv_misc_1h_soup_b_01_misc_1h_soup_b_01", q:3, ilvl:24, kind:"Hostina", use:"Postaví hostinu pro všechny. Well Fed: +98 Stamina a +50 hlavního statu na 1 hodinu (jez aspoň 10 s).", when:"Před bojem", cz:"Hostina pro celou skupinu."},
+  roast:{t:"Jídlo", n:"Royal Roast", id:242275, ic:"inv_cooking_100_roastduck", q:3, ilvl:24, kind:"Jídlo", use:"Vsedě obnovuje život a manu. Well Fed: +50 hlavního statu na 1 hodinu (jez aspoň 10 s).", when:"Před bojem (osobní jídlo)", cz:"Osobní jídlo, když není hostina."},
+  oil:{t:"Weapon oil", n:"Thalassian Phoenix Oil", id:243733, ic:"inv_12_profession_enchanting_manaoil_red", q:2, ilvl:278, kind:"Nátěr na zbraň", use:"Natře zbraň a na 120 min zvýší Critical Strike a Haste.", when:"Na zbraň před raidem nebo klíčem", cz:"Pravým klikem na olej, pak na zbraň."},
+  rune:{t:"Augment rune", n:"Void-Touched Augment Rune", id:259085, ic:"inv_10_enchanting_crystal_color2", q:3, ilvl:24, kind:"Augment runa", use:"Zvýší hlavní stat o 25 na 1 hodinu.", when:"Před bojem", cz:"Malý bonus k hlavnímu statu."},
+  reck:{t:"Potion (DMG)", n:"Potion of Recklessness", id:241288, ic:"inv_12_profession_alchemy_voidpotion_red", q:1, ilvl:295, kind:"Lektvar", use:"Na 30 s +1725 nejvyššího sekundárního statu a −232 nejnižšího.", when:"S hlavním cooldownem", cz:"Jednou za boj spolu s burstem."},
+  light:{t:"Potion (DMG)", n:"Light's Potential", id:241308, ic:"inv_12_profession_alchemy_lightpotion_yellow", q:1, ilvl:295, kind:"Lektvar", use:"Na 30 s zvýší hlavní stat o 695.", when:"S hlavním cooldownem", cz:"Jednou za boj spolu s burstem."},
+  heal:{t:"Léčení", n:"Concentrated Silvermoon Health Potion", id:271883, ic:"inv_12_profession_alchemy_lightpotion_purple", q:1, ilvl:278, kind:"Lektvar", use:"Obnoví 359 499 životů.", when:"Když ti klesá život", cz:"Nouzové léčení."},
+};
+const WHM = id => `https://www.wowhead.com/spell=${id}`;
+const STD_ADDONS = [["Details!","Měření DPS – uvidíš, jak se zlepšuješ."],["BigWigs / DBM","Upozornění na mechaniky bossů."],["WeakAuras","Výrazné zobrazení proců a cooldownů (wago.io)."],["Hekili","Ukazuje, co zmáčknout. Dobré na učení."]];
+
+/* ================= ARCANE MAGE ================= */
+GUIDES["mage/arcane"] = {
+  summary:"Arcane Mage staví Arcane Charges (max 4) přes Arcane Blast a Arcane Pulse a vybíjí je Arcane Barrage. K tomu sbírá stacky Arcane Salvo z Arcane Missiles (když svítí Clearcasting). V patchi 12.1 přibyl silný proc Prismatic Bolt.",
+  strengths:["Silný burst a poškození na prioritní cíl","Nejsilnější mágův štít Prismatic Barrier","Dobrý cleave"],
+  weaknesses:["Náročná na pochopení – víc zdrojů najednou (Charges, Salvo, mana)","Velké přepracování v 12.1 – starší návody už neplatí"],
+  changes:["Touch of the Archmage nahradil Prismatic Bolt (proc z utrácení Salvo)","Arcane Pulse je teď generátor Arcane Charges","Druhý Prismatic Barrier a nová obrana Refractive Images"],
+  mechanics:[
+    {n:"Arcane Charges", ic:"spell_arcane_arcane01", u:WHM(36032), d:"Zdroj až 4 nabití. Zvyšují poškození arkánních kouzel.", t:"Stav je přes Blast/Pulse/Orb, vybíjej Barrage."},
+    {n:"Clearcasting", ic:"spell_shadow_manaburn", u:WHM(263725), d:"Proc, který zpřístupní Arcane Missiles.", t:"Když svítí, Arcane Missiles."},
+    {n:"Arcane Salvo", ic:"inv12_ability_mage_arcanesalvo", u:WHM(384452), d:"Stacky z Missiles zesilují Arcane Barrage (až 25).", t:"Barrage při hodně stacích."},
+    {n:"Prismatic Bolt", ic:null, u:WHM(1295924), d:"Silný proc, který dá 4 Arcane Charges.", t:"Když je připravený, sešli ho."},
+  ],
+  spells:[
+    {n:"Arcane Blast", ic:"spell_arcane_blast", u:WHM(30451), cat:"core", key:"1", d:"Hlavní kouzlo – dá 1 Arcane Charge."},
+    {n:"Arcane Barrage", ic:"ability_mage_arcanebarrage", u:WHM(44425), cat:"core", key:"2", d:"Vybije Charges a Salvo, vrátí manu."},
+    {n:"Arcane Missiles", ic:"spell_nature_starfall", u:WHM(5143), cat:"core", key:"3", d:"Jen s Clearcasting – přidává Arcane Salvo."},
+    {n:"Arcane Orb", ic:"spell_mage_arcaneorb", u:WHM(153626), cat:"core", key:"4", d:"Rychlé Charges, hlavně na AoE."},
+    {n:"Arcane Pulse", ic:"spell_arcane_arcanetorrent", u:WHM(1243460), cat:"core", key:"5", d:"Generátor Charges, když jich máš málo."},
+    {n:"Prismatic Bolt", ic:null, u:WHM(1295924), cat:"core", key:"1", d:"Proc – obrovské poškození a 4 Charges."},
+    {n:"Arcane Surge", ic:"ability_mage_arcanesurge", u:WHM(365350), cat:"cd", key:"Q", d:"Hlavní cooldown, začíná jím opener."},
+    {n:"Touch of the Magi", ic:"inv_ability_mage_radiantspark", u:WHM(321507), cat:"cd", key:"E", d:"Každých 45 s – sbírá poškození a vybuchne."},
+    {n:"Evocation", ic:"spell_nature_purge", u:WHM(12051), cat:"cd", key:"–", d:"Doplní manu."},
+    {n:"Time Warp", ic:"ability_mage_timewarp", u:WHM(80353), cat:"cd", key:"–", d:"Bloodlust pro skupinu."},
+    {n:"Prismatic Barrier", ic:"spell_magearmor", u:WHM(235450), cat:"def", key:"R", d:"Štít – drž ho pořád."},
+    {n:"Ice Block", ic:"spell_frost_frost", u:WHM(45438), cat:"def", key:"Shift+R", d:"Imunita v nouzi."},
+    {n:"Counterspell", ic:"spell_frost_iceshock", u:WHM(2139), cat:"util", key:"F", d:"Interrupt."},
+    {n:"Arcane Explosion", ic:"spell_nature_wispsplode", u:WHM(1449), cat:"util", key:"–", d:"AoE kolem tebe (levelování)."},
+    {n:"Blink / Shimmer", ic:"spell_arcane_massdispel", u:WHM(212653), cat:"util", key:"Mezerník", d:"Teleport vpřed."},
+    {n:"Arcane Intellect", ic:"spell_holy_magicalsentry", u:WHM(1459), cat:"buff", key:"–", d:"Buff Intellectu pro skupinu."},
+  ],
+  rotations:{
+    Spellslinger:{ opener:["Arcane Surge","Time Warp","Arcane Missiles","Arcane Barrage","Touch of the Magi (když Barrage letí)"],
+      st:["Arcane Missiles – Clearcasting a méně než 12 Salvo","Arcane Barrage – když máš Arcane Soul","Prismatic Bolt","Arcane Barrage – Clearcasting a 12+ Salvo","Arcane Barrage – 25 Salvo","Arcane Orb – při 0 Arcane Charges","Arcane Pulse – méně než 3 Charges","Arcane Blast","Arcane Barrage – když dochází mana"],
+      aoe:["Arcane Missiles – Clearcasting a méně než 12 Salvo","Arcane Barrage – Arcane Soul","Prismatic Bolt","Arcane Barrage – Clearcasting a 12+ Salvo","Arcane Orb – 0 Charges nebo víc nepřátel","Arcane Pulse – méně než 3 Charges nebo 5+ nepřátel","Arcane Blast","Arcane Barrage – když dochází mana"]},
+    Sunfury:{ opener:["Arcane Surge","Time Warp","Arcane Missiles","Arcane Barrage","Touch of the Magi (když Barrage letí)"],
+      st:["Prismatic Bolt – 13+ Salvo","Arcane Barrage – Arcane Soul","Prismatic Bolt","Arcane Orb – 0 Charges","Arcane Pulse – 0 Charges","Arcane Blast","Arcane Barrage – když dochází mana"],
+      aoe:["Prismatic Bolt","Arcane Orb","Arcane Barrage – 20 Salvo","Arcane Missiles – Clearcasting a méně než 15 Salvo","Arcane Pulse","Arcane Blast","Arcane Barrage – když dochází mana"]},
+  },
+  heroNote:{ Sunfury:"Doporučeno pro raid (cleave). Přidává Arcane Phoenix a Spellfire Spheres.", Spellslinger:"Doporučeno pro Mythic+. Silný single target i cleave přes Frost Splinters." },
+  builds:[
+    {name:"Raid (cleave) / M+", hero:"Sunfury", rec:true, str:"C4DAAAAAAAAAAAAAAAAAAAAAAMzwYZmZmFMDamxAAAwAAmZmmlllZAgYDAgNYmZYzyMmZZGjZmZmhFmZmZmBAYAAAGgZGwMAYYmZA"},
+    {name:"Single target", hero:"Sunfury", str:"C4DAAAAAAAAAAAAAAAAAAAAAAMzwYZmZmFMDamxAAAwAAmZmmlllZAgYDAgNMzMzYzyMzMLzYMmZGswMzMzMAADAAwAMzAmBADzMD"},
+    {name:"Mythic+ / raid cleave", hero:"Spellslinger", rec:true, str:"C4DAAAAAAAAAAAAAAAAAAAAAAMzwYZmZmFMDamxAAAwAAgAmZmZZZmJWAAYbwMzwmlZMjZMmZmZGWYmZmZGAgBAAYmZDAMDAGmZG"},
+    {name:"Čistý single target", hero:"Spellslinger", str:"C4DAAAAAAAAAAAAAAAAAAAAAAMzwYZmZmFMDamxAAAwAAgAmZmZZZmJWAAYDzMzM2sMzMzyMGjZmBLMzMzMDAwAAAMzsAAmBADzMD"},
+  ],
+  stats:["Intellect","Haste","Versatility","Critical Strike","Mastery"], statNote:"Haste je pro Arcane nejcennější sekundární stat. Přesnou prioritu ti dá sim na Raidbots.",
+  gear:["Vždycky nejdřív vyšší item level.","Zbraň: hůl, nebo jednoruční zbraň + off-hand s Intellectem.","Zbroj: Cloth (látka).","Enchantuj vše a dávej gemy do socketů."],
+  consumables:[CONS.mastery, CONS.feast, CONS.oil, CONS.rune, CONS.light, CONS.heal],
+  races:[{id:"mechagnome", why:"Nejvyšší DPS v raidu (Combat Analysis)."},{id:"pandaren", why:"Nejvyšší DPS v raidu – dvojnásobné jídlo."},{id:"dwarf", why:"Nejlepší pro Mythic+ díky Stoneform."}],
+  mplus:["Arcane Orb a Arcane Pulse na balíky nepřátel.","Touch of the Magi a Arcane Surge si šetři na velké packy nebo bosse.","Counterspell na nebezpečná kouzla.","Prismatic Barrier před velkým poškozením."],
+  solo:["Na levelování stačí Arcane Explosion + Arcane Barrage na skupinky.","Hlídej manu – Arcane Barrage ji vrací, Evocation ji doplní."],
+  pvp:["Arcane má silný burst – Arcane Surge + Touch of the Magi.","Prismatic Barrier a Ice Block na přežití.","Podrobnosti v PvP guidu na Icy Veins."],
+  mistakes:["Arcane Blast při nízké maně – dojde ti mana.","Ignorovaný Clearcasting.","Prismatic Bolt nesesílaný, když je připravený.","Bez Prismatic Barrier."],
+  addons:STD_ADDONS,
+  sources:[["Wowhead – rotace Arcane","https://www.wowhead.com/guide/classes/mage/arcane/rotation-cooldowns-pve-dps"],["Method – talenty","https://www.method.gg/guides/arcane-mage/talents"],["Method – staty, rasy, consumables","https://www.method.gg/guides/arcane-mage/stats-races-and-consumables"],["Method – přehled","https://www.method.gg/guides/arcane-mage"]],
+};
+
+/* ================= FIRE MAGE ================= */
+GUIDES["mage/fire"] = {
+  summary:"Fire Mage sbírá kritické zásahy. Jeden krit dá Heating Up, Fire Blast (vždy kritne) z něj udělá Hot Streak a ten umožní okamžitý Pyroblast. Combustion na 10 s zaručí, že všechno kritne – to je hlavní burst.",
+  strengths:["Obrovský burst přes Combustion","V 12.1 velké buffy (+6 % poškození, Pyroblast a Flamestrike +15 %)","Hodně okamžitých kouzel"],
+  weaknesses:["Rychlé reakce na procy – náročnější pro nováčky","Méně obranných a pohybových kouzel než dřív"],
+  changes:["Kindling teď zkracuje Combustion o pevných 60 s","Phoenix Flames, Shifting Power, Blast Wave a Mass Barrier odstraněny","Flamestrike se míří jako u warlocka"],
+  mechanics:[
+    {n:"Heating Up", ic:"ability_mage_hotstreak", u:WHM(48107), d:"Jeden kritický zásah – jsi v půlce cesty k Hot Streak.", t:"Fire Blast z něj udělá Hot Streak."},
+    {n:"Hot Streak", ic:"ability_ironmaidens_grapeshotblast", u:WHM(48108), d:"Dva krity po sobě – další Pyroblast nebo Flamestrike je okamžitý.", t:"Okamžitě Pyroblast (AoE: Flamestrike)."},
+  ],
+  spells:[
+    {n:"Fireball", ic:"spell_fire_flamebolt", u:WHM(133), cat:"core", key:"1", d:"Filler."},
+    {n:"Pyroblast", ic:"spell_fire_fireball02", u:WHM(11366), cat:"core", key:"2", d:"S Hot Streak okamžitý."},
+    {n:"Fire Blast", ic:"spell_fire_fireball", u:WHM(108853), cat:"core", key:"3", d:"Vždy kritne, jde i během sesílání."},
+    {n:"Flamestrike", ic:"spell_fire_selfdestruct", u:WHM(2120), cat:"core", key:"4", d:"AoE verze Pyroblastu."},
+    {n:"Scorch", ic:"spell_fire_soulburn", u:WHM(2948), cat:"core", key:"5", d:"V pohybu a pod 30 % života cíle."},
+    {n:"Combustion", ic:"spell_fire_sealoffire", u:WHM(190319), cat:"cd", key:"Q", d:"Hlavní burst – všechno kritne."},
+    {n:"Meteor", ic:"spell_mage_meteor", u:WHM(153561), cat:"cd", key:"E", d:"AoE na cooldown."},
+    {n:"Time Warp", ic:"ability_mage_timewarp", u:WHM(80353), cat:"cd", key:"–", d:"Bloodlust pro skupinu."},
+    {n:"Blazing Barrier", ic:"ability_mage_moltenarmor", u:WHM(235313), cat:"def", key:"R", d:"Štít."},
+    {n:"Ice Block", ic:"spell_frost_frost", u:WHM(45438), cat:"def", key:"Shift+R", d:"Imunita v nouzi."},
+    {n:"Counterspell", ic:"spell_frost_iceshock", u:WHM(2139), cat:"util", key:"F", d:"Interrupt."},
+    {n:"Dragon's Breath", ic:"inv_misc_head_dragon_01", u:WHM(31661), cat:"util", key:"–", d:"Dezorientace a krit pro Hot Streak."},
+    {n:"Blink / Shimmer", ic:"spell_arcane_massdispel", u:WHM(212653), cat:"util", key:"Mezerník", d:"Teleport vpřed."},
+    {n:"Arcane Intellect", ic:"spell_holy_magicalsentry", u:WHM(1459), cat:"buff", key:"–", d:"Buff Intellectu pro skupinu."},
+  ],
+  rotations:{
+    Sunfury:{ opener:["Pyroblast (před bojem)","Fireball","Fire Blast (během sesílání)","Pyroblast (Hot Streak)","Pyroblast (Hot Streak)"],
+      st:["Combustion – když je připravený","Pyroblast – s Hot Streak","Fire Blast – s Heating Up","Fireball"],
+      aoe:["Combustion – když je připravený","Flamestrike – s Hot Streak (3+ nepřátel)","Fire Blast – s Heating Up","Fireball"]},
+  },
+  heroNote:{ Sunfury:"Doporučeno pro raid i Mythic+ v Season 2.", Frostfire:"Aktuálně slabší (Method ho v Season 2 nedoporučuje), i když má dobré AoE." },
+  builds:[
+    {name:"Season 2 set bonus", hero:"Sunfury", rec:true, str:"C8DAAAAAAAAAAAAAAAAAAAAAAYGGLzMzswMzIzMGAAAGAwMz0sstMDAwmZmx2MzMzYBAAAAALmZmZAAgZMmZmZMzsMAMzQGjBMDjB"},
+    {name:"Season 1 set bonus", hero:"Sunfury", str:"C8DAAAAAAAAAAAAAAAAAAAAAAYGGLzMzswMzIzMGAAAGAwMz0sstMDAwmZmx2YmZGLAAAAAYxMzMDAAMmxMmZmZmFAMzQGjxgZYMA"},
+  ],
+  stats:["Intellect","Haste","Versatility","Mastery","Critical Strike"], statNote:"Haste je nejdůležitější sekundární stat (rychlejší sesílání, kratší cooldowny).",
+  gear:["Vždycky nejdřív vyšší item level.","Zbraň: hůl, nebo jednoruční zbraň + off-hand s Intellectem.","Zbroj: Cloth (látka).","Enchantuj vše a dávej gemy do socketů."],
+  consumables:[CONS.haste, CONS.feast, CONS.oil, CONS.rune, CONS.light, CONS.heal],
+  races:[{id:"tauren", why:"Nejlepší (Horda) – Brawn zvyšuje kritické poškození."},{id:"dwarf", why:"Nejlepší (Aliance) – Might of the Mountain + Stoneform."},{id:"troll", why:"Alternativa – Berserking do Combustion."},{id:"orc", why:"Alternativa – Blood Fury do Combustion."}],
+  mplus:["Flamestrike s Hot Streak na balíky.","Combustion na velké packy a bosse.","Meteor na cooldown na skupinu."],
+  solo:["Pyroblast s Hot Streak zabije většinu nepřátel.","Scorch na dorážení a v pohybu."],
+  pvp:["Combustion + okamžité Pyroblasty = obrovský burst.","Dragon's Breath na kontrolu."],
+  mistakes:["Pyroblast sesílaný bez Hot Streak (4 s cast).","Fire Blast bez Heating Up – plýtvání.","Combustion mimo velké packy."],
+  addons:STD_ADDONS,
+  sources:[["Wowhead – rotace Fire","https://www.wowhead.com/guide/classes/mage/fire/rotation-cooldowns-pve-dps"],["Method – talenty","https://www.method.gg/guides/fire-mage/talents"],["Method – staty, rasy, consumables","https://www.method.gg/guides/fire-mage/stats-races-and-consumables"],["Method – přehled","https://www.method.gg/guides/fire-mage"]],
+};
+
+/* ================= BEAST MASTERY HUNTER ================= */
+GUIDES["hunter/beast-mastery"] = {
+  summary:"Beast Mastery Hunter bojuje s petem a všechna kouzla sesílá za pohybu. Barbed Shot udržuje Frenzy a dává Focus, Kill Command je hlavní útok peta, Cobra Shot utrácí Focus a Bestial Wrath je hlavní cooldown.",
+  strengths:["Všechno sesíláš za pohybu","Silné samostatné hraní díky petovi","Spousta užitečných kouzel (Binding Shot, Aspect of the Turtle)"],
+  weaknesses:["Závisí na petovi – když se zasekne, ztrácíš poškození","Přepínání cílů trvá, než pet doběhne"],
+  changes:["Oslabené talenty Cobra Shot, odstraněn Wild Instincts","Beast Cleave posílen","Heart of the Pack přepracován na Razor Sharp"],
+  mechanics:[
+    {n:"Frenzy", ic:"ability_druid_kingofthejungle", u:WHM(272790), d:"Buff peta – rychlejší útoky.", t:"Udržuj ho Barbed Shotem."},
+    {n:"Beast Cleave", ic:"ability_hunter_sickem", u:WHM(115939), d:"Po Wild Thrash útoky peta zasahují i okolní nepřátele.", t:"Na AoE drž aktivní."},
+  ],
+  spells:[
+    {n:"Barbed Shot", ic:"ability_hunter_barbedshot", u:WHM(217200), cat:"core", key:"1", d:"Frenzy + Focus. Nenech přetéct 2 nabití."},
+    {n:"Kill Command", ic:"ability_hunter_killcommand", u:WHM(34026), cat:"core", key:"2", d:"Hlavní útok peta."},
+    {n:"Cobra Shot", ic:"ability_hunter_cobrashot", u:WHM(193455), cat:"core", key:"3", d:"Filler na Focus."},
+    {n:"Wild Thrash", ic:"ability_hunter_sickem", u:WHM(1264359), cat:"core", key:"4", d:"AoE – spouští Beast Cleave."},
+    {n:"Bestial Wrath", ic:"ability_druid_ferociousbite", u:WHM(19574), cat:"cd", key:"Q", d:"Hlavní cooldown."},
+    {n:"Hunter's Mark", ic:"ability_hunter_markedfordeath", u:WHM(259558), cat:"cd", key:"–", d:"Na bosse před bojem."},
+    {n:"Aspect of the Turtle", ic:"ability_hunter_pet_turtle", u:WHM(186265), cat:"def", key:"Shift+R", d:"Záchrana života."},
+    {n:"Counter Shot", ic:"inv_ammo_arrow_03", u:WHM(147362), cat:"util", key:"F", d:"Interrupt."},
+    {n:"Binding Shot", ic:"spell_shaman_bindelemental", u:WHM(109248), cat:"util", key:"–", d:"AoE kontrola."},
+  ],
+  rotations:{
+    "Pack Leader":{ opener:["Hunter's Mark","Barbed Shot","Barbed Shot","Bestial Wrath","Kill Command","Cobra Shot"],
+      st:["Barbed Shot – Bestial Wrath bude do 3 s, nebo máš 2 nabití","Bestial Wrath","Kill Command – s Howl of the Pack Leader nebo Nature's Ally","Cobra Shot – s Cobra Fang","Barbed Shot","Cobra Shot"],
+      aoe:["Barbed Shot – Bestial Wrath bude do 3 s, nebo máš 2 nabití","Bestial Wrath","Wild Thrash – když neběží Beast Cleave","Kill Command – s buffem","Barbed Shot","Wild Thrash","Cobra Shot"]},
+    "Dark Ranger":{ opener:["Black Arrow","Barbed Shot","Barbed Shot","Bestial Wrath","Kill Command"],
+      st:["Barbed Shot – před Bestial Wrath","Bestial Wrath","Kill Command – s Nature's Ally","Black Arrow","Barbed Shot","Wailing Arrow","Cobra Shot"],
+      aoe:["Barbed Shot – před Bestial Wrath","Bestial Wrath","Wild Thrash – drž Beast Cleave","Black Arrow (na víc cílů)","Kill Command","Barbed Shot","Cobra Shot"]},
+  },
+  rotNote:"AoE pořadí je zjednodušené z Wowhead guidu (Wild Thrash + držet Beast Cleave).",
+  heroNote:{ "Pack Leader":"Doporučeno pro raid i Mythic+ v 12.1.", "Dark Ranger":"Alternativa – Black Arrow a Wailing Arrow." },
+  builds:[
+    {name:"Single target / raid", hero:"Pack Leader", rec:true, str:"C0PAAAAAAAAAAAAAAAAAAAAAAAMmxwCsAzwQDbAAYGGzsMzwMmZYYmxYmxMzYmZGmxYGzgx0MAAAAgZAAAYMzMDYmNCDzCYbAYA"},
+    {name:"AoE / Mythic+", hero:"Pack Leader", rec:true, str:"C0PAAAAAAAAAAAAAAAAAAAAAAAMmxwCsBzwQDbAAYGPwMzsMzwMzMjZGMzYmhZGzMzYbmZYMDLDNDAAAAAAAAmHYMzAmZjAmFw2AwA"},
+    {name:"Single target / raid", hero:"Dark Ranger", str:"C0PAAAAAAAAAAAAAAAAAAAAAAYzsNwAGwMsBZsAAgZMjZWMDzYmxMMzYYGzMjZMDzMjZMDGaGAAAAwMAAAMzMzgZGQYYWAbDAD"},
+    {name:"AoE / Mythic+", hero:"Dark Ranger", str:"C0PAAAAAAAAAAAAAAAAAAAAAAYzsNwAGwMsBZsAAgZGzMziZYGmxMjZmZYGzMjZmZsNzMMmhlhmBAAAAMDAAAzDMmZYmBEwsA2GAA"},
+  ],
+  stats:["Agility","Mastery","Haste","Critical Strike","Versatility"], statNote:"Nad vším je poškození zbraně (Weapon Damage). Na AoE je Crit cennější než Haste.",
+  gear:["Vždycky nejdřív vyšší item level.","Zbraň: luk, puška nebo kuše s co nejvyšším poškozením.","Zbroj: Mail.","Enchantuj vše a dávej gemy do socketů."],
+  consumables:[CONS.crit, CONS.feast, CONS.oil, CONS.rune, CONS.reck, CONS.heal],
+  races:[{id:"dwarf", why:"Aliance – vyšší kritické poškození a Stoneform."},{id:"tauren", why:"Horda – vyšší kritické poškození a War Stomp."},{id:"pandaren", why:"Obě frakce – dvojnásobné jídlo."},{id:"orc", why:"Horda – silnější pet a Blood Fury."},{id:"nightelf", why:"Aliance – Shadowmeld a bonus Haste/Crit."}],
+  mplus:["Wild Thrash na každý pack – drž Beast Cleave.","Binding Shot na utíkající nepřátele.","Counter Shot na nebezpečná kouzla.","Pet tankuje v solo obsahu, ve skupině dej petovi Passive/Assist."],
+  solo:["Pet tankuje – ty střílíš a hýbeš se.","Mend Pet a Exhilaration ti pomůžou přežít."],
+  pvp:["Binding Shot a Intimidation na kontrolu.","Aspect of the Turtle na přežití burstu."],
+  mistakes:["Barbed Shot přetéká na 2 nabitích.","Kill Command není na cooldown.","Pet zaseknutý někde vzadu.","Stojíš na místě – BM všechno střílí v pohybu."],
+  addons:STD_ADDONS,
+  sources:[["Wowhead – rotace BM","https://www.wowhead.com/guide/classes/hunter/beast-mastery/rotation-cooldowns-pve-dps"],["Method – talenty","https://www.method.gg/guides/beast-mastery-hunter/talents"],["Method – staty, rasy, consumables","https://www.method.gg/guides/beast-mastery-hunter/stats-races-and-consumables"],["Method – přehled","https://www.method.gg/guides/beast-mastery-hunter"]],
+};
+
+/* ================= HAVOC DEMON HUNTER ================= */
+GUIDES["demonhunter/havoc"] = {
+  summary:"Havoc Demon Hunter je extrémně mobilní melee. Generuješ Fury (Felblade, Immolation Aura, Vengeful Retreat), utrácíš ho Chaos Strikem a Blade Dance. Eye Beam a Metamorphosis jsou hlavní burst.",
+  strengths:["Nejlepší mobilita ve hře – dvojitý skok, Fel Rush","Silné samoléčení přes Leech – skvělé na solo","Chaos Brand pro raid"],
+  weaknesses:["Melee specy jsou teď ve skupinovém obsahu méně žádané","AoE build ubírá single target"],
+  changes:["Dash of Chaos nahrazen Never Say Die","Trail of Ruin dává okamžité poškození","Buffy Blade Dance, Chaos Strike (+6 %) a The Hunt (+12 %)"],
+  mechanics:[
+    {n:"Metamorphosis", ic:"ability_demonhunter_metamorphasisdps", u:WHM(191427), d:"Démonní podoba – obnoví Eye Beam a Blade Dance, zesílí útoky.", t:"Použij, když jsou Eye Beam a Blade Dance na cooldownu."},
+    {n:"Essence Break", ic:"spell_shadow_ritualofsacrifice", u:WHM(258860), d:"4s okno, kdy Chaos Strike a Blade Dance dávají víc.", t:"Hned po něm Blade Dance a Chaos Strike."},
+  ],
+  spells:[
+    {n:"Chaos Strike", ic:"ability_demonhunter_chaosstrike", u:WHM(162794), cat:"core", key:"1", d:"Spender Fury (v Meta: Annihilation)."},
+    {n:"Blade Dance", ic:"ability_demonhunter_bladedance", u:WHM(188499), cat:"core", key:"2", d:"Na cooldown (v Meta: Death Sweep)."},
+    {n:"Eye Beam", ic:"ability_demonhunter_eyebeam", u:WHM(198013), cat:"core", key:"3", d:"Velký paprsek – nech doběhnout."},
+    {n:"Immolation Aura", ic:"ability_demonhunter_immolation", u:WHM(258920), cat:"core", key:"4", d:"Fury + AoE."},
+    {n:"Felblade", ic:"ability_demonhunter_felblade", u:WHM(213241), cat:"core", key:"5", d:"Fury + skok k cíli."},
+    {n:"Essence Break", ic:"spell_shadow_ritualofsacrifice", u:WHM(258860), cat:"cd", key:"E", d:"Krátké okno zesílení."},
+    {n:"Metamorphosis", ic:"ability_demonhunter_metamorphasisdps", u:WHM(191427), cat:"cd", key:"Q", d:"Hlavní cooldown."},
+    {n:"The Hunt", ic:"inv_ability_demonhunter_thehunt", u:WHM(370965), cat:"cd", key:"T", d:"Velký útok + přiblížení."},
+    {n:"Blur", ic:"ability_demonhunter_blur", u:WHM(198589), cat:"def", key:"R", d:"−25 % poškození na 10 s."},
+    {n:"Disrupt", ic:"ability_demonhunter_consumemagic", u:WHM(183752), cat:"util", key:"F", d:"Interrupt + 30 Fury."},
+    {n:"Fel Rush", ic:"ability_demonhunter_felrush", u:WHM(195072), cat:"util", key:"Mezerník", d:"Pohyb vpřed."},
+    {n:"Vengeful Retreat", ic:"ability_demonhunter_vengefulretreat2", u:WHM(198793), cat:"util", key:"V", d:"Odskok dozadu + Fury."},
+  ],
+  rotations:{
+    "Fel-Scarred":{ opener:["Felblade","Eye Beam","The Hunt","Essence Break","Death Sweep","Death Sweep","Annihilation"],
+      st:["Metamorphosis – když jsou Eye Beam a Blade Dance na cooldownu","The Hunt – když Eye Beam bude do 10 s","Death Sweep / Annihilation – s Demonsurge","Eye Beam","Essence Break","Blade Dance","Felblade – do 100 Fury","Chaos Strike","Fel Rush (když nic jiného nejde)"],
+      aoe:["Metamorphosis – když jsou Eye Beam a Blade Dance na cooldownu","The Hunt","Death Sweep / Annihilation – s Demonsurge","Eye Beam","Essence Break","Immolation Aura","Blade Dance","Felblade","Chaos Strike"]},
+    "Aldrachi Reaver":{ opener:["Immolation Aura (2 s před bojem)","The Hunt","Reaver's Glaive","Eye Beam","Essence Break","Death Sweep ×2"],
+      st:["The Hunt – bez Reaver's Glaive","Metamorphosis","Reaver's Glaive","Annihilation – s Rending Strike","Eye Beam","Essence Break","Death Sweep","Blade Dance","Chaos Strike","Felblade","Immolation Aura"],
+      aoe:["Stejné jako single target, ale Rending Strike (Annihilation) dej před Blade Dance"]},
+  },
+  heroNote:{ "Fel-Scarred":"Doporučeno pro raid i Mythic+ – silnější burst a cleave.", "Aldrachi Reaver":"Alternativa – Reaver's Glaive a Rending Strike." },
+  builds:[
+    {name:"Single target", hero:"Fel-Scarred", rec:true, str:"CEkAAAAAAAAAAAAAAAAAAAAAAYAzMz2MmZmxMzkxMDAAAAAAY2MmtZYmBmxyMzYZm5BmZWmZWGjB2mFzYY200wMjhNAAAAAAAAmZwAAAAwA"},
+    {name:"Raid cleave", hero:"Fel-Scarred", str:"CEkAAAAAAAAAAAAAAAAAAAAAAYmZGzMz2MmZmxMzkxMDAAAAAAY2MmtZYmBPwMWmZegZYmxYWGYbWMjhZTTjZmxwGAAAAAAAAzMYAAAAYA"},
+    {name:"Mythic+", hero:"Fel-Scarred", rec:true, str:"CEkAAAAAAAAAAAAAAAAAAAAAAYmZGzMz2MmZmxMzkxMDAAAAAAY2MmtZYmBmxyMzDMDzMGzyAbziZMMbaaMzMG2AAAAGAAAAzMYAAAAYA"},
+    {name:"Raid", hero:"Aldrachi Reaver", str:"CEkAAAAAAAAAAAAAAAAAAAAAAYgZmZ2mxMzMmZmMmZAAAAAAAzmxsNDzMz2MzYZmxMWmZYmlZ2mBDjlNmkxMjhFAAAAAAAwMDwAAAAwA"},
+    {name:"Mythic+", hero:"Aldrachi Reaver", str:"CEkAAAAAAAAAAAAAAAAAAAAAAYGMzMz2MmZmxMzkxMDAAAAAAY2MmtZYmZ2mZGLzMmhZGmZZmtZwwYbjJZMzYYBAAAAAAAMzAMAAAAM"},
+  ],
+  stats:["Agility","Critical Strike","Mastery","Haste","Versatility"], statNote:"Critical Strike nejlépe ladí s mechanikami Havocu.",
+  gear:["Vždycky nejdřív vyšší item level.","Zbraně: dvě warglaives (nebo jednoruční meče, sekery, pěstní zbraně) s Agility.","Zbroj: Leather.","Enchantuj vše a dávej gemy do socketů."],
+  consumables:[CONS.mastery, CONS.feast, CONS.oil, CONS.rune, CONS.reck, CONS.heal],
+  races:[{id:"nightelf", why:"Nejlepší pro Mythic+ – Shadowmeld."},{id:"voidelf", why:"Raid – Spatial Rift na pohyb."},{id:"bloodelf", why:"AoE purge (Arcane Torrent) – situačně."}],
+  mplus:["Eye Beam na balíky nepřátel – otoč se k nim.","Disrupt na nebezpečná kouzla (a +30 Fury).","Fel Rush a Vengeful Retreat na mechaniky.","Blur před velkým poškozením."],
+  solo:["Leech tě léčí – Havoc je na solo obsah skvělý.","Fel Rush + dvojitý skok = rychlý pohyb mapou."],
+  pvp:["Obrovská mobilita – Fel Rush, Vengeful Retreat.","Metamorphosis jako burst i obrana (omráčení)."],
+  mistakes:["Fury přetéká přes 100.","Eye Beam do prázdna nebo přerušený pohybem.","Metamorphosis, když jsou Eye Beam a Blade Dance připravené (ztratíš reset)."],
+  addons:STD_ADDONS,
+  sources:[["Wowhead – rotace Havoc","https://www.wowhead.com/guide/classes/demon-hunter/havoc/rotation-cooldowns-pve-dps"],["Method – talenty","https://www.method.gg/guides/havoc-demon-hunter/talents"],["Method – staty, rasy, consumables","https://www.method.gg/guides/havoc-demon-hunter/stats-races-and-consumables"],["Method – přehled","https://www.method.gg/guides/havoc-demon-hunter"]],
+};
+
+/* ================= PROTECTION PALADIN ================= */
+GUIDES["paladin/protection"] = {
+  summary:"Protection Paladin je nejsnazší tank na naučení: generuj Holy Power (Judgment, Blessed Hammer, Avenger's Shield) a utrácej ho Shield of the Righteous (obrana) nebo Word of Glory (léčení). Rotace na AoE se nemění.",
+  strengths:["Snadné naučení, škáluje do nejvyšších klíčů","Hodně užitečných kouzel pro skupinu","Silné samoléčení přes Word of Glory"],
+  weaknesses:["Consecration už nedává obranu","Méně cooldownů (odstraněny Eye of Tyr a Moment of Glory)"],
+  changes:["Hammer of Wrath je teď Judgment během Avenging Wrath","Mastery funguje pořád (spell block)","Kratší cooldowny Ardent Defender a Guardian of Ancient Kings"],
+  mechanics:[
+    {n:"Holy Power", ic:"spell_holy_righteousfury", u:WHM(275779), d:"Zdroj až 5. Generuješ ho Judgment, Blessed Hammer a dalšími.", t:"Při 3+ utrať Shield of the Righteous."},
+    {n:"Shield of the Righteous", ic:"ability_paladin_shieldofvengeance", u:WHM(53600), d:"Hlavní aktivní obrana – zvyšuje zbroj.", t:"Udržuj ho skoro pořád aktivní."},
+  ],
+  spells:[
+    {n:"Shield of the Righteous", ic:"ability_paladin_shieldofvengeance", u:WHM(53600), cat:"core", key:"1", d:"Obrana za 3 Holy Power."},
+    {n:"Judgment", ic:"spell_holy_righteousfury", u:WHM(275779), cat:"core", key:"2", d:"Holy Power na cooldown."},
+    {n:"Avenger's Shield", ic:"spell_holy_avengersshield", u:WHM(31935), cat:"core", key:"3", d:"Na cooldown – i interrupt."},
+    {n:"Blessed Hammer", ic:"paladin_retribution", u:WHM(204019), cat:"core", key:"4", d:"Holy Power a filler."},
+    {n:"Consecration", ic:"spell_holy_innerfire", u:WHM(26573), cat:"core", key:"5", d:"Filler pod tebou."},
+    {n:"Word of Glory", ic:"inv_helmet_96", u:WHM(85673), cat:"core", key:"E", d:"Léčení v nouzi."},
+    {n:"Avenging Wrath", ic:"spell_holy_avenginewrath", u:WHM(31884), cat:"cd", key:"Q", d:"Hlavní cooldown."},
+    {n:"Divine Toll", ic:"inv_ability_paladin_divinetoll", u:WHM(375576), cat:"cd", key:"T", d:"Při 0 Holy Power."},
+    {n:"Holy Bulwark", ic:"inv_ability_lightsmithpaladin_holybulwark", u:WHM(432459), cat:"cd", key:"G", d:"Lightsmith – štít."},
+    {n:"Ardent Defender", ic:"spell_holy_ardentdefender", u:WHM(31850), cat:"def", key:"R", d:"−30 % poškození, záchrana před smrtí."},
+    {n:"Guardian of Ancient Kings", ic:"spell_holy_heroism", u:WHM(86659), cat:"def", key:"Shift+R", d:"−50 % poškození."},
+    {n:"Rebuke", ic:"spell_holy_rebuke", u:WHM(96231), cat:"util", key:"F", d:"Interrupt."},
+  ],
+  rotations:{
+    Lightsmith:{ opener:["Avenger's Shield (pull)","Consecration","Judgment","Avenging Wrath","Shield of the Righteous"],
+      st:["Avenging Wrath – na cooldown","Sacred Weapon – mimo Avenging Wrath","Shield of the Righteous – 3–5 Holy Power","Avenger's Shield","Judgment","Divine Toll – při 0 Holy Power","Holy Bulwark – když má nabití","Blessed Hammer","Word of Glory – v nouzi","Consecration"],
+      aoe:["Stejné jako single target – rotace se na AoE nemění"]},
+    Templar:{ opener:["Avenger's Shield (pull)","Consecration","Judgment","Avenging Wrath","Shield of the Righteous"],
+      st:["Avenging Wrath – na cooldown","Judgment","Shield of the Righteous – 3–5 Holy Power","Avenger's Shield","Divine Toll – při 0 Holy Power","Blessed Hammer","Word of Glory – pod 50 % života","Consecration"],
+      aoe:["Stejné jako single target – rotace se na AoE nemění"]},
+  },
+  heroNote:{ Lightsmith:"Doporučeno pro raid i Mythic+. Holy Armaments: štít (Holy Bulwark) a zbraň (Sacred Weapon).", Templar:"Alternativa – stejné talenty fungují i s ním." },
+  builds:[
+    {name:"Mythic+", hero:"Lightsmith", rec:true, str:"CIEAAAAAAAAAAAAAAAAAAAAAAsZsNLjZMzMzMLLjxYWmlZMAADAAAAAAaamZZmxMDzMbtBgBGwAbAAAEgZmltlWmZsYbBDAYGGDAmZAwMDyYB"},
+    {name:"Raid", hero:"Lightsmith", rec:true, str:"CIEAAAAAAAAAAAAAAAAAAAAAAsNDzyMzYmZmx2yYMLzithBAYAAAAAAQamZZmxMzYMbtBgBMwMYDAAgAMzsst0yMjFbbYAwYGGAwMDAmZQGL"},
+  ],
+  stats:["Item Level","Haste","Critical Strike","Versatility","Mastery"], statNote:"Pro tanka je nejdůležitější item level. Haste = víc Holy Power a obrany.",
+  gear:["Vždycky nejdřív vyšší item level.","Zbraň: jednoruční zbraň + štít se Strength.","Zbroj: Plate.","Enchantuj vše a dávej gemy do socketů."],
+  consumables:[CONS.haste, CONS.feast, CONS.oil, CONS.rune, CONS.reck, CONS.heal],
+  races:[{id:"dwarf", why:"Stoneform – odstraní škodlivé efekty."},{id:"darkiron", why:"Fireblood – odstraní škodlivé efekty a dá stat."}],
+  mplus:["Avenger's Shield na začátek každého pullu – přeruší víc nepřátel.","Shield of the Righteous drž aktivní, hlavně při fyzickém poškození.","Ardent Defender a Guardian of Ancient Kings střídej na velké packy.","Stůj tak, aby nepřátelé byli otočení od skupiny."],
+  solo:["Word of Glory tě vyléčí – na solo obsah ideální.","Pull víc nepřátel najednou, Consecration a Avenger's Shield je zvládnou."],
+  pvp:["V PvP se tankové specy moc nehrají – pro PvP zvaž Retribution nebo Holy."],
+  mistakes:["Holy Power přetéká přes 5.","Bez Shield of the Righteous při velkém poškození.","Pozdě použité obranné cooldowny.","Nepřátelé otočení na skupinu."],
+  addons:STD_ADDONS,
+  sources:[["Wowhead – rotace Protection","https://www.wowhead.com/guide/classes/paladin/protection/rotation-cooldowns-pve-tank"],["Method – talenty","https://www.method.gg/guides/protection-paladin/talents"],["Method – staty, rasy, consumables","https://www.method.gg/guides/protection-paladin/stats-races-and-consumables"],["Method – přehled","https://www.method.gg/guides/protection-paladin"]],
+};
+
+/* ================= DESTRUCTION WARLOCK ================= */
+GUIDES["warlock/destruction"] = {
+  summary:"Destruction Warlock je builder–spender: Incinerate, Conflagrate a Immolate generují Soul Shards, Chaos Bolt (1–2 cíle) a Rain of Fire (3+ cíle) je utrácí. Summon Infernal je hlavní cooldown, Havoc přidá cleave na druhý cíl.",
+  strengths:["Obrovský Chaos Bolt","Výborný cleave na 2 cíle přes Havoc","Okamžitá kouzla do pohybu (Conflagrate, Shadowburn)"],
+  weaknesses:["Dlouhé sesílání hlavních kouzel","Hellcaller v 12.1 oslaben na víc cílů"],
+  changes:["+5 % poškození celkově, Soul Fire +45 %","Conflagrate a Shadowburn vždy kritnou","Wither se už nešíří přes Havoc, Rain of Fire negeneruje stacky"],
+  mechanics:[
+    {n:"Soul Shards", ic:null, u:"https://www.wowhead.com/search?q=Soul+Shards", d:"Zdroj až 5.", t:"Nenech je přetéct – utrať Chaos Bolt."},
+    {n:"Backdraft", ic:"ability_warlock_backdraft", u:WHM(117828), d:"Po Conflagrate se další Chaos Bolt/Incinerate sesílá o 30 % rychleji.", t:"Chaos Bolt s Backdraftem."},
+  ],
+  spells:[
+    {n:"Incinerate", ic:"spell_fire_burnout", u:WHM(29722), cat:"core", key:"1", d:"Filler – generuje Shards."},
+    {n:"Chaos Bolt", ic:"ability_warlock_chaosbolt", u:WHM(116858), cat:"core", key:"2", d:"Hlavní spender."},
+    {n:"Conflagrate", ic:"spell_fire_fireball", u:WHM(17962), cat:"core", key:"3", d:"Shards + Backdraft."},
+    {n:"Immolate", ic:"spell_fire_immolation", u:WHM(348), cat:"core", key:"4", d:"DoT – drž pořád."},
+    {n:"Rain of Fire", ic:"spell_shadow_rainoffire", u:WHM(5740), cat:"core", key:"5", d:"AoE spender na 3+."},
+    {n:"Shadowburn", ic:"spell_shadow_scourgebuild", u:WHM(17877), cat:"core", key:"E", d:"Execute pod 20 %."},
+    {n:"Soul Fire", ic:"spell_fire_firebolt", u:WHM(6353), cat:"cd", key:"T", d:"Silné kouzlo na cooldown."},
+    {n:"Summon Infernal", ic:"spell_shadow_summoninfernal", u:WHM(1122), cat:"cd", key:"Q", d:"Hlavní cooldown."},
+    {n:"Havoc", ic:"ability_warlock_baneofhavoc", u:WHM(80240), cat:"cd", key:"G", d:"Cleave na druhý cíl."},
+    {n:"Wither", ic:"inv_ability_hellcallerwarlock_wither", u:WHM(445465), cat:"core", key:"4", d:"Hellcaller – nahrazuje Immolate."},
+    {n:"Unending Resolve", ic:"spell_shadow_demonictactics", u:WHM(104773), cat:"def", key:"R", d:"−25 % poškození."},
+  ],
+  rotations:{
+    Hellcaller:{ opener:["Soul Fire (před bojem)","Summon Infernal + lektvar","Conflagrate","Chaos Bolt","Pokračuj v rotaci"],
+      st:["Wither – když na cíli chybí nebo dobíhá","Shadowburn – cíl pod 20 % / plné Shards","Chaos Bolt – abys nepřetekl Shards","Soul Fire – méně než 4 Shards","Conflagrate – aby nepřeteklo 2. nabití","Incinerate"],
+      aoe:["Wither na víc cílů","Malevolence – s Witherem na co nejvíc cílech","Rain of Fire – 3+ nepřátel","Chaos Bolt – 1–2 cíle","Conflagrate","Incinerate"]},
+  },
+    Diabolist:{ opener:["Soul Fire (před bojem)","Summon Infernal + lektvar","Conflagrate","Chaos Bolt","Pokračuj v rotaci"],
+      st:["Immolate – když na cíli chybí nebo dobíhá","Shadowburn – cíl pod 20 % / plné Shards","Chaos Bolt – abys nepřetekl Shards","Soul Fire – méně než 4 Shards","Conflagrate – aby nepřeteklo 2. nabití","Incinerate"],
+      aoe:["Immolate na cíle","Rain of Fire – 3+ nepřátel","Chaos Bolt – 1–2 cíle","Conflagrate","Incinerate"]},
+  heroNote:{ Hellcaller:"Doporučeno pro raid (Method). Wither nahrazuje Immolate.", Diabolist:"Silný na single target, v M+ obě volby fungují." },
+  builds:[
+    {name:"Single target", hero:"Hellcaller", rec:true, str:"CsQAAAAAAAAAAAAAAAAAAAAAAwMmZmpZbMMzMmtZxMzMLGjFzAAgZmxMzsZBGYWMaMDgZL2YAAgxAjNAgZGYmxMDAAAzMzAAwYYA"},
+    {name:"Cleave", hero:"Hellcaller", str:"CsQAAAAAAAAAAAAAAAAAAAAAAwMmZmpZbMMzMmtZbmZmZxYWWMDAAmxYmZ2sADMLGNmBwsFbMAAwYA2AAmZgZGzMAAAMzMDAAjhB"},
+    {name:"Mythic+", hero:"Hellcaller", rec:true, str:"CsQAAAAAAAAAAAAAAAAAAAAAAwMmZmpZbMMzMmtZbmZmZxMzyyYAAwMGzMzmFYgZxoxMAmtYjBAAGzwAAgZGwMmZ2AAAMzMDAAMM"},
+    {name:"Single target", hero:"Diabolist", str:"CsQAAAAAAAAAAAAAAAAAAAAAAwMmZmpZbMMzMmtZxMzMLGjFzAAgZmxMzsBGzYYhMw2wGNWYAAgxAjNAMzAYmxMDAAAzMzAAwYYA"},
+    {name:"AoE", hero:"Diabolist", str:"CsQAAAAAAAAAAAAAAAAAAAAAAwMmZmpZbMMzMmtZbmZmZxMzyyYAAwMGzMzGYMjhFyAbDb0YhBAAGzwAAMzAwMmZ2AAAMzMDAAMM"},
+  ],
+  stats:["Intellect","Haste","Critical Strike","Mastery","Versatility"], statNote:"Haste > Crit = Mastery >> Versatility. Haste = víc kouzel a víc Soul Shards.",
+  gear:["Vždycky nejdřív vyšší item level.","Zbraň: hůl, nebo jednoruční zbraň + off-hand s Intellectem.","Zbroj: Cloth (látka).","Enchantuj vše a dávej gemy do socketů."],
+  consumables:[CONS.haste, CONS.feast, CONS.oil, CONS.rune, CONS.light, CONS.heal],
+  races:[{id:"nightelf", why:"Shadowmeld – obranná užitečnost."},{id:"dwarf", why:"Stoneform + vyšší kritické poškození."},{id:"voidelf", why:"Spatial Rift na přesun."}],
+  mplus:["Rain of Fire na balíky 3+ nepřátel.","Havoc na druhý cíl na 2 cíle.","Healthstones pro skupinu před klíčem.","Unending Resolve na velké poškození."],
+  solo:["Pet (Imp nebo Voidwalker) tankuje.","Drain Life tě vyléčí v nouzi."],
+  pvp:["Chaos Bolt s Backdraftem je obrovský burst.","Fear a Mortal Coil na kontrolu."],
+  mistakes:["Soul Shards přetékají na 5.","Immolate (Wither) vyprší na cíli.","Conflagrate přetéká na 2 nabitích.","Rain of Fire na 1–2 cíle místo Chaos Boltu."],
+  addons:STD_ADDONS,
+  sources:[["Wowhead – rotace Destruction","https://www.wowhead.com/guide/classes/warlock/destruction/rotation-cooldowns-pve-dps"],["Method – talenty","https://www.method.gg/guides/destruction-warlock/talents"],["Method – staty, rasy, consumables","https://www.method.gg/guides/destruction-warlock/stats-races-and-consumables"],["Method – přehled","https://www.method.gg/guides/destruction-warlock"]],
+};
+
+/* doporučené rasy i pro Frost Mage (Method) */
+GUIDES["mage/frost"].races = [{id:"dwarf", why:"Stoneform – odstraní škodlivé efekty, výborný pro Mythic+."},{id:"nightelf", why:"Shadowmeld – zruší aggro a vyhne se některým mechanikám."}];
+["arcane","fire"].forEach(s => { const sp = CLASSES.find(c=>c.id==="mage").specs.find(x=>x.id===s); sp.full = true; });
+[["hunter","beast-mastery"],["demonhunter","havoc"],["paladin","protection"],["warlock","destruction"]].forEach(([c,s]) => { CLASSES.find(x=>x.id===c).specs.find(x=>x.id===s).full = true; });
+
+/* ============ TRENAŽÉRY: další specializace ============ */
+
+/* ---------- ARCANE ---------- */
+TRAINERS["mage/arcane"] = {
+  heroes:["Spellslinger","Sunfury"],
+  buttons:[
+    {s:"Arcane Blast", ic:"spell_arcane_blast", key:"1", alt:{s:"Prismatic Bolt", ic:null, when:st=>st.pb}},
+    {s:"Arcane Barrage", ic:"ability_mage_arcanebarrage", key:"2"},
+    {s:"Arcane Missiles", ic:"spell_nature_starfall", key:"3", cd:st=>st.cc?null:"bez procu"},
+    {s:"Arcane Orb", ic:"spell_mage_arcaneorb", key:"4", cd:st=>st.orb?null:st.orbCd+" s"},
+    {s:"Arcane Pulse", ic:"spell_arcane_arcanetorrent", key:"5"},
+  ],
+  gen(aoe){
+    return { charges:rnd(5), cc:chance(.4), salvo:rnd(26), soul:chance(.12), pb:chance(.25), orb:chance(.4), orbCd:3+rnd(17), manaLow:chance(.12), targets: aoe ? 3+rnd(5) : 1 };
+  },
+  hud(st){
+    return {
+      buffs:[ st.cc && {n:"Clearcasting", ic:"spell_shadow_manaburn"}, st.soul && {n:"Arcane Soul", ic:"spell_arcane_arcane01"}, st.salvo && {n:"Arcane Salvo", ic:"inv12_ability_mage_arcanesalvo", stack:st.salvo} ].filter(Boolean),
+      debuffs:[],
+      pips:{label:"Arcane Charges", n:st.charges, max:4},
+      info:[`Nepřátel: ${st.targets}`, st.manaLow ? "Mana: skoro prázdná" : "Mana: OK"],
+    };
+  },
+  rules:{
+    Spellslinger:{
+      st:[
+        {s:"Arcane Missiles", when:st=>st.cc && st.salvo<12, why:"Svítí Clearcasting a máš méně než 12 Salvo – Missiles přidají Salvo."},
+        {s:"Arcane Barrage", when:st=>st.soul, why:"Máš Arcane Soul – Barrage je teď nejsilnější."},
+        {s:"Prismatic Bolt", when:st=>st.pb, why:"Prismatic Bolt je připravený."},
+        {s:"Arcane Barrage", when:st=>st.cc && st.salvo>=12, why:"Clearcasting a 12+ Salvo – vybij Salvo Barrage."},
+        {s:"Arcane Barrage", when:st=>st.salvo>=25, why:"Máš plných 25 Salvo – vybij je."},
+        {s:"Arcane Orb", when:st=>st.orb && st.charges===0, why:"0 Arcane Charges a Orb je připravený."},
+        {s:"Arcane Barrage", when:st=>st.manaLow, why:"Dochází mana – Barrage ji vrací."},
+        {s:"Arcane Pulse", when:st=>st.charges<3, why:"Méně než 3 Charges – Pulse je rychle doplní."},
+        {s:"Arcane Blast", when:()=>true, why:"Nic lepšího – Arcane Blast."},
+      ],
+      aoe:[
+        {s:"Arcane Missiles", when:st=>st.cc && st.salvo<12, why:"Clearcasting a méně než 12 Salvo."},
+        {s:"Arcane Barrage", when:st=>st.soul, why:"Arcane Soul – Barrage."},
+        {s:"Prismatic Bolt", when:st=>st.pb, why:"Prismatic Bolt je připravený."},
+        {s:"Arcane Barrage", when:st=>st.cc && st.salvo>=12, why:"Clearcasting a 12+ Salvo."},
+        {s:"Arcane Barrage", when:st=>st.orb && st.salvo>=12 && st.targets>=5, why:"Na 5+ nepřátel vybij Salvo, když je Orb připravený."},
+        {s:"Arcane Orb", when:st=>st.orb && (st.charges===0 || st.targets>=3), why:"Orb na víc nepřátel."},
+        {s:"Arcane Barrage", when:st=>st.manaLow, why:"Dochází mana – Barrage ji vrací."},
+        {s:"Arcane Pulse", when:st=>st.charges<3 || st.targets>=5, why:"Málo Charges nebo hodně nepřátel – Pulse."},
+        {s:"Arcane Blast", when:()=>true, why:"Nic lepšího – Arcane Blast."},
+      ],
+    },
+    Sunfury:{
+      st:[
+        {s:"Prismatic Bolt", when:st=>st.pb && st.salvo>=13, why:"Prismatic Bolt s 13+ Salvo."},
+        {s:"Arcane Barrage", when:st=>st.soul, why:"Arcane Soul – Barrage."},
+        {s:"Prismatic Bolt", when:st=>st.pb, why:"Prismatic Bolt je připravený."},
+        {s:"Arcane Orb", when:st=>st.orb && st.charges===0, why:"0 Charges – Orb."},
+        {s:"Arcane Pulse", when:st=>st.charges===0, why:"0 Charges – Pulse."},
+        {s:"Arcane Barrage", when:st=>st.manaLow, why:"Dochází mana – Barrage."},
+        {s:"Arcane Blast", when:()=>true, why:"Arcane Blast."},
+      ],
+      aoe:[
+        {s:"Prismatic Bolt", when:st=>st.pb, why:"Prismatic Bolt je připravený."},
+        {s:"Arcane Orb", when:st=>st.orb, why:"Orb na balík nepřátel."},
+        {s:"Arcane Barrage", when:st=>st.salvo>=20, why:"20+ Salvo – vybij je."},
+        {s:"Arcane Missiles", when:st=>st.cc && st.salvo<15, why:"Clearcasting a méně než 15 Salvo."},
+        {s:"Arcane Barrage", when:st=>st.manaLow, why:"Dochází mana – Barrage."},
+        {s:"Arcane Pulse", when:()=>true, why:"Pulse je na AoE lepší filler než Blast."},
+      ],
+    },
+  },
+};
+
+/* ---------- FIRE ---------- */
+TRAINERS["mage/fire"] = {
+  heroes:["Sunfury"],
+  buttons:[
+    {s:"Fireball", ic:"spell_fire_flamebolt", key:"1"},
+    {s:"Pyroblast", ic:"spell_fire_fireball02", key:"2"},
+    {s:"Fire Blast", ic:"spell_fire_fireball", key:"3", cd:st=>st.fb>0?null:"0 nabití"},
+    {s:"Flamestrike", ic:"spell_fire_selfdestruct", key:"4"},
+    {s:"Combustion", ic:"spell_fire_sealoffire", key:"Q", cd:st=>st.comb?null:st.combCd+" s"},
+  ],
+  gen(aoe){
+    const hs = chance(.35), hu = !hs && chance(.45), inC = chance(.2);
+    return { hs, hu, inC, comb: !inC && chance(.2), combCd:10+rnd(100), fb: rnd(3), targets: aoe ? 3+rnd(6) : 1 };
+  },
+  hud(st){
+    return {
+      buffs:[ st.hu && {n:"Heating Up", ic:"ability_mage_hotstreak"}, st.hs && {n:"Hot Streak", ic:"ability_ironmaidens_grapeshotblast"}, st.inC && {n:"Combustion", ic:"spell_fire_sealoffire"} ].filter(Boolean),
+      debuffs:[], pips:{label:"Fire Blast nabití", n:st.fb, max:2},
+      info:[`Nepřátel: ${st.targets}`],
+    };
+  },
+  rules:{ Sunfury:{
+    st:[
+      {s:"Combustion", when:st=>st.comb, why:"Combustion je připravený – hlavní burst."},
+      {s:"Pyroblast", when:st=>st.hs, why:"Máš Hot Streak – okamžitý Pyroblast."},
+      {s:"Fire Blast", when:st=>st.hu && st.fb>0, why:"Heating Up + Fire Blast (vždy kritne) = Hot Streak."},
+      {s:"Fire Blast", when:st=>st.inC && st.fb>0, why:"V Combustion sypej Fire Blast pro další Hot Streak."},
+      {s:"Fireball", when:()=>true, why:"Žádný proc – Fireball jako filler."},
+    ],
+    aoe:[
+      {s:"Combustion", when:st=>st.comb, why:"Combustion je připravený."},
+      {s:"Flamestrike", when:st=>st.hs, why:"Hot Streak na 3+ nepřátel – okamžitý Flamestrike."},
+      {s:"Fire Blast", when:st=>st.hu && st.fb>0, why:"Heating Up + Fire Blast = Hot Streak."},
+      {s:"Fire Blast", when:st=>st.inC && st.fb>0, why:"V Combustion Fire Blast pro Hot Streak."},
+      {s:"Fireball", when:()=>true, why:"Žádný proc – Fireball."},
+    ],
+  }},
+};
+
+/* ---------- BEAST MASTERY ---------- */
+TRAINERS["hunter/beast-mastery"] = {
+  heroes:["Pack Leader"],
+  buttons:[
+    {s:"Barbed Shot", ic:"ability_hunter_barbedshot", key:"1", cd:st=>st.barbed>0?null:"0 nabití"},
+    {s:"Kill Command", ic:"ability_hunter_killcommand", key:"2", cd:st=>st.kc?null:"cooldown"},
+    {s:"Cobra Shot", ic:"ability_hunter_cobrashot", key:"3"},
+    {s:"Wild Thrash", ic:"ability_hunter_sickem", key:"4", cd:st=>st.wt?null:"cooldown"},
+    {s:"Bestial Wrath", ic:"ability_druid_ferociousbite", key:"Q", cd:st=>st.bw?null:st.bwCd+" s"},
+  ],
+  gen(aoe){
+    const bw = chance(.2), bwCd = bw ? 0 : 1+rnd(80);
+    return { bw, bwCd, bwSoon: !bw && bwCd<=3, barbed:rnd(3), kc:chance(.6), howl:chance(.25), na:chance(.6), fang:chance(.2), wt:chance(.6), cleave: aoe && chance(.4), focus:35+rnd(86), targets: aoe ? 3+rnd(6) : 1 };
+  },
+  hud(st){
+    return {
+      buffs:[ st.howl && {n:"Howl of the Pack Leader", ic:"ability_hunter_killcommand"}, st.na && {n:"Nature's Ally", ic:"ability_hunter_killcommand"}, st.fang && {n:"Cobra Fang", ic:"ability_hunter_cobrashot"}, st.cleave && {n:"Beast Cleave", ic:"ability_hunter_sickem"} ].filter(Boolean),
+      debuffs:[], pips:{label:"Barbed Shot nabití", n:st.barbed, max:2},
+      info:[`Focus: ${st.focus}`, `Nepřátel: ${st.targets}`, st.bw ? "Bestial Wrath: připraven" : `Bestial Wrath za ${st.bwCd} s`],
+    };
+  },
+  rules:{ "Pack Leader":{
+    st:[
+      {s:"Barbed Shot", when:st=>st.barbed>0 && (st.bwSoon || st.barbed===2), why:"Bestial Wrath bude do 3 s nebo máš 2 nabití – Barbed Shot, ať nepřeteče."},
+      {s:"Bestial Wrath", when:st=>st.bw, why:"Bestial Wrath je připravený – hlavní cooldown."},
+      {s:"Kill Command", when:st=>st.kc && (st.howl || st.na), why:"Kill Command s buffem (Howl nebo Nature's Ally)."},
+      {s:"Cobra Shot", when:st=>st.fang, why:"Máš Cobra Fang – Cobra Shot."},
+      {s:"Barbed Shot", when:st=>st.barbed>0, why:"Barbed Shot má nabití."},
+      {s:"Cobra Shot", when:()=>true, why:"Utrať Focus Cobra Shotem."},
+    ],
+    aoe:[
+      {s:"Barbed Shot", when:st=>st.barbed>0 && (st.bwSoon || st.barbed===2), why:"Barbed Shot, ať nepřeteče."},
+      {s:"Bestial Wrath", when:st=>st.bw, why:"Bestial Wrath je připravený."},
+      {s:"Wild Thrash", when:st=>st.wt && !st.cleave, why:"Beast Cleave neběží – Wild Thrash ho zapne."},
+      {s:"Kill Command", when:st=>st.kc && (st.howl || st.na), why:"Kill Command s buffem."},
+      {s:"Barbed Shot", when:st=>st.barbed>0, why:"Barbed Shot má nabití."},
+      {s:"Wild Thrash", when:st=>st.wt, why:"Wild Thrash na cooldown."},
+      {s:"Cobra Shot", when:()=>true, why:"Utrať Focus Cobra Shotem."},
+    ],
+  }},
+};
+
+/* ---------- HAVOC ---------- */
+TRAINERS["demonhunter/havoc"] = {
+  heroes:["Fel-Scarred"],
+  buttons:[
+    {s:"Chaos Strike", ic:"ability_demonhunter_chaosstrike", key:"1", alt:{s:"Annihilation", ic:"ability_demonhunter_chaosstrike", when:st=>st.meta}, cd:st=>st.fury>=40?null:"málo Fury"},
+    {s:"Blade Dance", ic:"ability_demonhunter_bladedance", key:"2", alt:{s:"Death Sweep", ic:"ability_demonhunter_bladedance", when:st=>st.meta}, cd:st=>!st.bd?"cooldown":st.fury<35?"málo Fury":null},
+    {s:"Eye Beam", ic:"ability_demonhunter_eyebeam", key:"3", cd:st=>!st.eb?st.ebCd+" s":st.fury<30?"málo Fury":null},
+    {s:"Immolation Aura", ic:"ability_demonhunter_immolation", key:"4", cd:st=>st.immo?null:"cooldown"},
+    {s:"Felblade", ic:"ability_demonhunter_felblade", key:"5", cd:st=>st.fel?null:"cooldown"},
+    {s:"Essence Break", ic:"spell_shadow_ritualofsacrifice", key:"E", cd:st=>st.ebr?null:"cooldown"},
+    {s:"Metamorphosis", ic:"ability_demonhunter_metamorphasisdps", key:"Q", cd:st=>st.metaReady?null:"cooldown"},
+    {s:"The Hunt", ic:"inv_ability_demonhunter_thehunt", key:"T", cd:st=>st.hunt?null:"cooldown"},
+    {s:"Fel Rush", ic:"ability_demonhunter_felrush", key:"6"},
+  ],
+  gen(aoe){
+    const meta = chance(.3), eb = chance(.35), ebCd = eb ? 0 : 1+rnd(29);
+    return { fury:rnd(121), meta, ds: meta && chance(.6), metaReady: !meta && chance(.2), eb, ebCd, ebr:chance(.3), bd:chance(.45), immo:chance(.4), fel:chance(.5), hunt:chance(.15), targets: aoe ? 3+rnd(5) : 1 };
+  },
+  hud(st){
+    return {
+      buffs:[ st.meta && {n:"Metamorphosis", ic:"ability_demonhunter_metamorphasisdps"}, st.ds && {n:"Demonsurge", ic:"ability_demonhunter_metamorphasisdps"} ].filter(Boolean),
+      debuffs:[], pips:null,
+      info:[`Fury: ${st.fury}`, `Nepřátel: ${st.targets}`, st.eb ? "Eye Beam: připraven" : `Eye Beam za ${st.ebCd} s`],
+    };
+  },
+  rules:{ "Fel-Scarred":{
+    st:[
+      {s:"Metamorphosis", when:st=>st.metaReady && !st.eb && !st.bd, why:"Eye Beam i Blade Dance jsou na cooldownu – Metamorphosis je obnoví."},
+      {s:"The Hunt", when:st=>st.hunt && (st.eb || st.ebCd<=10), why:"The Hunt, když Eye Beam bude do 10 s."},
+      {s:"Death Sweep", when:st=>st.meta && st.ds && st.bd && st.fury>=35, why:"Demonsurge v Metamorphosis – Death Sweep."},
+      {s:"Annihilation", when:st=>st.meta && st.ds && st.fury>=40, why:"Demonsurge v Metamorphosis – Annihilation."},
+      {s:"Eye Beam", when:st=>st.eb && st.fury>=30, why:"Eye Beam je připravený."},
+      {s:"Essence Break", when:st=>st.ebr, why:"Essence Break je připravený."},
+      {s:"Blade Dance", when:st=>!st.meta && st.bd && st.fury>=35, why:"Blade Dance na cooldown i na jeden cíl."},
+      {s:"Death Sweep", when:st=>st.meta && st.bd && st.fury>=35, why:"Death Sweep na cooldown."},
+      {s:"Felblade", when:st=>st.fel && st.fury<=100, why:"Málo Fury – Felblade ho doplní."},
+      {s:"Chaos Strike", when:st=>!st.meta && st.fury>=40, why:"Utrať Fury Chaos Strikem."},
+      {s:"Annihilation", when:st=>st.meta && st.fury>=40, why:"Utrať Fury Annihilation."},
+      {s:"Immolation Aura", when:st=>st.immo, why:"Immolation Aura dá Fury."},
+      {s:"Fel Rush", when:()=>true, why:"Nic jiného nejde – Fel Rush (nebo Throw Glaive)."},
+    ],
+    aoe:[
+      {s:"Metamorphosis", when:st=>st.metaReady && !st.eb && !st.bd, why:"Eye Beam i Blade Dance na cooldownu – Metamorphosis."},
+      {s:"The Hunt", when:st=>st.hunt, why:"The Hunt na balík."},
+      {s:"Death Sweep", when:st=>st.meta && st.ds && st.bd && st.fury>=35, why:"Demonsurge – Death Sweep."},
+      {s:"Annihilation", when:st=>st.meta && st.ds && st.fury>=40, why:"Demonsurge – Annihilation."},
+      {s:"Eye Beam", when:st=>st.eb && st.fury>=30, why:"Eye Beam na balík nepřátel."},
+      {s:"Essence Break", when:st=>st.ebr, why:"Essence Break."},
+      {s:"Immolation Aura", when:st=>st.immo, why:"Na AoE je Immolation Aura důležitá."},
+      {s:"Blade Dance", when:st=>!st.meta && st.bd && st.fury>=35, why:"Blade Dance na AoE."},
+      {s:"Death Sweep", when:st=>st.meta && st.bd && st.fury>=35, why:"Death Sweep na AoE."},
+      {s:"Felblade", when:st=>st.fel && st.fury<=100, why:"Felblade pro Fury."},
+      {s:"Chaos Strike", when:st=>!st.meta && st.fury>=40, why:"Utrať Fury."},
+      {s:"Annihilation", when:st=>st.meta && st.fury>=40, why:"Utrať Fury."},
+      {s:"Fel Rush", when:()=>true, why:"Nic jiného nejde – Fel Rush."},
+    ],
+  }},
+};
+
+/* ---------- PROTECTION PALADIN ---------- */
+const PROT_BTNS = [
+  {s:"Shield of the Righteous", ic:"ability_paladin_shieldofvengeance", key:"1", cd:st=>st.hp>=3?null:"málo HP"},
+  {s:"Judgment", ic:"spell_holy_righteousfury", key:"2", alt:{s:"Hammer of Wrath", ic:"spell_holy_righteousfury", when:st=>st.aw}, cd:st=>st.judg?null:"cooldown"},
+  {s:"Avenger's Shield", ic:"spell_holy_avengersshield", key:"3", cd:st=>st.as?null:"cooldown"},
+  {s:"Blessed Hammer", ic:"paladin_retribution", key:"4", cd:st=>st.hammer>0?null:"0 nabití"},
+  {s:"Consecration", ic:"spell_holy_innerfire", key:"5"},
+  {s:"Word of Glory", ic:"inv_helmet_96", key:"E", cd:st=>st.hp>=3?null:"málo HP"},
+  {s:"Avenging Wrath", ic:"spell_holy_avenginewrath", key:"Q", cd:st=>st.awReady?null:"cooldown"},
+  {s:"Divine Toll", ic:"inv_ability_paladin_divinetoll", key:"T", cd:st=>st.toll?null:"cooldown"},
+];
+TRAINERS["paladin/protection"] = {
+  heroes:["Lightsmith","Templar"],
+  buttons:[...PROT_BTNS, {s:"Holy Bulwark", ic:"inv_ability_lightsmithpaladin_holybulwark", key:"G", cd:st=>st.bulwark>0?null:"0 nabití"}],
+  gen(aoe){
+    const aw = chance(.25);
+    return { hp:rnd(6), aw, awReady: !aw && chance(.15), judg:chance(.5), as:chance(.4), toll:chance(.2), bulwark:rnd(3), hammer:rnd(4), health:20+rnd(81), targets: aoe ? 3+rnd(6) : 1 };
+  },
+  hud(st){
+    return {
+      buffs:[ st.aw && {n:"Avenging Wrath", ic:"spell_holy_avenginewrath"} ].filter(Boolean),
+      debuffs:[], pips:{label:"Holy Power", n:st.hp, max:5},
+      info:[`Tvůj život: ${st.health} %`, `Nepřátel: ${st.targets}`, `Blessed Hammer: ${st.hammer} nabití`, `Holy Bulwark: ${st.bulwark} nabití`],
+    };
+  },
+  rules:{
+    Lightsmith:{ st:null, aoe:null },
+    Templar:{ st:null, aoe:null },
+  },
+};
+(() => {
+  const emergency = {s:"Word of Glory", when:st=>st.health<35 && st.hp>=3, why:"Máš pod 35 % života – Word of Glory tě vyléčí (v nouzi má přednost)."};
+  const light = [
+    emergency,
+    {s:"Avenging Wrath", when:st=>st.awReady, why:"Avenging Wrath na cooldown."},
+    {s:"Shield of the Righteous", when:st=>st.hp>=3, why:"3+ Holy Power – Shield of the Righteous (obrana)."},
+    {s:"Avenger's Shield", when:st=>st.as, why:"Avenger's Shield na cooldown."},
+    {s:"Judgment", when:st=>st.judg && !st.aw, why:"Judgment na cooldown – generuje Holy Power."},
+    {s:"Hammer of Wrath", when:st=>st.judg && st.aw, why:"V Avenging Wrath je z Judgmentu Hammer of Wrath."},
+    {s:"Divine Toll", when:st=>st.toll && st.hp===0, why:"0 Holy Power – Divine Toll."},
+    {s:"Holy Bulwark", when:st=>st.bulwark>0, why:"Holy Bulwark má nabití."},
+    {s:"Blessed Hammer", when:st=>st.hammer>0, why:"Blessed Hammer – Holy Power a filler."},
+    {s:"Consecration", when:()=>true, why:"Nic jiného – Consecration jako filler."},
+  ];
+  const templar = [
+    emergency,
+    {s:"Avenging Wrath", when:st=>st.awReady, why:"Avenging Wrath na cooldown."},
+    {s:"Judgment", when:st=>st.judg && !st.aw, why:"Judgment na cooldown."},
+    {s:"Hammer of Wrath", when:st=>st.judg && st.aw, why:"V Avenging Wrath Hammer of Wrath."},
+    {s:"Shield of the Righteous", when:st=>st.hp>=3, why:"3+ Holy Power – Shield of the Righteous."},
+    {s:"Avenger's Shield", when:st=>st.as, why:"Avenger's Shield na cooldown."},
+    {s:"Divine Toll", when:st=>st.toll && st.hp===0, why:"0 Holy Power – Divine Toll."},
+    {s:"Blessed Hammer", when:st=>st.hammer>0, why:"Blessed Hammer."},
+    {s:"Consecration", when:()=>true, why:"Nic jiného – Consecration."},
+  ];
+  const T = TRAINERS["paladin/protection"];
+  T.rules.Lightsmith = { st:light, aoe:light };
+  T.rules.Templar = { st:templar, aoe:templar };
+  T.heroButtons = { Templar: PROT_BTNS };
+})();
+
+/* ---------- DESTRUCTION ---------- */
+TRAINERS["warlock/destruction"] = {
+  heroes:["Hellcaller","Diabolist"],
+  buttons:[
+    {s:"Incinerate", ic:"spell_fire_burnout", key:"1"},
+    {s:"Chaos Bolt", ic:"ability_warlock_chaosbolt", key:"2", cd:st=>st.shards>=2?null:"málo Shards"},
+    {s:"Conflagrate", ic:"spell_fire_fireball", key:"3", cd:st=>st.conf>0?null:"0 nabití"},
+    {s:"Immolate", ic:"spell_fire_immolation", key:"4", hero:{Hellcaller:{s:"Wither", ic:"inv_ability_hellcallerwarlock_wither"}}},
+    {s:"Rain of Fire", ic:"spell_shadow_rainoffire", key:"5", cd:st=>st.shards>=3?null:"málo Shards"},
+    {s:"Shadowburn", ic:"spell_shadow_scourgebuild", key:"E", cd:st=>st.exec && st.shards>=1 ? null : "jen pod 20 %"},
+    {s:"Soul Fire", ic:"spell_fire_firebolt", key:"T", cd:st=>st.sf?null:"cooldown"},
+    {s:"Summon Infernal", ic:"spell_shadow_summoninfernal", key:"Q", cd:st=>st.inf?null:"cooldown"},
+    {s:"Havoc", ic:"ability_warlock_baneofhavoc", key:"G", cd:st=>st.havoc?null:"cooldown"},
+  ],
+  gen(aoe){
+    return { shards:rnd(6), conf:rnd(3), dot: chance(.7), exec:chance(.2), sf:chance(.3), inf:chance(.15), havoc:chance(.4), targets: aoe ? 3+rnd(5) : (chance(.3)?2:1) };
+  },
+  hud(st){
+    return {
+      buffs:[], debuffs:[ st.dot && {n:"Immolate / Wither", ic:"spell_fire_immolation"} ].filter(Boolean),
+      pips:{label:"Soul Shards", n:st.shards, max:5},
+      info:[`Nepřátel: ${st.targets}`, `Conflagrate: ${st.conf} nabití`, st.exec ? "Cíl pod 20 %" : "Cíl nad 20 %"],
+    };
+  },
+  rules:{},
+};
+(() => {
+  const mk = (dot) => ({
+    st:[
+      {s:"Summon Infernal", when:st=>st.inf, why:"Summon Infernal je připravený – hlavní cooldown."},
+      {s:"Havoc", when:st=>st.havoc && st.targets===2, why:"Jsou 2 cíle – Havoc na vedlejší cíl."},
+      {s:dot, when:st=>!st.dot, why:`${dot} na cíli chybí – nahoď ho.`},
+      {s:"Shadowburn", when:st=>st.exec && st.shards>=1, why:"Cíl pod 20 % – Shadowburn."},
+      {s:"Chaos Bolt", when:st=>st.shards>=4, why:"4+ Soul Shards – Chaos Bolt, ať nepřetečou."},
+      {s:"Soul Fire", when:st=>st.sf && st.shards<4, why:"Soul Fire je připravený a máš méně než 4 Shards."},
+      {s:"Conflagrate", when:st=>st.conf===2, why:"Conflagrate má 2 nabití – použij, ať nepřeteče."},
+      {s:"Chaos Bolt", when:st=>st.shards>=2, why:"Máš Shards na Chaos Bolt."},
+      {s:"Incinerate", when:()=>true, why:"Incinerate – generuj Soul Shards."},
+    ],
+    aoe:[
+      {s:"Summon Infernal", when:st=>st.inf, why:"Summon Infernal je připravený."},
+      {s:dot, when:st=>!st.dot, why:`${dot} na cílech chybí.`},
+      {s:"Rain of Fire", when:st=>st.shards>=3, why:"3+ nepřátel a 3+ Shards – Rain of Fire."},
+      {s:"Soul Fire", when:st=>st.sf && st.shards<4, why:"Soul Fire je připravený."},
+      {s:"Conflagrate", when:st=>st.conf>0, why:"Conflagrate – Shards a Backdraft."},
+      {s:"Incinerate", when:()=>true, why:"Incinerate – generuj Soul Shards."},
+    ],
+  });
+  TRAINERS["warlock/destruction"].rules = { Diabolist: mk("Immolate"), Hellcaller: mk("Wither") };
+})();
+
+/* ---------- PRŮVODCE LEVELOVÁNÍM (Midnight) ---------- */
+const LEVELING = {
+  intro:"Nová postava začíná na úrovni 1 a Midnight se otevře na úrovni 78. Maximální úroveň je 90. První postavu veď hlavním příběhem (kampaní), další postavy můžeš levelovat rychleji přes Adventure Mode.",
+  phases:[
+    {lvl:"1–10", t:"Začátek", items:["Nová postava začne v úvodní zóně (Exile's Reach nebo startovní zóna rasy) – naučíš se ovládání.","Vyber si specializaci hned, jak to hra nabídne, a nastav si lišty podle tohoto průvodce.","Nauč se základní rotaci na prvních nepřátelích – zatím máš jen pár kouzel."]},
+    {lvl:"10–78", t:"Chromie Time", items:["U Chromie (ve Stormwindu / Orgrimmaru) si vyber expanzi, ve které chceš levelovat – doporučeno The War Within.","S plnou sadou heirloomů to trvá zhruba 4 hodiny.","Dungeony přes Group Finder jsou dobrá příprava na skupinový obsah."]},
+    {lvl:"78–80", t:"Vstup do Midnight", items:["Na úrovni 78 se otevře Midnight – následuj kampaň (žlutý vykřičník s korunkou).","Kampaň dává největší XP a vede tě zónami ve správném pořadí."]},
+    {lvl:"80–82", t:"Eversong Woods", items:["Hodně úkolů blízko sebe – rychlé XP."]},
+    {lvl:"82–85", t:"Zul'Aman", items:["Rychlé úkoly. Zul'Aman, Harandar a Eastern Kingdoms / Arator můžeš dělat v libovolném pořadí."]},
+    {lvl:"85–87", t:"Harandar", items:["Tady se odemkne Prey System – lovení cílů za bonusové XP."]},
+    {lvl:"87–88", t:"Eastern Kingdoms / Arator", items:["Pokračuj v kampani – po dokončení těchto tří zón se otevře Voidstorm."]},
+    {lvl:"88–90", t:"Voidstorm", items:["Závěr kampaně a finále příběhu Midnight."]},
+  ],
+  boosts:[["Rested XP","+100 % – nech postavu odpočívat v hospodě nebo ve městě."],["Heirloomy (8 kusů)","+40 % XP."],["War Mode","+10 % XP (zapneš ve městě, zapne PvP v otevřeném světě)."],["Guild perk","+10 % XP v guildě."],["Darkmoon Top Hat","+10 % XP (Darkmoon Faire)."]],
+  tips:["Vždycky sleduj značku kampaně, když je k dispozici.","Dungeony jsou dobré hlavně pro tanky a healery s okamžitou frontou.","Delves farmit na XP nevyplatí – stačí ten z kampaně.","Rary v zónách dávají rychlé vylepšení gearu.","Každou novou úroveň si zkontroluj talenty (N) – přidej body."],
+  endgame:["Dokonči zbytek kampaně a odemkni Prey System.","Delves – dobrý solo gear (s companionem).","Heroic dungeony → Mythic 0 → Mythic+.","Raid: LFR → Normal → Heroic.","Crafted gear od řemeslníků doplní slabé sloty.","Každý týden: Great Vault – vyber si nejlepší odměnu."],
+  sources:[["Accountshark – Midnight leveling 80–90","https://accountshark.net/blog/wow-midnight-leveling-guide-80-90-complete"],["MMOBuilds – Midnight leveling 80–90","https://mmobuilds.com/world-of-warcraft/midnight/leveling-80-90/"]],
+};
+
 </script>
 <script>
 (() => {
@@ -865,6 +1901,8 @@ function toHash(){
 function fromHash(){
   const p = location.hash.slice(1).split("/");
   const scr = p[0];
+  if (scr==="glossary"){ S.screen="glossary"; return; }
+  if (scr==="leveling" && typeof vLeveling==="function"){ S.screen="leveling"; return; }
   if (scr==="race"){ S.screen="race"; }
   else if (scr==="class" && raceById(p[1])){ S.screen="class"; S.race=p[1]; }
   else if (scr==="spec" && raceById(p[1]) && clsById(p[2])){ S.screen="spec"; S.race=p[1]; S.cls=p[2]; }
@@ -902,7 +1940,7 @@ function renderStepper(){
     ["spec","Specializace", sp && sp.name],
     ["guide","Průvodce", null],
   ];
-  $("#stepper").style.display = S.screen==="home" ? "none" : "";
+  $("#stepper").style.display = ["home","glossary","leveling"].includes(S.screen) ? "none" : "";
   $("#stepper").innerHTML = steps.map(([k,label,val],i)=>{
     const cls = i<idx ? "done" : i===idx ? "active" : "";
     const can = i<=idx || (k==="class"&&r) || (k==="spec"&&c) || (k==="guide"&&sp);
@@ -924,7 +1962,7 @@ function vHome(){
     <div class="hero-feats">
       <div class="feat"><b>27 ras</b><span>Racialy a jejich užitek</span></div>
       <div class="feat"><b>13 class · 40 specializací</b><span>Role, zbraně, hero talenty</span></div>
-      <div class="feat"><b>Rotace a talenty</b><span>Priorita krok za krokem + hotový strom</span></div>
+      <div class="feat"><b>7 kompletních průvodců</b><span>Rotace, talenty, gear + trenažér a kvíz</span></div>
       <div class="feat"><b>Videa</b><span>Trailery a video návody</span></div>
     </div>
   </section>
@@ -1004,8 +2042,8 @@ function vSpec(){
 }
 
 /* ---------- PRŮVODCE ---------- */
-const TABS_FULL = [["overview","Přehled"],["spells","Kouzla"],["rotation","Rotace"],["talents","Talenty"],["gear","Gear & staty"],["buffs","Buffy & lektvary"],["content","M+ · Solo · PvP"],["media","Videa & odkazy"]];
-const TABS_BASIC = [["overview","Přehled"],["talents","Talenty"],["gear","Gear & staty"],["media","Videa & odkazy"]];
+const TABS_FULL = [["overview","Přehled"],["spells","Kouzla"],["rotation","Rotace"],["talents","Talenty"],["gear","Gear & staty"],["buffs","Buffy & lektvary"],["content","M+ · Solo · PvP"],["train","Trénink"],["prep","Příprava"],["media","Videa & odkazy"]];
+const TABS_BASIC = [["overview","Přehled"],["talents","Talenty"],["gear","Gear & staty"],["prep","Příprava"],["media","Videa & odkazy"]];
 
 function links(c, s){
   const role = s.role==="tank"?"tank":s.role==="heal"?"healing":"dps";
@@ -1017,6 +2055,7 @@ function links(c, s){
     calc:`https://www.wowhead.com/talent-calc/${c.slug}/${s.id}`,
     yt:`https://www.youtube.com/results?search_query=${q}`,
     pvp:`https://www.icy-veins.com/wow/${s.id}-${c.slug}-pvp-guide`,
+    bis:`https://www.icy-veins.com/wow/${s.id}-${c.slug}-pve-${role}-gear-best-in-slot`,
   };
 }
 
@@ -1032,7 +2071,12 @@ function vGuide(){
         <div class="sub" style="color:var(--muted);font-size:13px">${esc(r.name)} · ${esc(c.name)}</div>
         <h2><span>${esc(s.name)}</span> ${esc(c.name)}</h2>
         <div class="meta"><span class="tag">${ROLE_CZ[s.role]}</span><span class="tag">${esc(s.stat)}</span><span class="tag">${esc(c.armor)}</span><span class="tag">Obtížnost: ${DIFF_CZ[s.diff]}</span><span class="tag">Patch ${esc(PATCH.split(" ")[0])}</span></div>
-        <div class="btns" style="margin-top:14px"><button class="btn" data-go="spec">Změnit specializaci</button></div>
+        <div class="btns" style="margin-top:14px">
+          <button class="btn" data-go="spec">Změnit specializaci</button>
+          <button class="btn" data-share><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.4a3 3 0 0 0 0-1.6l6.7-3.4A3 3 0 1 0 15 7l-6.7 3.4a3 3 0 1 0 0 3.2L15 17a3 3 0 1 0 3-1z"/></svg>Sdílet</button>
+          <label class="btn" title="Nahraj vlastní záznam ze hry – uloží se jen v tomto zařízení"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M4 5h11a2 2 0 0 1 2 2v2.5l4-2.5v10l-4-2.5V17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>Vlastní video<input type="file" id="vid-file" accept="video/*" hidden></label>
+          <button class="btn" data-vidrm hidden>Odebrat video</button>
+        </div>
       </div>
     </div>
     <div class="tabs" role="tablist">${tabs.map(([k,l])=>`<button class="tab ${S.tab===k?"on":""}" data-tab="${k}" role="tab" aria-selected="${S.tab===k}">${l}</button>`).join("")}</div>
@@ -1044,9 +2088,16 @@ function racialBox(r){
   return `<div class="box"><h3>Tvoje rasa: ${esc(r.name)}</h3><div class="racials">${r.racials.map(([n,d])=>`<div><b>${esc(n)}</b> – ${esc(d)}</div>`).join("")}</div>
   <p class="note">Aktivní racial si dej na lištu a používej ho – u DPS racialů (Berserking, Blood Fury, Fireblood…) spolu s hlavním cooldownem.</p></div>`;
 }
+function raceRecBox(g, r){
+  if (!g.races) return "";
+  return `<div class="box"><h3>Doporučené rasy</h3><p class="note" style="margin:-4px 0 12px">Rozdíl v poškození mezi rasami je malý (kolem 1 %) – vyber si hlavně tu, která se ti líbí.</p>
+    <div class="spell-list">${g.races.map(x=>{ const rr = raceById(x.id); if (!rr) return ""; const f = FACTION[rr.faction];
+      return `<div class="spell" style="${rr.id===r.id?"border-color:var(--accent)":""}">${crest(f.c, rr.name[0])}<div><div class="name" style="color:var(--text)">${esc(rr.name)} ${rr.id===r.id?`<span class="tag new">tvoje rasa</span>`:""}</div><div class="d">${esc(x.why)}</div></div></div>`; }).join("")}</div></div>`;
+}
 function heroBox(s, g){
+  const rec = g ? (g.heroRec || Object.keys(g.rotations)[0]) : null;
   return `<div class="box"><h3>Hero talenty</h3><div class="cols">${s.hero.map((h,i)=>`
-    <div><h4>${esc(h)} ${g&&i===0?`<span class="tag new">Doporučeno pro začátek</span>`:""}</h4>
+    <div><h4>${esc(h)} ${rec===h?`<span class="tag new">Doporučeno pro začátek</span>`:""}</h4>
     <p>${g && g.heroNote && g.heroNote[h] ? esc(g.heroNote[h]) : "Přesný popis a doporučení najdeš v odkazech níže."}</p></div>`).join("")}</div></div>`;
 }
 
@@ -1066,6 +2117,7 @@ function basicTab(c,s,r){
       <div class="box"><h3>Rady pro roli ${ROLE_CZ[s.role]}</h3><ul class="clean">${ROLE_TIPS[s.role].map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>
     </div>
     ${heroBox(s,null)}${racialBox(r)}`;
+  if (S.tab==="prep") return vPrep(c,s,null);
   if (S.tab==="talents") return `${heroBox(s,null)}
     <div class="box"><h3>Strom talentů</h3><p>Otevři kalkulačku talentů – vpravo nahoře v guidech najdeš hotové buildy k importu.</p>
     <div class="btns"><a class="btn primary" href="${L.calc}" target="_blank" rel="noopener">Kalkulačka talentů ${esc(s.name)} ↗</a><a class="btn" href="${L.method}" target="_blank" rel="noopener">Buildy na Method ↗</a></div>
@@ -1104,10 +2156,10 @@ function fullTab(c,s,r,g){
     <div class="box"><h3>Co je v Midnight nového</h3><ul class="clean">${g.changes.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
     <div class="box"><h3>Mechaniky, kterým musíš rozumět</h3><p class="note" style="margin:-4px 0 12px">${HOVER_HINT} pro herní popis.</p><div class="spell-list">${g.mechanics.map(m=>`
       <div class="spell tt" tabindex="0" data-tt="spell" data-name="${esc(m.n)}" data-u="${m.u}" data-ic="${m.ic||""}">${gicon(m.ic, m.n.slice(0,2))}<div><div class="name"><a href="${m.u}" target="_blank" rel="noopener">${esc(m.n)}</a></div><div class="d">${esc(m.d)}</div><div class="d" style="color:var(--gold-2)">→ ${esc(m.t)}</div></div></div>`).join("")}</div></div>
-    ${racialBox(r)}`;
+    ${raceRecBox(g, r)}${racialBox(r)}`;
   case "spells": {
     const cats = [["core","Hlavní kouzla"],["cd","Cooldowny"],["def","Obrana"],["util","Užitečná kouzla"],["buff","Buffy"]];
-    return `<div class="box">${cats.map(([k,l])=>`<div class="cat-title">${l}</div><div class="spell-list">${g.spells.filter(x=>x.cat===k).map(spellRow).join("")}</div>`).join("")}
+    return `<div class="box">${cats.filter(([k])=>g.spells.some(x=>x.cat===k)).map(([k,l])=>`<div class="cat-title">${l}</div><div class="spell-list">${g.spells.filter(x=>x.cat===k).map(spellRow).join("")}</div>`).join("")}
       <p class="note">${HOVER_HINT} – zobrazí se popisek jako ve hře a česky k čemu kouzlo slouží. Klávesy jsou jen návrh.</p></div>`;
   }
   case "rotation": {
@@ -1121,7 +2173,8 @@ function fullTab(c,s,r,g){
       <h4>Opener (začátek boje)</h4><div class="opener">${R.opener.map((x,i)=>`${i?"<i>→</i>":""}<span>${esc(x)}</span>`).join("")}</div>
       <h4>Priorita – ${S.rotMode==="st"?"single target":"AoE"}</h4>
       <ol class="prio">${R[S.rotMode].map(x=>`<li>${esc(x)}</li>`).join("")}</ol>
-      <p class="note">Ray of Frost nech vždy doběhnout celý – předtím si stoupni tam, kde se 4 s nebudeš hýbat.</p></div>`;
+      ${g.rotNote?`<p class="note">${esc(g.rotNote)}</p>`:""}
+      <p class="note">Zdroj priorit: Wowhead (patch 12.1). Procvič si je v záložce <b>Trénink</b>.</p></div>`;
   }
   case "talents": return `${heroBox(s,g)}
     <div class="box"><h3>Hotové buildy</h3><p>Klikni na <b>Zobrazit strom</b> a uvidíš celý hotový strom talentů, nebo zkopíruj řetězec a naimportuj ho do hry.</p>
@@ -1133,16 +2186,15 @@ function fullTab(c,s,r,g){
   case "gear": return `${g.gearItems ? gearDoll(g) : ""}<div class="cols">
       <div class="box"><h3>Priorita statů</h3><div class="statbar">${g.stats.map((st,i)=>`<div><span>${i+1}. ${esc(st)}</span><span class="bar"><i style="width:${100-i*16}%"></i></span></div>`).join("")}</div><p class="note">${esc(g.statNote)}</p></div>
       <div class="box"><h3>Gear a zbraň</h3><ul class="clean">${g.gear.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
-        <div class="btns"><a class="btn" href="https://www.raidbots.com" target="_blank" rel="noopener">Raidbots sim ↗</a><a class="btn" href="https://www.icy-veins.com/wow/frost-mage-pve-dps-gear-best-in-slot" target="_blank" rel="noopener">Best in slot ↗</a></div></div></div>`;
+        <div class="btns"><a class="btn" href="https://www.raidbots.com" target="_blank" rel="noopener">Raidbots sim ↗</a><a class="btn" href="${L.bis}" target="_blank" rel="noopener">Best in slot ↗</a></div></div></div>`;
   case "buffs": return `
-    <div class="box"><h3>Buffy, které si nahazuješ sám</h3><div class="spell-list">${g.spells.filter(x=>x.cat==="buff").map(spellRow).join("")}
-      ${spellRow({n:"Summon Water Elemental",ic:"spell_frost_summonwaterelemental_2",u:WH(31687),d:"Jen pokud ho máš v talentech. Drž ho pořád vyvolaného – přidává poškození."})}
-      ${spellRow({n:"Ice Barrier",ic:"spell_ice_lament",u:WH(11426),d:"DMG nepřidá, ale díky štítu nemusíš utíkat a sesíláš dál."})}</div>
-      <p class="note">Icy Veins už v Midnight neexistuje – jeho roli převzal Ray of Frost.</p></div>
+    ${(()=>{ const bl = [...g.spells.filter(x=>x.cat==="buff"), ...(g.extraBuffs||[])];
+      return `<div class="box"><h3>Buffy, které si nahazuješ sám</h3>${bl.length?`<div class="spell-list">${bl.map(spellRow).join("")}</div>`:`<p>${esc(s.name)} ${esc(c.name)} nemá vlastní trvalý buff pro skupinu. Poškození ti přidají hlavně lektvary a jídlo níže a správně načasované cooldowny.</p>`}
+      ${g.buffNote?`<p class="note">${esc(g.buffNote)}</p>`:""}</div>`; })()}
     <div class="box"><h3>Co si koupit: lektvary a jídlo</h3><p class="note" style="margin:-4px 0 12px">${HOVER_HINT} pro herní popis.</p><div class="spell-list">
       ${g.consumables.map((x,i)=>`<div class="spell tt" tabindex="0" data-tt="cons" data-i="${i}">${gicon(x.ic, x.t.slice(0,2), "q"+x.q)}
         <div><div class="ss" style="font-size:11.5px;color:var(--muted)">${esc(x.t)}</div><div class="name" style="color:${QCOL[x.q]}">${esc(x.n)}</div><div class="d">${esc(x.when)}</div></div></div>`).join("")}
-    </div><p class="note">Na levelování stačí Arcane Intellect. Flask a jídlo si nech na raidy a Mythic+. Koupíš je v Aukci (Auction House).</p></div>`;
+    </div><p class="note">Na levelování lektvary nepotřebuješ. Flask a jídlo si nech na raidy a Mythic+. Koupíš je v Aukci (Auction House).</p></div>`;
   case "content": return `<div class="cols">
       <div class="box"><h3>Mythic+</h3><ul class="clean">${g.mplus.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
       <div class="box"><h3>Levelování, open world, delves</h3><ul class="clean">${g.solo.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
@@ -1151,6 +2203,8 @@ function fullTab(c,s,r,g){
     </div>
     <div class="box"><h3>Doporučené addony</h3><table class="t"><tbody>${g.addons.map(([a,b])=>`<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("")}</tbody></table><p class="note">Instalace přes aplikaci CurseForge.</p></div>`;
   case "media": return mediaTab(c,s,g);
+  case "train": return vTrain(c,s,g);
+  case "prep": return vPrep(c,s,g);
   }
   return "";
 }
@@ -1260,82 +2314,6 @@ const TT = (() => {
   return { hide };
 })();
 
-/* ---------- BANNER: animovaná scéna ---------- */
-let sceneStop = null;
-function mountScene(){
-  if (sceneStop){ sceneStop(); sceneStop=null; }
-  const host = document.querySelector(".banner .scene"); if (!host) return;
-  const g = guideOf(), c = clsById(S.cls);
-  const cv = host.querySelector("canvas"), ctx = cv.getContext("2d");
-  const vid = host.querySelector("video");
-  if (vid){ vid.addEventListener("loadeddata", ()=>vid.classList.add("ok")); vid.addEventListener("error", ()=>vid.remove()); const src=vid.querySelector("source"); src && src.addEventListener("error", ()=>vid.remove()); }
-  const frost = S.cls==="mage" && S.spec==="frost";
-  const [cr,cg,cb] = hexRgb(c.color);
-  let W,H,t=0,raf,alive=true, flakes=[], bolts=[], rings=[], shards=[];
-  function size(){ const r=host.getBoundingClientRect(), d=Math.min(devicePixelRatio||1,2); W=r.width; H=r.height; cv.width=W*d; cv.height=H*d; ctx.setTransform(d,0,0,d,0,0);
-    flakes = Array.from({length:Math.round(W/9)},()=>({x:Math.random()*W,y:Math.random()*H,r:.5+Math.random()*1.8,v:.2+Math.random()*.7,s:Math.random()*6})); }
-  const ro = new ResizeObserver(size); ro.observe(host); size();
-  const cx = () => W<600 ? W*.8 : W-150, cy = () => H*.52;          // pozice mága
-  function mage(x,y,s,pulse){
-    ctx.save(); ctx.translate(x,y); ctx.scale(s,s);
-    // aura
-    const au = ctx.createRadialGradient(0,-10,5,0,-10,120); au.addColorStop(0,`rgba(${cr},${cg},${cb},${.22+pulse*.1})`); au.addColorStop(1,`rgba(${cr},${cg},${cb},0)`);
-    ctx.fillStyle=au; ctx.beginPath(); ctx.arc(0,-10,120,0,7); ctx.fill();
-    // silueta (originální stylizovaný mág v kápi)
-    ctx.fillStyle="rgba(6,8,16,.96)"; ctx.strokeStyle=`rgba(${cr},${cg},${cb},.75)`; ctx.lineWidth=1.4;
-    ctx.beginPath();
-    ctx.moveTo(0,-78); ctx.bezierCurveTo(-16,-78,-22,-60,-22,-48); ctx.lineTo(-30,-38);
-    ctx.bezierCurveTo(-38,-10,-44,40,-50,74); ctx.lineTo(50,74); ctx.bezierCurveTo(44,40,38,-10,30,-38);
-    ctx.lineTo(22,-48); ctx.bezierCurveTo(22,-60,16,-78,0,-78); ctx.closePath(); ctx.fill(); ctx.stroke();
-    // oči pod kápí
-    ctx.fillStyle=`rgba(${Math.min(255,cr+80)},${Math.min(255,cg+80)},255,.95)`; ctx.shadowColor=`rgb(${cr},${cg},${cb})`; ctx.shadowBlur=10;
-    ctx.fillRect(-8,-54,5,2); ctx.fillRect(3,-54,5,2);
-    // hůl
-    ctx.shadowBlur=0; ctx.strokeStyle=`rgba(${cr},${cg},${cb},.85)`; ctx.lineWidth=3;
-    ctx.beginPath(); ctx.moveTo(-40,-70); ctx.lineTo(-30,74); ctx.stroke();
-    // krystal
-    const k = 7+pulse*4; ctx.fillStyle="#e9fbff"; ctx.shadowColor=`rgb(${cr},${cg},${cb})`; ctx.shadowBlur=24+pulse*20;
-    ctx.beginPath(); ctx.moveTo(-41,-70-k*1.6); ctx.lineTo(-41+k*.7,-70); ctx.lineTo(-41,-70+k*.6); ctx.lineTo(-41-k*.7,-70); ctx.closePath(); ctx.fill();
-    ctx.restore();
-  }
-  function frame(){
-    if (!alive) return; t++;
-    ctx.clearRect(0,0,W,H);
-    const s = Math.min(1.15, H/200), x=cx(), y=cy()+8*Math.sin(t*.02);
-    const pulse = (Math.sin(t*.05)+1)/2;
-    // podlaha – mrazivý kruh
-    ctx.save(); ctx.translate(x, H*.52+74*s); ctx.scale(1,.28);
-    ctx.strokeStyle=`rgba(${cr},${cg},${cb},.35)`; ctx.lineWidth=2;
-    ctx.beginPath(); ctx.arc(0,0,90*s,0,7); ctx.stroke();
-    ctx.rotate(t*.004); for(let i=0;i<12;i++){ ctx.rotate(Math.PI/6); ctx.beginPath(); ctx.moveTo(60*s,0); ctx.lineTo(90*s,0); ctx.stroke(); }
-    ctx.restore();
-    if (frost){
-      // každé ~2,6 s Frostbolt, občas Frost Nova
-      if (t%160===40) bolts.push({x:x-41*s,y:y-70*s,vx:-(5+Math.random()*2),vy:(Math.random()-.5)*.8,life:0});
-      if (t%480===300) rings.push({r:10,a:1});
-      bolts.forEach(b=>{ b.x+=b.vx; b.y+=b.vy; b.life++;
-        for(let i=0;i<3;i++) shards.push({x:b.x+Math.random()*6,y:b.y+(Math.random()-.5)*6,vx:1+Math.random()*1.5,vy:(Math.random()-.5)*1.2,a:1});
-        const gr=ctx.createRadialGradient(b.x,b.y,0,b.x,b.y,18); gr.addColorStop(0,"rgba(240,252,255,1)"); gr.addColorStop(.4,`rgba(${cr},${cg},${cb},.8)`); gr.addColorStop(1,`rgba(${cr},${cg},${cb},0)`);
-        ctx.fillStyle=gr; ctx.beginPath(); ctx.arc(b.x,b.y,18,0,7); ctx.fill(); });
-      bolts = bolts.filter(b=>b.x>-30);
-      shards.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.a-=.03; ctx.fillStyle=`rgba(210,245,255,${Math.max(0,p.a)})`; ctx.fillRect(p.x,p.y,2,2); });
-      shards = shards.filter(p=>p.a>0);
-      rings.forEach(r=>{ r.r+=4; r.a-=.018; ctx.save(); ctx.translate(x,H*.52+74*s); ctx.scale(1,.3); ctx.strokeStyle=`rgba(200,245,255,${Math.max(0,r.a)})`; ctx.lineWidth=3; ctx.beginPath(); ctx.arc(0,0,r.r,0,7); ctx.stroke();
-        for(let i=0;i<10;i++){ const a=i/10*Math.PI*2; ctx.beginPath(); ctx.moveTo(Math.cos(a)*r.r*.8,Math.sin(a)*r.r*.8); ctx.lineTo(Math.cos(a)*r.r,Math.sin(a)*r.r-14); ctx.stroke(); } ctx.restore(); });
-      rings = rings.filter(r=>r.a>0);
-    }
-    mage(x,y,s,pulse);
-    // sníh / jiskry
-    flakes.forEach(f=>{ f.y+=frost?f.v:-f.v; f.s+=.02; f.x+=Math.sin(f.s)*.3; if(f.y>H+4) f.y=-4; if(f.y<-4) f.y=H+4;
-      ctx.fillStyle = frost ? `rgba(230,248,255,${.35+f.r/4})` : `rgba(${cr},${cg},${cb},${.3+f.r/5})`;
-      ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,7); ctx.fill(); });
-    raf = requestAnimationFrame(frame);
-  }
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduce){ frame(); cancelAnimationFrame(raf); } else raf = requestAnimationFrame(frame);
-  sceneStop = () => { alive=false; cancelAnimationFrame(raf); ro.disconnect(); };
-}
-
 function vidCard(v){
   return `<div class="vid"><button data-vid="${v.id}" aria-label="Přehrát: ${esc(v.title)}">
     <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="vt">${esc(v.title)}</span></button></div>`;
@@ -1361,9 +2339,10 @@ function render(){
   setAccent((S.screen==="spec"||S.screen==="guide") && c ? c.color : S.screen==="class" && c ? c.color : null);
   renderStepper();
   const app = $("#app");
-  app.innerHTML = S.screen==="race" ? vRace() : S.screen==="class" ? vClass() : S.screen==="spec" ? vSpec() : S.screen==="guide" ? vGuide() : vHome();
+  app.innerHTML = S.screen==="glossary" ? vGlossary() : S.screen==="leveling" ? vLeveling() : S.screen==="race" ? vRace() : S.screen==="class" ? vClass() : S.screen==="spec" ? vSpec() : S.screen==="guide" ? vGuide() : vHome();
   toHash();
-  TT.hide(); if (S.screen==="guide") mountScene(); else if (sceneStop){ sceneStop(); sceneStop=null; }
+  TT.hide(); if (S.screen==="guide") mountScene(); else if (sceneStop2){ sceneStop2(); sceneStop2=null; }
+  applyFocus();
   if (S.screen==="guide") store.set("last",{race:S.race,cls:S.cls,spec:S.spec});
   refreshTooltips();
 }
@@ -1471,6 +2450,483 @@ tVid.onclick = () => setVideo(tVid.getAttribute("aria-pressed")!=="true");
 const small = matchMedia("(max-width:720px)").matches;
 setAnim(store.get("anim", !BG.reduce));
 setVideo(store.get("video", !small && !BG.reduce));
+
+/* ================================================================
+   FEATURES: trenažér, kvíz, příprava, hledání, slovníček, sdílení,
+   vlastní video (IndexedDB), scény podle classy, PWA
+   ================================================================ */
+
+/* ---------- TOAST ---------- */
+function toast(msg){
+  let el = $("#toast");
+  if (!el){ el = document.createElement("div"); el.id="toast"; el.setAttribute("role","status"); document.body.appendChild(el); }
+  el.textContent = msg; el.classList.add("on");
+  clearTimeout(el._t); el._t = setTimeout(()=>el.classList.remove("on"), 2200);
+}
+const norm = s => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+const specKey = () => S.cls+"/"+S.spec;
+
+/* ================= TRENAŽÉR ROTACE ================= */
+const TR = { mode:"learn", aoe:false, hero:null, st:null, answered:false, score:0, streak:0, total:0, left:60, timer:null, best:0 };
+function trBtnView(T, b, st, hero){
+  let s = b.s, ic = b.ic;
+  if (b.hero && b.hero[hero]){ s = b.hero[hero].s || s; ic = b.hero[hero].ic || ic; }
+  if (b.alt && b.alt.when(st)){ s = b.alt.s; ic = b.alt.ic || ic; }
+  const cd = b.cd ? b.cd(st) : null;
+  return {s, ic, cd, key:b.key};
+}
+function trButtons(T, hero){ return (T.heroButtons && T.heroButtons[hero]) || T.buttons; }
+function trCorrect(T, st, hero, aoe){
+  const list = T.rules[hero][aoe?"aoe":"st"];
+  return list.find(r => r.when(st));
+}
+function trNew(){
+  const T = TRAINERS[specKey()];
+  TR.hero = TR.hero && T.heroes.includes(TR.hero) ? TR.hero : T.heroes[0];
+  TR.st = T.gen(TR.aoe, TR.hero); TR.answered = false; TR.feedback = null;
+}
+function vTrain(c,s,g){
+  const T = TRAINERS[specKey()];
+  if (!T) return `<div class="box"><h3>Trenažér</h3><p>Pro tuto specializaci trenažér zatím není.</p></div>`;
+  if (!TR.st || TR.key!==specKey()){ TR.key = specKey(); TR.hero=null; trNew(); TR.score=0; TR.streak=0; TR.total=0; }
+  TR.best = store.get("best:"+specKey(), 0);
+  return `<div class="box trainer">
+    <div class="controls">
+      <div class="seg">${T.heroes.map(h=>`<button class="${TR.hero===h?"on":""}" data-trhero="${h}">${esc(h)}</button>`).join("")}</div>
+      <div class="seg"><button class="${!TR.aoe?"on":""}" data-traoe="0">1–2 cíle</button><button class="${TR.aoe?"on":""}" data-traoe="1">AoE</button></div>
+      <div class="seg"><button class="${TR.mode==="learn"?"on":""}" data-trmode="learn">Učení</button><button class="${TR.mode==="challenge"?"on":""}" data-trmode="challenge">Výzva 60 s</button></div>
+    </div>
+    <p class="note" style="margin:0 0 12px">${TR.mode==="learn" ? "Podívej se na buffy, debuff na nepříteli a cooldowny a klikni na kouzlo, které bys teď zmáčkl. Po odpovědi uvidíš proč." : "Máš 60 sekund. Každá správná odpověď = bod, série zvyšuje skóre. Fungují i klávesy z akční lišty."}</p>
+    <div id="tr-stage">${trStage(T)}</div>
+  </div>
+  <div class="box"><h3>Kvíz</h3><p>10 otázek z kouzel, mechanik, rotace a statů této specializace.</p>
+    <div class="btns"><button class="btn primary" data-quiz="start">Spustit kvíz</button></div><div id="quiz"></div></div>`;
+}
+function trStage(T){
+  const st = TR.st, hero = TR.hero, H = T.hud(st);
+  const ch = TR.mode==="challenge";
+  const bar = trButtons(T,hero).map(b => trBtnView(T,b,st,hero));
+  const fb = TR.feedback;
+  const aura = (a, deb) => `<div class="aura ${deb?"deb":""}" title="${esc(a.n)}">${gicon(a.ic, a.n.slice(0,2))}${a.stack?`<b>${a.stack}</b>`:""}<span>${esc(a.n)}</span></div>`;
+  return `
+    ${ch ? `<div class="tr-score"><span>Čas: <b id="tr-left">${TR.left}</b> s</span><span>Skóre: <b>${TR.score}</b></span><span>Série: <b>${TR.streak}</b></span><span>Rekord: <b>${TR.best}</b></span></div>` :
+      `<div class="tr-score"><span>Správně: <b>${TR.score}</b> / ${TR.total}</span><span>Série: <b>${TR.streak}</b></span></div>`}
+    <div class="tr-hud">
+      <div><div class="tr-l">Tvoje buffy</div><div class="auras">${H.buffs.length?H.buffs.map(a=>aura(a)).join(""):`<span class="muted">žádné</span>`}</div></div>
+      <div><div class="tr-l">Nepřítel</div><div class="auras">${H.debuffs.length?H.debuffs.map(a=>aura(a,true)).join(""):`<span class="muted">bez debuffu</span>`}</div></div>
+      ${H.pips?`<div><div class="tr-l">${esc(H.pips.label)}</div><div class="pips">${Array.from({length:H.pips.max},(_,i)=>`<i class="${i<H.pips.n?"on":""}"></i>`).join("")}</div></div>`:""}
+      <div><div class="tr-l">Situace</div><div class="chips">${H.info.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div></div>
+    </div>
+    <div class="actionbar">${bar.map((b,i)=>`<button class="abtn ${b.cd?"oncd":""} ${fb&&fb.correct===b.s?"right":""} ${fb&&fb.picked===b.s&&!fb.ok?"wrong":""}" data-trpick="${i}" ${TR.answered?"disabled":""} aria-label="${esc(b.s)}">
+      ${gicon(b.ic, b.s.slice(0,2))}${b.cd?`<span class="cdo">${esc(b.cd)}</span>`:""}<kbd>${esc(b.key)}</kbd><small>${esc(b.s)}</small></button>`).join("")}</div>
+    ${fb ? `<div class="tr-fb ${fb.ok?"ok":"bad"}"><b>${fb.ok?"Správně!":"Tentokrát ne."}</b> ${fb.ok?"":`Správně je <b>${esc(fb.correct)}</b>. `}${esc(fb.why)}
+      ${!ch?`<div class="btns"><button class="btn primary" data-trnext>Další situace →</button></div>`:""}</div>` : ""}`;
+}
+function trRefresh(){ const el = $("#tr-stage"); if (el) el.innerHTML = trStage(TRAINERS[specKey()]); }
+function trPick(i){
+  if (TR.answered) return;
+  const T = TRAINERS[specKey()], st = TR.st;
+  const b = trBtnView(T, trButtons(T,TR.hero)[i], st, TR.hero);
+  const r = trCorrect(T, st, TR.hero, TR.aoe);
+  const ok = b.s === r.s && !b.cd;
+  TR.total++; TR.answered = true;
+  if (ok){ TR.streak++; TR.score += TR.mode==="challenge" ? 1 + Math.floor(TR.streak/5) : 1; }
+  else TR.streak = 0;
+  TR.feedback = { ok, picked:b.s, correct:r.s, why: b.cd && b.s===r.s ? "Kouzlo je na cooldownu." : (b.cd ? `${b.s} je na cooldownu. ` : "") + r.why };
+  trRefresh();
+  if (TR.mode==="challenge" && TR.left>0) setTimeout(()=>{ if (TR.mode==="challenge" && TR.left>0){ trNew(); trRefresh(); } }, ok?450:1300);
+}
+function trStartChallenge(){
+  clearInterval(TR.timer); TR.score=0; TR.streak=0; TR.total=0; TR.left=60; trNew(); trRefresh();
+  TR.timer = setInterval(()=>{
+    if (S.tab!=="train" || TR.mode!=="challenge"){ clearInterval(TR.timer); return; }
+    TR.left--; const el=$("#tr-left"); if (el) el.textContent = TR.left;
+    if (TR.left<=0){
+      clearInterval(TR.timer); TR.answered = true;
+      const best = store.get("best:"+specKey(),0);
+      const rec = TR.score > best; if (rec) store.set("best:"+specKey(), TR.score);
+      const stg = $("#tr-stage");
+      if (stg) stg.innerHTML = `<div class="tr-end"><div class="cinzel big">${TR.score} bodů</div><p>${TR.total} odpovědí${rec?" · <b>nový rekord!</b>":` · rekord ${best}`}</p><div class="btns" style="justify-content:center"><button class="btn primary" data-trchal>Znovu</button></div></div>`;
+    }
+  },1000);
+}
+document.addEventListener("keydown", e => {
+  if (S.screen!=="guide" || S.tab!=="train" || e.target.closest("input,textarea")) return;
+  const T = TRAINERS[specKey()]; if (!T) return;
+  const i = trButtons(T,TR.hero).findIndex(b => b.key.toLowerCase()===e.key.toLowerCase());
+  if (i>=0){ e.preventDefault(); trPick(i); }
+  else if ((e.key==="Enter"||e.key===" ") && TR.answered && TR.mode==="learn"){ e.preventDefault(); trNew(); trRefresh(); }
+});
+
+/* ================= KVÍZ ================= */
+const QZ = { qs:[], i:0, ok:0, done:false };
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=rnd(i+1); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function qzBuild(){
+  const g = guideOf(), T = TRAINERS[specKey()], out = [];
+  const spells = g.spells.filter(x => SPELL_TT[x.n] && SPELL_TT[x.n].cz);
+  // 1) k čemu je kouzlo
+  shuffle(spells).slice(0,3).forEach(sp => {
+    const wrong = shuffle(spells.filter(x=>x.n!==sp.n)).slice(0,3).map(x=>x.n);
+    const txt = SPELL_TT[sp.n].cz.split(sp.n).join("___");
+    out.push({ q:`Které kouzlo odpovídá popisu: „${txt}“`, opts:shuffle([sp.n,...wrong]), a:sp.n, why:`${sp.n}: ${sp.d}` });
+  });
+  // 2) mechaniky
+  shuffle(g.mechanics).slice(0,2).forEach(m => {
+    const wrong = shuffle(g.mechanics.filter(x=>x.n!==m.n)).slice(0,3).map(x=>x.d);
+    out.push({ q:`Co dělá ${m.n}?`, opts:shuffle([m.d,...wrong]), a:m.d, why:m.t });
+  });
+  // 3) situace z trenažéru
+  if (T){ for (let k=0;k<3;k++){
+    const hero = T.heroes[0], aoe = k===2, st = T.gen(aoe, hero), H = T.hud(st), r = trCorrect(T, st, hero, aoe);
+    const desc = [...H.buffs.map(b=>b.n+(b.stack?` (${b.stack})`:"")), ...H.debuffs.map(d=>`${d.n} na nepříteli: ${d.stack}`), H.pips?`${H.pips.label}: ${H.pips.n}`:"", ...H.info].filter(Boolean).join(" · ");
+    const names = [...new Set(trButtons(T,hero).map(b=>trBtnView(T,b,st,hero).s))];
+    const wrong = shuffle(names.filter(n=>n!==r.s)).slice(0,3);
+    out.push({ q:`${hero}, ${aoe?"AoE":"single target"}. Situace: ${desc || "nic zvláštního"}. Co zmáčkneš?`, opts:shuffle([r.s,...wrong]), a:r.s, why:r.why });
+  } }
+  // 4) staty
+  if (g.stats){ const sec = g.stats.slice(1); out.push({ q:"Který sekundární stat je podle priority pro tuto specializaci nejcennější?", opts:shuffle(sec.slice(0,4)), a:sec[0], why:`Priorita: ${g.stats.join(" > ")}.` }); }
+  // 5) slovníček
+  const gl = shuffle(GLOSSARY).slice(0,1)[0]; const glw = shuffle(GLOSSARY.filter(x=>x[0]!==gl[0])).slice(0,3).map(x=>x[1]);
+  out.push({ q:`Co znamená „${gl[0]}“?`, opts:shuffle([gl[1],...glw]), a:gl[1], why:gl[1] });
+  return shuffle(out).slice(0,10);
+}
+function qzRender(){
+  const el = $("#quiz"); if (!el) return;
+  if (QZ.done){
+    const best = store.get("quiz:"+specKey(),0); if (QZ.ok>best) store.set("quiz:"+specKey(),QZ.ok);
+    el.innerHTML = `<div class="tr-end"><div class="cinzel big">${QZ.ok} / ${QZ.qs.length}</div><p>${QZ.ok===QZ.qs.length?"Perfektní! Tuhle specializaci máš v malíčku.":QZ.ok>=7?"Výborně, skoro všechno správně.":"Nevadí – projdi si záložky Kouzla a Rotace a zkus to znovu."}</p><div class="btns" style="justify-content:center"><button class="btn primary" data-quiz="start">Nový kvíz</button></div></div>`; return;
+  }
+  const q = QZ.qs[QZ.i];
+  el.innerHTML = `<div class="qz"><div class="qz-top"><span>Otázka ${QZ.i+1} / ${QZ.qs.length}</span><span>Správně: ${QZ.ok}</span></div>
+    <div class="qz-bar"><i style="width:${QZ.i/QZ.qs.length*100}%"></i></div>
+    <p class="qz-q">${esc(q.q)}</p>
+    <div class="qz-opts">${q.opts.map((o,i)=>`<button class="qz-o ${q.ans!=null?(o===q.a?"right":(q.ans===i?"wrong":"")):""}" data-qopt="${i}" ${q.ans!=null?"disabled":""}>${esc(o)}</button>`).join("")}</div>
+    ${q.ans!=null?`<div class="tr-fb ${q.opts[q.ans]===q.a?"ok":"bad"}">${esc(q.why)}<div class="btns"><button class="btn primary" data-quiz="next">${QZ.i+1<QZ.qs.length?"Další otázka →":"Výsledek"}</button></div></div>`:""}</div>`;
+}
+
+/* ================= PŘÍPRAVA (checklist) ================= */
+const CLASS_BUFF = { mage:"Arcane Intellect", priest:"Power Word: Fortitude", warrior:"Battle Shout", druid:"Mark of the Wild", evoker:"Blessing of the Bronze", shaman:"Skyfury", monk:null, paladin:null, hunter:null, rogue:null, warlock:null, deathknight:null, demonhunter:null };
+function prepItems(c, s, g){
+  const items = [];
+  const buff = CLASS_BUFF[c.id];
+  if (buff) items.push(["buff", `Nahoď ${buff} (buff pro celou skupinu)`]);
+  if (g && g.consumables) g.consumables.forEach((x,i)=>items.push(["c"+i, `${x.t}: ${x.n}`]));
+  else items.push(["flask","Flask (phial) na hlavní stat"],["food","Jídlo se staty (Well Fed)"],["oil","Olej nebo kámen na zbraň"],["rune","Augment rune"],["pot","Lektvary na DMG a léčení"]);
+  if (c.id==="warlock") items.push(["hs","Polož Healthstones pro skupinu"]);
+  items.push(["talents","Správný loadout talentů (raid / M+)"],["gear","Opravený gear a nasazené enchanty"],["addons","Aktualizované addony (DBM/BigWigs, Details!)"],["keys","Klíčová kouzla na lištách a klávesách"],["mech","Přečtené mechaniky bossů / dungeonu"]);
+  return items;
+}
+function vPrep(c, s, g){
+  const items = prepItems(c,s,g), key = "ck:"+specKey(), done = store.get(key, []);
+  const n = items.filter(([id])=>done.includes(id)).length;
+  return `<div class="box"><h3>Checklist před raidem / klíčem</h3>
+    <p>Odškrtávej, co máš hotové. Stav se ukládá v tomhle zařízení.</p>
+    <div class="qz-bar" style="margin:12px 0"><i style="width:${n/items.length*100}%"></i></div>
+    <div class="cklist">${items.map(([id,l])=>`<label class="ck ${done.includes(id)?"on":""}"><input type="checkbox" data-ck="${id}" ${done.includes(id)?"checked":""}><span class="box-ck"></span><span>${esc(l)}</span></label>`).join("")}</div>
+    <div class="btns"><span class="tag" style="align-self:center">${n} / ${items.length} hotovo</span><button class="btn" data-ckreset>Začít znovu</button></div></div>`;
+}
+document.addEventListener("change", e => {
+  const cb = e.target.closest("[data-ck]"); if (!cb) return;
+  const key = "ck:"+specKey(); let done = store.get(key, []);
+  done = cb.checked ? [...new Set([...done, cb.dataset.ck])] : done.filter(x=>x!==cb.dataset.ck);
+  store.set(key, done); render(); if (done.length && document.querySelectorAll("[data-ck]").length===done.length) toast("Všechno připraveno – hodně štěstí!");
+});
+
+/* ================= SLOVNÍČEK ================= */
+let glossQ = "";
+function vGlossary(){
+  const q = norm(glossQ);
+  const list = GLOSSARY.filter(([t,d]) => !q || norm(t).includes(q) || norm(d).includes(q));
+  const cats = [...new Set(GLOSSARY.map(x=>x[2]))];
+  return `<section class="screen">
+    <div class="screen-head"><h2>Slovníček pojmů</h2>${ornament}<p>Výrazy, které ve WoW uslyšíš nejčastěji – vysvětlené česky.</p></div>
+    <div class="box"><input class="inp" id="gloss-q" type="search" placeholder="Hledat pojem…" value="${esc(glossQ)}" autocomplete="off"></div>
+    ${cats.map(cat => { const items = list.filter(x=>x[2]===cat); if (!items.length) return ""; return `
+      <div class="box"><h3>${esc(cat)}</h3><dl class="gloss">${items.map(([t,d])=>`<div id="g-${norm(t).replace(/[^a-z0-9]+/g,"-")}"><dt>${esc(t)}</dt><dd>${esc(d)}</dd></div>`).join("")}</dl></div>`; }).join("") || `<div class="box"><p>Nic nenalezeno.</p></div>`}
+  </section>`;
+}
+document.addEventListener("input", e => {
+  if (e.target.id==="gloss-q"){ glossQ = e.target.value; const pos = e.target.selectionStart; render(); const i=$("#gloss-q"); if(i){ i.focus(); i.setSelectionRange(pos,pos); } }
+});
+
+/* ================= HLEDÁNÍ ================= */
+function searchIndex(){
+  const out = [];
+  const defRace = c => c.onlyRace || (S.race && !(raceById(S.race).noClasses||[]).includes(c.id) ? S.race : "human");
+  out.push({t:"Slovníček pojmů", sub:"Obrazovka", go:()=>go("glossary")});
+  if (typeof vLeveling==="function") out.push({t:"Levelování", sub:"Obrazovka", go:()=>go("leveling")});
+  RACES.forEach(r => out.push({t:r.name, sub:`Rasa · ${r.cz}`, kw:r.racials.map(x=>x[0]).join(" "), go:()=>{ S.race=r.id; go("race"); }}));
+  CLASSES.forEach(c => c.specs.forEach(s => out.push({t:`${s.name} ${c.name}`, sub:`${ROLE_CZ[s.role]}${GUIDES[c.id+"/"+s.id]?" · kompletní průvodce":""}`, kw:c.cz, go:()=>{ Object.assign(S,{race:defRace(c), cls:c.id, spec:s.id, tab:"overview", hero:null}); go("guide"); }})));
+  Object.entries(GUIDES).forEach(([k,g]) => {
+    const [cid, sid] = k.split("/"), c = clsById(cid), s = specOf(c,sid), lab = `${s.name} ${c.name}`;
+    const open = (tab, focus) => ()=>{ Object.assign(S,{race:defRace(c), cls:cid, spec:sid, tab, hero:null, focus}); go("guide"); };
+    g.spells.forEach(x => out.push({t:x.n, sub:`Kouzlo · ${lab}`, ic:x.ic, kw:x.d, go:open("spells", x.n)}));
+    g.mechanics.forEach(x => out.push({t:x.n, sub:`Mechanika · ${lab}`, ic:x.ic, kw:x.d, go:open("overview", x.n)}));
+    (g.gearItems||[]).forEach(x => out.push({t:x.n, sub:`Gear · ${x.cz} · ${lab}`, ic:x.ic, go:open("gear", "item:"+x.slot)}));
+    (g.consumables||[]).forEach((x,i) => out.push({t:x.n, sub:`${x.t} · ${lab}`, ic:x.ic, kw:x.cz, go:open("buffs", "cons:"+i)}));
+    out.push({t:`Trenažér rotace – ${lab}`, sub:"Trénink", go:open("train")});
+  });
+  GLOSSARY.forEach(([t,d]) => out.push({t, sub:"Slovníček", kw:d, go:()=>{ glossQ=""; S.focusGloss = "g-"+norm(t).replace(/[^a-z0-9]+/g,"-"); go("glossary"); }}));
+  return out;
+}
+const SR = { idx:null, res:[], sel:0 };
+function openSearch(){
+  SR.idx = searchIndex(); SR.sel = 0;
+  let ov = $("#search");
+  if (!ov){
+    ov = document.createElement("div"); ov.id="search"; ov.setAttribute("role","dialog"); ov.setAttribute("aria-label","Hledání");
+    ov.innerHTML = `<div class="sr-box"><div class="sr-in"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M10 2a8 8 0 0 1 6.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1 1 10 2zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/></svg><input id="sr-q" type="search" placeholder="Hledej kouzlo, předmět, classu, pojem…" autocomplete="off"><button class="sr-x" data-srclose aria-label="Zavřít">Esc</button></div><div id="sr-res" class="sr-res"></div></div>`;
+    document.body.appendChild(ov);
+    ov.addEventListener("click", e => { if (e.target===ov || e.target.closest("[data-srclose]")) closeSearch(); const r = e.target.closest("[data-sri]"); if (r) srGo(+r.dataset.sri); });
+    $("#sr-q").addEventListener("input", srRun);
+    $("#sr-q").addEventListener("keydown", e => {
+      if (e.key==="ArrowDown"){ e.preventDefault(); SR.sel=Math.min(SR.sel+1, SR.res.length-1); srDraw(); }
+      if (e.key==="ArrowUp"){ e.preventDefault(); SR.sel=Math.max(SR.sel-1,0); srDraw(); }
+      if (e.key==="Enter" && SR.res[SR.sel]){ e.preventDefault(); srGo(SR.sel); }
+    });
+  }
+  ov.classList.add("on"); $("#sr-q").value=""; srRun(); $("#sr-q").focus();
+}
+function closeSearch(){ const ov=$("#search"); if (ov) ov.classList.remove("on"); }
+function srRun(){
+  const q = norm($("#sr-q").value.trim());
+  SR.res = !q ? SR.idx.filter(x=>/Obrazovka|Trénink/.test(x.sub)).slice(0,8) :
+    SR.idx.map(x => { const t = norm(x.t), k = norm((x.sub||"")+" "+(x.kw||"")); const sc = t.startsWith(q)?3 : t.includes(q)?2 : k.includes(q)?1 : 0; return [sc,x]; })
+      .filter(([sc])=>sc>0).sort((a,b)=>b[0]-a[0]).slice(0,30).map(([,x])=>x);
+  SR.sel = 0; srDraw();
+}
+function srDraw(){
+  $("#sr-res").innerHTML = SR.res.length ? SR.res.map((x,i)=>`<button class="sr-r ${i===SR.sel?"sel":""}" data-sri="${i}">${x.ic?gicon(x.ic,x.t.slice(0,2)):`<span class="gi err"><span class="fbx">${esc(x.t.slice(0,2))}</span></span>`}<span><b>${esc(x.t)}</b><small>${esc(x.sub||"")}</small></span></button>`).join("") : `<p class="note" style="padding:14px">Nic nenalezeno.</p>`;
+  const s = $("#sr-res .sel"); s && s.scrollIntoView({block:"nearest"});
+}
+function srGo(i){ const x = SR.res[i]; closeSearch(); x && x.go(); }
+document.addEventListener("keydown", e => {
+  if ((e.key==="/" && !e.target.closest("input,textarea")) || (e.key.toLowerCase()==="k" && (e.ctrlKey||e.metaKey))){ e.preventDefault(); openSearch(); }
+  if (e.key==="Escape") closeSearch();
+});
+function applyFocus(){
+  if (S.focus){
+    const f = S.focus; S.focus = null;
+    let el = f.startsWith("item:") ? $(`[data-item="${f.slice(5)}"]`) : f.startsWith("cons:") ? $(`[data-tt="cons"][data-i="${f.slice(5)}"]`) : $(`[data-name="${CSS.escape(f)}"]`);
+    if (el){ setTimeout(()=>{ el.scrollIntoView({behavior:"smooth", block:"center"}); el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"), 2200); }, 120); }
+  }
+  if (S.focusGloss){ const el = document.getElementById(S.focusGloss); S.focusGloss=null; if (el){ setTimeout(()=>{ el.scrollIntoView({behavior:"smooth", block:"center"}); el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),2200); },120); } }
+}
+
+/* ================= SDÍLENÍ ================= */
+async function shareCurrent(){
+  const c = clsById(S.cls), s = specOf(c,S.spec), r = raceById(S.race);
+  const url = location.href, title = `${r.name} ${s.name} ${c.name} – Průvodce Azerothem`;
+  try{
+    if (navigator.share){ await navigator.share({title, text:`Podívej se na můj build: ${s.name} ${c.name}`, url}); return; }
+    await navigator.clipboard.writeText(url); toast("Odkaz zkopírován do schránky");
+  }catch(e){ if (e && e.name!=="AbortError"){ prompt("Zkopíruj odkaz:", url); } }
+}
+
+/* ================= VLASTNÍ VIDEO (IndexedDB) ================= */
+const VDB = {
+  db:null,
+  open(){ return this.db ? Promise.resolve(this.db) : new Promise((res,rej)=>{ try{ const rq = indexedDB.open("azg",1); rq.onupgradeneeded=()=>rq.result.createObjectStore("videos"); rq.onsuccess=()=>{ this.db=rq.result; res(this.db); }; rq.onerror=()=>rej(rq.error); }catch(e){ rej(e); } }); },
+  async get(k){ try{ const db=await this.open(); return await new Promise(r=>{ const q=db.transaction("videos").objectStore("videos").get(k); q.onsuccess=()=>r(q.result||null); q.onerror=()=>r(null); }); }catch(e){ return null; } },
+  async set(k,v){ const db=await this.open(); return new Promise((r,j)=>{ const tx=db.transaction("videos","readwrite"); tx.objectStore("videos").put(v,k); tx.oncomplete=r; tx.onerror=()=>j(tx.error); }); },
+  async del(k){ try{ const db=await this.open(); return new Promise(r=>{ const tx=db.transaction("videos","readwrite"); tx.objectStore("videos").delete(k); tx.oncomplete=r; tx.onerror=r; }); }catch(e){} },
+};
+let vidURL = null;
+async function loadOwnVideo(){
+  const host = document.querySelector(".banner .scene"); if (!host) return;
+  const key = specKey(), blob = await VDB.get(key);
+  if (key!==specKey()) return;
+  const rm = $("[data-vidrm]"); if (rm) rm.hidden = !blob;
+  if (!blob) return;
+  if (vidURL) URL.revokeObjectURL(vidURL);
+  vidURL = URL.createObjectURL(blob);
+  host.querySelectorAll("video").forEach(v=>v.remove());
+  const v = document.createElement("video"); Object.assign(v,{autoplay:true,muted:true,loop:true,playsInline:true,src:vidURL});
+  v.addEventListener("loadeddata", ()=>v.classList.add("ok")); host.prepend(v); v.play().catch(()=>{});
+}
+document.addEventListener("change", async e => {
+  if (e.target.id!=="vid-file") return;
+  const f = e.target.files[0]; if (!f) return;
+  if (!f.type.startsWith("video/")){ toast("Vyber prosím video soubor"); return; }
+  if (f.size > 150*1024*1024){ toast("Video je moc velké (max 150 MB)"); return; }
+  try{ await VDB.set(specKey(), f); toast("Video uloženo – přehraje se v banneru"); loadOwnVideo(); }
+  catch(err){ toast("Video se nepodařilo uložit"); }
+  e.target.value = "";
+});
+
+/* ================= SCÉNY PODLE CLASSY ================= */
+const THEMES = {
+  frost:{c:[190,240,255], fall:true}, fire:{c:[255,140,50]}, arcane:{c:[200,125,255]}, shadow:{c:[150,90,255]},
+  void:{c:[140,95,255]}, plague:{c:[140,212,80]}, fel:{c:[95,255,60]}, holy:{c:[255,224,140]}, nature:{c:[125,220,107]},
+  storm:{c:[111,184,255]}, blood:{c:[255,60,60]}, physical:{c:[255,217,160]},
+};
+function sceneTheme(cls, spec){
+  const m = {
+    mage:{frost:"frost", fire:"fire", arcane:"arcane"},
+    warlock:{destruction:"fire", affliction:"shadow", demonology:"fel"},
+    demonhunter:{havoc:"fel", vengeance:"fel", devourer:"void"},
+    deathknight:{frost:"frost", blood:"blood", unholy:"plague"},
+    priest:{shadow:"void", holy:"holy", discipline:"holy"},
+    paladin:{}, druid:{balance:"arcane"}, shaman:{elemental:"storm", enhancement:"storm"},
+    evoker:{devastation:"fire", augmentation:"arcane"}, rogue:{}, warrior:{}, hunter:{}, monk:{},
+  };
+  const def = {paladin:"holy", druid:"nature", shaman:"nature", evoker:"nature", rogue:"shadow", warrior:"physical", hunter:"nature", monk:"nature"};
+  return (m[cls]||{})[spec] || def[cls] || "arcane";
+}
+function sceneWeapon(cls, spec, role){
+  if (cls==="hunter" && spec!=="survival") return "bow";
+  const casters = ["mage","warlock","priest","evoker"];
+  if (casters.includes(cls)) return "staff";
+  if (role==="heal" || role==="ranged") return "staff";
+  return "sword";
+}
+let sceneStop2 = null;
+function mountScene(){
+  if (sceneStop2){ sceneStop2(); sceneStop2=null; }
+  const host = document.querySelector(".banner .scene"); if (!host) return;
+  const c = clsById(S.cls), sp = specOf(c, S.spec);
+  const cv = host.querySelector("canvas"), ctx = cv.getContext("2d");
+  const vid = host.querySelector("video");
+  if (vid){ vid.addEventListener("loadeddata", ()=>vid.classList.add("ok")); const src=vid.querySelector("source"); src && src.addEventListener("error", ()=>vid.remove()); }
+  loadOwnVideo();
+  const theme = sceneTheme(c.id, sp.id), TH = THEMES[theme], weapon = sceneWeapon(c.id, sp.id, sp.role);
+  const [cr,cg,cb] = hexRgb(c.color), [er,eg,eb] = TH.c;
+  const E = a => `rgba(${er},${eg},${eb},${a})`, C = a => `rgba(${cr},${cg},${cb},${a})`;
+  let W,H,t=0,raf,alive=true, parts=[], shots=[], fx=[], bits=[];
+  function size(){ const r=host.getBoundingClientRect(), d=Math.min(devicePixelRatio||1,2); W=r.width; H=r.height; cv.width=W*d; cv.height=H*d; ctx.setTransform(d,0,0,d,0,0);
+    parts = Array.from({length:Math.round(W/9)},()=>({x:Math.random()*W,y:Math.random()*H,r:.5+Math.random()*1.8,v:.2+Math.random()*.7,s:Math.random()*6,rot:Math.random()*6})); }
+  const ro = new ResizeObserver(size); ro.observe(host); size();
+  const cx = () => W<600 ? W*.8 : W-150;
+  function figure(x,y,s,pulse,swing){
+    ctx.save(); ctx.translate(x,y); ctx.scale(s,s);
+    const au = ctx.createRadialGradient(0,-10,5,0,-10,120); au.addColorStop(0,E(.2+pulse*.1)); au.addColorStop(1,E(0));
+    ctx.fillStyle=au; ctx.beginPath(); ctx.arc(0,-10,120,0,7); ctx.fill();
+    ctx.fillStyle="rgba(6,8,16,.96)"; ctx.strokeStyle=C(.75); ctx.lineWidth=1.4;
+    ctx.beginPath();
+    if (weapon==="sword"){ // obrněná postava s ramenními chrániči
+      ctx.moveTo(0,-80); ctx.bezierCurveTo(-14,-80,-18,-64,-18,-54); ctx.lineTo(-34,-48); ctx.lineTo(-40,-34); ctx.lineTo(-30,-30);
+      ctx.bezierCurveTo(-36,0,-40,40,-44,74); ctx.lineTo(44,74); ctx.bezierCurveTo(40,40,36,0,30,-30); ctx.lineTo(40,-34); ctx.lineTo(34,-48); ctx.lineTo(18,-54); ctx.bezierCurveTo(18,-64,14,-80,0,-80);
+    } else {
+      ctx.moveTo(0,-78); ctx.bezierCurveTo(-16,-78,-22,-60,-22,-48); ctx.lineTo(-30,-38);
+      ctx.bezierCurveTo(-38,-10,-44,40,-50,74); ctx.lineTo(50,74); ctx.bezierCurveTo(44,40,38,-10,30,-38);
+      ctx.lineTo(22,-48); ctx.bezierCurveTo(22,-60,16,-78,0,-78);
+    }
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle=E(.95); ctx.shadowColor=E(1); ctx.shadowBlur=10; ctx.fillRect(-8,-56,5,2); ctx.fillRect(3,-56,5,2); ctx.shadowBlur=0;
+    ctx.strokeStyle=C(.9); ctx.lineWidth=3;
+    if (weapon==="staff"){
+      ctx.beginPath(); ctx.moveTo(-40,-70); ctx.lineTo(-30,74); ctx.stroke();
+      const k=7+pulse*4; ctx.fillStyle="#fff"; ctx.shadowColor=E(1); ctx.shadowBlur=24+pulse*20;
+      ctx.beginPath(); ctx.moveTo(-41,-70-k*1.6); ctx.lineTo(-41+k*.7,-70); ctx.lineTo(-41,-70+k*.6); ctx.lineTo(-41-k*.7,-70); ctx.closePath(); ctx.fill();
+    } else if (weapon==="bow"){
+      ctx.beginPath(); ctx.arc(-44,-10,46,Math.PI*.62,Math.PI*1.38); ctx.stroke();
+      ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(-44+46*Math.cos(Math.PI*.62),-10+46*Math.sin(Math.PI*.62)); ctx.lineTo(-44+46*Math.cos(Math.PI*1.38),-10+46*Math.sin(Math.PI*1.38)); ctx.stroke();
+    } else {
+      ctx.save(); ctx.translate(-30,-20); ctx.rotate(-0.9 + swing*1.6); ctx.lineWidth=4; ctx.shadowColor=E(1); ctx.shadowBlur=12+pulse*10;
+      ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(0,-78); ctx.stroke(); ctx.lineWidth=3; ctx.beginPath(); ctx.moveTo(-10,-8); ctx.lineTo(10,-8); ctx.stroke(); ctx.restore();
+    }
+    ctx.restore();
+  }
+  function frame(){
+    if (!alive) return; t++;
+    if (!W || !H){ raf = requestAnimationFrame(frame); return; }
+    ctx.clearRect(0,0,W,H);
+    const s = Math.min(1.15, H/200), x=cx(), y=H*.52+8*Math.sin(t*.02), pulse=(Math.sin(t*.05)+1)/2, gy = H*.52+74*s;
+    // runa pod postavou
+    ctx.save(); ctx.translate(x,gy); ctx.scale(1,.28); ctx.strokeStyle=E(.35); ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(0,0,90*s,0,7); ctx.stroke(); ctx.rotate(t*.004);
+    for(let i=0;i<12;i++){ ctx.rotate(Math.PI/6); ctx.beginPath(); ctx.moveTo(60*s,0); ctx.lineTo(90*s,0); ctx.stroke(); } ctx.restore();
+    // efekty za postavou
+    if (theme==="holy"){ for(let i=0;i<5;i++){ const lx = x-120+i*60+Math.sin(t*.01+i)*20; const gr=ctx.createLinearGradient(lx,0,lx,H); gr.addColorStop(0,E(.18+.08*Math.sin(t*.03+i))); gr.addColorStop(1,E(0)); ctx.fillStyle=gr; ctx.beginPath(); ctx.moveTo(lx-8,0); ctx.lineTo(lx+8,0); ctx.lineTo(lx+40,H); ctx.lineTo(lx-40,H); ctx.fill(); } }
+    if (theme==="fel" || theme==="fire" && c.id==="warlock"){ if (t%3===0) fx.push({flame:true, x:x+(Math.random()-.5)*160*s, y:gy, vy:-(1+Math.random()*1.6), r:6+Math.random()*10, a:.8}); }
+    if (["shadow","void","plague"].includes(theme)){ if (t%6===0) fx.push({x:x+(Math.random()-.5)*140*s, y:gy, vy:-(.3+Math.random()*.6), r:20+Math.random()*30, a:.25, smoke:true}); }
+    fx.forEach(f=>{ if (!f.flame && !f.smoke) return; f.y+=f.vy; f.a-= f.smoke?.002:.015; f.r*= f.smoke?1.004:.985; const gr=ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,f.r); gr.addColorStop(0,E(Math.max(0,f.a))); gr.addColorStop(1,E(0)); ctx.fillStyle=gr; ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,7); ctx.fill(); });
+    fx = fx.filter(f=>f.a>0);
+    if (theme==="arcane"){ for(let i=0;i<6;i++){ const a=t*.02+i/6*Math.PI*2; const ox=x+Math.cos(a)*70*s, oy=y-20*s+Math.sin(a)*22*s; ctx.fillStyle=E(.8); ctx.shadowColor=E(1); ctx.shadowBlur=12; ctx.save(); ctx.translate(ox,oy); ctx.rotate(a); ctx.fillRect(-3,-6,6,12); ctx.restore(); } ctx.shadowBlur=0; }
+    // střely / útoky
+    const swingT = (t%150)/150, swing = weapon==="sword" ? Math.max(0, Math.sin(Math.min(1,swingT*4)*Math.PI)) : 0;
+    if (weapon==="sword"){ if (t%150===18){ fx.push({slash:true, x:x-60*s, y:y-40*s, a:1}); for(let i=0;i<16;i++) bits.push({x:x-80*s,y:y-30*s,vx:-(1+Math.random()*4),vy:(Math.random()-.5)*4,a:1}); } }
+    else if (t%150===40){
+      const sx = weapon==="bow" ? x-44*s : x-41*s, sy = weapon==="bow" ? y-10*s : y-70*s;
+      const n = theme==="arcane" ? 3 : 1;
+      for (let i=0;i<n;i++) shots.push({x:sx, y:sy, vx:-(5.5+Math.random()*1.5), vy:(Math.random()-.5)*(n>1?2:.8), delay:i*8, arrow:weapon==="bow"});
+    }
+    if (theme==="frost" && t%480===300) fx.push({ring:true, r:10, a:1});
+    if (theme==="storm" && t%200===120) fx.push({bolt:true, x:x-80-Math.random()*Math.max(60,W-300), a:1, seg:Array.from({length:8},()=>Math.random()-.5)});
+    shots.forEach(b=>{ if (b.delay>0){ b.delay--; return; } b.x+=b.vx; b.y+=b.vy;
+      if (b.arrow){ ctx.strokeStyle=E(.95); ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(b.x,b.y); ctx.lineTo(b.x+26,b.y-b.vy*2); ctx.stroke(); for(let i=0;i<2;i++) bits.push({x:b.x+26,y:b.y,vx:1,vy:(Math.random()-.5),a:.6}); return; }
+      for(let i=0;i<3;i++) bits.push({x:b.x+Math.random()*6,y:b.y+(Math.random()-.5)*6,vx:1+Math.random()*1.5,vy:(Math.random()-.5)*1.2 - (theme==="fire"?.6:0),a:1});
+      const R = theme==="arcane"?10:18, gr=ctx.createRadialGradient(b.x,b.y,0,b.x,b.y,R); gr.addColorStop(0,"rgba(255,255,255,1)"); gr.addColorStop(.4,E(.85)); gr.addColorStop(1,E(0));
+      ctx.fillStyle=gr; ctx.beginPath(); ctx.arc(b.x,b.y,R,0,7); ctx.fill(); });
+    shots = shots.filter(b=>b.x>-40);
+    bits.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.a-=.03; ctx.fillStyle=E(Math.max(0,p.a)); ctx.fillRect(p.x,p.y,2,2); });
+    bits = bits.filter(p=>p.a>0);
+    fx.forEach(f=>{
+      if (f.ring){ f.r+=4; f.a-=.018; ctx.save(); ctx.translate(x,gy); ctx.scale(1,.3); ctx.strokeStyle=E(Math.max(0,f.a)); ctx.lineWidth=3; ctx.beginPath(); ctx.arc(0,0,f.r,0,7); ctx.stroke(); ctx.restore(); }
+      if (f.slash){ f.a-=.04; ctx.strokeStyle=E(Math.max(0,f.a)); ctx.lineWidth=5; ctx.shadowColor=E(1); ctx.shadowBlur=18; ctx.beginPath(); ctx.arc(f.x+40*s,f.y+10*s,60*s,Math.PI*.9,Math.PI*1.5); ctx.stroke(); ctx.shadowBlur=0; }
+      if (f.bolt){ f.a-=.06; ctx.strokeStyle=`rgba(230,245,255,${Math.max(0,f.a)})`; ctx.lineWidth=2.5; ctx.shadowColor=E(1); ctx.shadowBlur=20; ctx.beginPath(); let bx=f.x, by=0; ctx.moveTo(bx,by); f.seg.forEach((d,i)=>{ bx+=d*40; by=(i+1)/f.seg.length*gy; ctx.lineTo(bx,by); }); ctx.stroke(); ctx.shadowBlur=0; }
+    });
+    fx = fx.filter(f=>f.a>0);
+    figure(x,y,s,pulse,swing);
+    // částice v pozadí
+    parts.forEach(f=>{
+      const fall = TH.fall || theme==="nature" || theme==="storm";
+      f.y += fall ? f.v : -f.v; f.s+=.02; f.x+=Math.sin(f.s)*(theme==="nature"?.8:.3); f.rot+=.03;
+      if (f.y>H+4) f.y=-4; if (f.y<-4) f.y=H+4;
+      if (theme==="nature"){ ctx.save(); ctx.translate(f.x,f.y); ctx.rotate(f.rot); ctx.fillStyle=E(.45+f.r/6); ctx.beginPath(); ctx.ellipse(0,0,f.r*2.2,f.r,0,0,7); ctx.fill(); ctx.restore(); return; }
+      ctx.fillStyle = theme==="frost" ? `rgba(230,248,255,${.35+f.r/4})` : E(.3+f.r/5);
+      ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,7); ctx.fill();
+    });
+    raf = requestAnimationFrame(frame);
+  }
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce){ frame(); cancelAnimationFrame(raf); } else raf = requestAnimationFrame(frame);
+  sceneStop2 = () => { alive=false; cancelAnimationFrame(raf); ro.disconnect(); };
+}
+
+/* ================= OVLÁDÁNÍ (kliky) ================= */
+document.addEventListener("click", e => {
+  const t = e.target.closest("button,[data-search]"); if (!t) return;
+  const d = t.dataset;
+  if (d.search!==undefined){ e.preventDefault(); openSearch(); return; }
+  if (d.share!==undefined){ shareCurrent(); return; }
+  if (d.vidrm!==undefined){ VDB.del(specKey()).then(()=>{ toast("Vlastní video odebráno"); render(); }); return; }
+  if (d.trhero){ TR.hero=d.trhero; clearInterval(TR.timer); trNew(); if (TR.mode==="challenge") trStartChallenge(); else render(); return; }
+  if (d.traoe){ TR.aoe = d.traoe==="1"; clearInterval(TR.timer); trNew(); if (TR.mode==="challenge") trStartChallenge(); else render(); return; }
+  if (d.trmode){ TR.mode=d.trmode; clearInterval(TR.timer); TR.score=0; TR.streak=0; TR.total=0; trNew(); render(); if (TR.mode==="challenge") trStartChallenge(); return; }
+  if (d.trpick){ trPick(+d.trpick); return; }
+  if (d.trnext!==undefined){ trNew(); trRefresh(); return; }
+  if (d.trchal!==undefined){ trStartChallenge(); return; }
+  if (d.quiz==="start"){ Object.assign(QZ,{qs:qzBuild(), i:0, ok:0, done:false}); qzRender(); $("#quiz").scrollIntoView({behavior:"smooth",block:"nearest"}); return; }
+  if (d.quiz==="next"){ if (QZ.i+1<QZ.qs.length) QZ.i++; else QZ.done=true; qzRender(); return; }
+  if (d.qopt){ const q=QZ.qs[QZ.i]; if (q.ans!=null) return; q.ans=+d.qopt; if (q.opts[q.ans]===q.a) QZ.ok++; qzRender(); return; }
+  if (d.ckreset!==undefined){ store.set("ck:"+specKey(), []); render(); return; }
+});
+
+/* ================= PWA ================= */
+if ("serviceWorker" in navigator && location.protocol==="https:"){
+  addEventListener("load", () => { navigator.serviceWorker.register("sw.js").catch(()=>{}); });
+}
+
+/* ================= LEVELOVÁNÍ ================= */
+function vLeveling(){
+  const L = LEVELING, last = store.get("last", null);
+  const g = last && GUIDES[last.cls+"/"+last.spec], c = last && clsById(last.cls), sp = c && specOf(c,last.spec);
+  return `<section class="screen">
+    <div class="screen-head"><h2>Levelování v Midnight</h2>${ornament}<p>${esc(L.intro)}</p></div>
+    <div class="box"><h3>Cesta 1 → 90</h3>
+      <ol class="lvl">${L.phases.map(p=>`<li><span class="lv">${esc(p.lvl)}</span><div><b>${esc(p.t)}</b><ul class="clean">${p.items.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></li>`).join("")}</ol></div>
+    <div class="cols">
+      <div class="box"><h3>Bonusy k XP</h3><table class="t"><tbody>${L.boosts.map(([a,b])=>`<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("")}</tbody></table></div>
+      <div class="box"><h3>Tipy</h3><ul class="clean">${L.tips.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+    </div>
+    ${g ? `<div class="box"><h3>Levelování za ${esc(sp.name)} ${esc(c.name)}</h3><ul class="clean">${g.solo.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+      <div class="btns"><button class="btn" data-resume>Otevřít průvodce ${esc(sp.name)} ${esc(c.name)}</button></div></div>` : ""}
+    <div class="box"><h3>Na úrovni 90</h3><ol class="prio">${L.endgame.map(x=>`<li>${esc(x)}</li>`).join("")}</ol></div>
+    <div class="box"><h3>Zdroje</h3><ul class="clean">${L.sources.map(([n,u])=>`<li><a href="${u}" target="_blank" rel="noopener">${esc(n)}</a></li>`).join("")}</ul></div>
+  </section>`;
+}
+
 
 /* ---------- START ---------- */
 fromHash(); render();
