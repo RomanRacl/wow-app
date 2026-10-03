@@ -1,5 +1,5 @@
 /* Průvodce Azerothem – service worker (offline režim) */
-const VER = "azg-v3";
+const VER = "azg-v4";
 const CORE = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(VER).then(c => c.addAll(CORE)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => {

@@ -42,7 +42,7 @@ h1,h2,h3,.cinzel{font-family:Cinzel,Georgia,serif;letter-spacing:.02em}
   transition:background 1s}
 
 /* ---------- HLAVIČKA ---------- */
-header.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;padding:12px clamp(16px,4vw,40px);
+header.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;padding:calc(12px + env(safe-area-inset-top)) calc(clamp(16px,4vw,40px) + env(safe-area-inset-right)) 12px calc(clamp(16px,4vw,40px) + env(safe-area-inset-left));
   background:linear-gradient(180deg,rgba(7,8,15,.92),rgba(7,8,15,.6));backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .logo{display:flex;align-items:center;gap:10px;font-family:Cinzel;font-weight:900;font-size:18px;color:var(--gold-2);text-decoration:none;white-space:nowrap}
 .logo svg{width:30px;height:30px;filter:drop-shadow(0 0 8px rgba(232,182,76,.5))}
@@ -143,7 +143,7 @@ main{max-width:1180px;margin:0 auto;padding:18px clamp(16px,4vw,40px) 80px}
 .banner .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .banner .meta .tag{font-size:12px;padding:4px 10px;background:rgba(0,0,0,.35);color:#e6dfcc}
 .banner .change{margin-left:auto}
-.tabs{display:flex;gap:4px;overflow-x:auto;margin:18px 0 0;padding-bottom:2px;scrollbar-width:thin;position:sticky;top:57px;z-index:10;
+.tabs{display:flex;gap:4px;overflow-x:auto;margin:18px 0 0;padding-bottom:2px;scrollbar-width:thin;position:sticky;top:var(--hh,calc(57px + env(safe-area-inset-top)));z-index:10;
   background:linear-gradient(180deg,rgba(7,8,15,.95),rgba(7,8,15,.85));backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .tab{padding:12px 16px;font-size:14px;color:var(--muted);white-space:nowrap;border-bottom:2px solid transparent;transition:.2s}
 .tab:hover{color:var(--text)}
@@ -2734,6 +2734,7 @@ function fromHash(){
   else if (scr==="guide" && raceById(p[1]) && specOf(clsById(p[2]),p[3])){ S.screen="guide"; S.race=p[1]; S.cls=p[2]; S.spec=p[3]; S.tab=p[4]||"overview"; }
   else S.screen="home";
 }
+(function(){const h=document.querySelector("header.top");if(!h)return;const f=()=>document.documentElement.style.setProperty("--hh",h.offsetHeight+"px");f();if(window.ResizeObserver)new ResizeObserver(f).observe(h);addEventListener("resize",f);})();
 function go(screen){ S.screen=screen; render(); window.scrollTo({top:0,behavior:"smooth"}); }
 
 /* ---------- SVG ERBY (vlastní, originální) ---------- */
