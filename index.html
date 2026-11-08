@@ -168,6 +168,12 @@ ol.prio li::before{content:counter(p);flex:none;width:26px;height:26px;border-ra
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;padding:3px;gap:3px;background:rgba(0,0,0,.3)}
 .seg button{padding:7px 14px;border-radius:7px;font-size:13px;color:var(--muted)}
 .seg button.on{background:var(--accent);color:#111;font-weight:600}
+.gearsw{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-bottom:16px}
+.gearsw .seg{max-width:100%}
+.gearsw .seg button{white-space:nowrap}
+@media (max-width:420px){.gearsw .seg{display:flex;width:100%}.gearsw .seg button{flex:1;padding:8px 6px;font-size:12.5px}}
+.box.pvpwhy{border-color:rgba(224,91,77,.45);background:linear-gradient(120deg,rgba(224,91,77,.12),var(--panel))}
+.box.pvpwhy h3{color:#f0a196}
 .controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 
 /* kouzla */
@@ -459,8 +465,8 @@ footer a{color:var(--muted)}
    Úpravy obsahu dělej jen tady, UI se přizpůsobí samo.
    ============================================================ */
 
-const PATCH = "12.1 (Midnight, Season 2)";
-const UPDATED = "1. 10. 2026";
+const PATCH = "12.1.5 (Midnight, Season 2)";
+const UPDATED = "8. 11. 2026";
 
 /* ---------- RASY ---------- */
 const RACES = [
@@ -729,7 +735,7 @@ const GUIDES = {
       {n:"Ice Barrier", ic:"spell_ice_lament", u:WH(11426), d:"DMG nepřidá, ale díky štítu nemusíš utíkat a sesíláš dál."},
     ],
     buffNote:"Icy Veins už v Midnight neexistuje – jeho roli převzal Ray of Frost.",
-    /* BiS gear (Method.gg, patch 12.1). Staty = hodnoty z Wowhead tooltipu na uvedeném item levelu. */
+    /* BiS gear (Method.gg, patch 12.1.5). Staty = hodnoty z Wowhead tooltipu na uvedeném item levelu. */
     gearSet:{ name:"Primal Leywarden's Attire", bonus2:"Každý rozbitý stack Freezing má 4% šanci vytvořit Icicle. Poškození Glacial Spike zvýšeno o 20 %.", bonus4:"Seslání Glacial Spike má šanci během 1 s rychle vytvořit 5 Icicles. Poškození Shatter zvýšeno o 5 %." },
     gearItems:[
       {slot:"head",  cz:"Hlava",   id:271874, ic:"inv_helm_cloth_raidwarlockulatek_d_01", n:"Venomkeeper's Horrific Cowl", ilvl:344, type:["Hlava","Látka"], armor:92, stats:["+207 Intellect","+4,385 Stamina"], sec:["+209 Mastery"], equip:["Tvá kouzla a schopnosti mají šanci zvýšit Mastery o 378, ale na 12 s sníží ostatní sekundární staty o 63."], src:"Ula'tek (raid)"},
@@ -740,11 +746,11 @@ const GUIDES = {
       {slot:"wrist", cz:"Zápěstí", id:239648, ic:"inv_bracer_cloth_questbloodelf_b_01", n:"Martyr's Bindings", ilvl:246, type:["Zápěstí","Látka"], armor:34, stats:["+47 Intellect","+779 Stamina"], sec:["+36 [náhodný stat 1]","+36 [náhodný stat 2]"], crafted:true, src:"Vyrobené (crafting) – staty si vybereš při výrobě"},
       {slot:"hands", cz:"Ruce",    id:271565, ic:"inv_glove_cloth_raidmageulatek_d_01", n:"Primal Leywarden's Manashapers", ilvl:334, type:["Ruce","Látka"], armor:64, stats:["+141 Intellect","+2,932 Stamina"], sec:["+50 Haste","+101 Mastery"], tier:true, src:"Entombed Sentinels (raid) – tier set"},
       {slot:"waist", cz:"Pás",     id:239664, ic:"inv_belt_cloth_questbloodelf_b_01", n:"Arcanoweave Cord", ilvl:246, type:["Pás","Látka"], armor:38, stats:["+62 Intellect","+1,039 Stamina"], sec:["+49 Critical Strike","+49 Haste"], equip:["Tvá léčivá a útočná kouzla mají šanci zvýšit Mastery o 136 na 12 s."], unique:"Jedinečné: Embellished (max. 2)", crafted:true, src:"Vyrobené (crafting)"},
-      {slot:"legs",  cz:"Nohy",    id:271563, ic:"inv_pant_cloth_raidmageulatek_d_01", n:"Primal Leywarden's Tailored Legwraps", ilvl:334, type:["Nohy","Látka"], armor:100, stats:["+189 Intellect","+3,910 Stamina"], sec:["+62 Critical Strike","+139 Versatility"], tier:true, src:"Sszorak (raid) – tier set"},
+      {slot:"legs",  cz:"Nohy",    id:281235, ic:"inv_pant_cloth_raidmageulatek_d_01", n:"Voidweaver's Leggings", ilvl:334, type:["Nohy","Látka"], armor:100, stats:["+189 Intellect","+3,910 Stamina"], sec:["+61 Critical Strike","+140 Mastery"], equip:["Tvé útoky mají šanci vybuchnout energií Voidu a způsobit Shadow poškození všem nepřátelům poblíž. Pokud jsi Venomcursed, poškození je o 15 % vyšší."], src:"Kith'ix (raid)"},
       {slot:"feet",  cz:"Boty",    id:268255, ic:"inv_boot_cloth_raidmageulatek_d_01", n:"Cackling Soultreads", ilvl:344, type:["Chodidla","Látka"], armor:76, stats:["+155 Intellect","+3,288 Stamina"], sec:["+105 Haste","+52 Mastery"], src:"The Coiled Altar (raid)"},
-      {slot:"ring1", cz:"Prsten 1", id:268249, ic:"inv_121_jewelry_ring01_purple", n:"Vile Alchemist's Band", ilvl:334, type:["Prst",""], stats:["+2,199 Stamina"], sec:["+73 Critical Strike","+332 Mastery"], unique:"Lze nasadit jen jednou", src:"Vashnik the Malignant (raid)"},
+      {slot:"ring1", cz:"Prsten 1", id:281029, ic:"", n:"Band of the Swarmcaller", ilvl:334, type:["Prst",""], stats:["+2,199 Stamina"], sec:["+110 Haste","+295 Mastery"], equip:["Tvé útoky mají šanci přivolat Acidbrood Scourge, který vletí do cíle a vybuchne – Nature poškození všem nepřátelům poblíž."], unique:"Lze nasadit jen jednou", src:"Kith'ix (raid)"},
       {slot:"ring2", cz:"Prsten 2", id:158366, ic:"inv_ring_80_03d", n:"Charged Sandstone Band", ilvl:334, type:["Prst",""], stats:["+2,199 Stamina"], sec:["+232 Critical Strike","+174 Mastery"], unique:"Lze nasadit jen jednou", src:"Temple of Sethraliss (Mythic+) – Galvazzt"},
-      {slot:"trinket1", cz:"Trinket 1", id:270167, ic:"inv_tradeskillitem_sorcererswater", n:"Wavecaller's Seastone", ilvl:334, type:["Trinket",""], stats:[], sec:["+143 Haste"], equip:["Tvá kouzla mají vysokou šanci přivolat moře a dát ti Tidal Insight, který zvyšuje Intellect o 65 (až 6×). Po dosažení maxima kouzla Tidal Insight postupně snižují a pak cyklus začne znovu."], unique:"Lze nasadit jen jednou", src:"Nymrissa Wavecaller (raid)"},
+      {slot:"trinket1", cz:"Trinket 1", id:281215, ic:"", n:"Twisted Horror's Tendril", ilvl:341, type:["Trinket",""], stats:["+191 Intellect"], sec:[], equip:["Tvé poškození má velmi vysokou šanci dát ti Devastating Power: +35 Critical Strike na 15 s (efekty se mohou překrývat). Jednou za 5 s ti první zásah nového cíle dá rovnou 3 stacky."], src:"Kith'ix (raid)"},
       {slot:"trinket2", cz:"Trinket 2", id:270164, ic:"inv_10_tailoring_bag1_color2", n:"Gebbo's Bottomless Bag", ilvl:334, type:["Trinket",""], stats:["+179 Intellect"], sec:[], equip:["Při sesílání kouzel a schopností máš šanci vytáhnout z vaku artefakt pochybné hodnoty, který různými způsoby posílí tvé sekundární staty."], unique:"Lze nasadit jen jednou", src:"The Lost Explorers (raid) – Mor'zahi"},
       {slot:"main",  cz:"Hlavní ruka", id:271092, ic:"inv_knife_1h_ulatekfang_d_01_spirit", n:"Jan'thrazet, the Soul Fang", ilvl:344, type:["Jednoruční","Dýka"], weapon:{dmg:"79–132 poškození", speed:"Rychlost 1,80", dps:"(58,6 poškození za sekundu)"}, stats:["+603 Intellect","+2,192 Stamina"], sec:["+104 Haste"], equip:["Tvá kouzla mají šanci vysát vůli blízkého nepřítele: na 12 s mu zpomalí sesílání o 10 % a tobě zvýší Haste o 138."], unique:"Lze nasadit jen jednou", src:"Ula'tek (raid)"},
       {slot:"off",   cz:"Druhá ruka", id:159667, ic:"inv_offhand_1h_battledungeon_c_02", n:"Vessel of Last Rites", ilvl:334, type:["Drží se v druhé ruce",""], stats:["+289 Intellect","+1,955 Stamina"], sec:["+61 Haste","+39 Versatility"], src:"King's Rest (Mythic+) – Mchimba the Embalmer"},
@@ -1235,6 +1241,7 @@ const CONS = {
   rune:{t:"Augment rune", n:"Void-Touched Augment Rune", id:259085, ic:"inv_10_enchanting_crystal_color2", q:3, ilvl:24, kind:"Augment runa", use:"Zvýší hlavní stat o 25 na 1 hodinu.", when:"Před bojem", cz:"Malý bonus k hlavnímu statu."},
   reck:{t:"Potion (DMG)", n:"Potion of Recklessness", id:241288, ic:"inv_12_profession_alchemy_voidpotion_red", q:1, ilvl:295, kind:"Lektvar", use:"Na 30 s +1725 nejvyššího sekundárního statu a −232 nejnižšího.", when:"S hlavním cooldownem", cz:"Jednou za boj spolu s burstem."},
   light:{t:"Potion (DMG)", n:"Light's Potential", id:241308, ic:"inv_12_profession_alchemy_lightpotion_yellow", q:1, ilvl:295, kind:"Lektvar", use:"Na 30 s zvýší hlavní stat o 695.", when:"S hlavním cooldownem", cz:"Jednou za boj spolu s burstem."},
+  luster:{t:"Potion (DMG)", n:"Liquid Luster", id:271886, ic:"inv_121_professions_alchemy_potion_amani_blue", q:1, ilvl:278, kind:"Lektvar", use:"Každých 6 s ti na 30 s přidá stack Lustrous Gleam (max 5×), který zvyšuje Versatility o 358.", when:"6 s před pullem", cz:"Vypij těsně před začátkem boje, ať se stacky stihnou nasbírat."},
   heal:{t:"Léčení", n:"Concentrated Silvermoon Health Potion", id:271883, ic:"inv_12_profession_alchemy_lightpotion_purple", q:1, ilvl:278, kind:"Lektvar", use:"Obnoví 359 499 životů.", when:"Když ti klesá život", cz:"Nouzové léčení."},
 };
 const WHM = id => `https://www.wowhead.com/spell=${id}`;
@@ -1384,7 +1391,7 @@ GUIDES["hunter/beast-mastery"] = {
   ],
   stats:["Agility","Mastery","Haste","Critical Strike","Versatility"], statNote:"Nad vším je poškození zbraně (Weapon Damage). Na AoE je Crit cennější než Haste.",
   gear:["Vždycky nejdřív vyšší item level.","Zbraň: luk, puška nebo kuše s co nejvyšším poškozením.","Zbroj: Mail.","Enchantuj vše a dávej gemy do socketů."],
-  consumables:[CONS.crit, CONS.feast, CONS.oil, CONS.rune, CONS.reck, CONS.heal],
+  consumables:[CONS.crit, CONS.feast, CONS.oil, CONS.rune, CONS.luster, CONS.heal],
   races:[{id:"dwarf", why:"Aliance – vyšší kritické poškození a Stoneform."},{id:"tauren", why:"Horda – vyšší kritické poškození a War Stomp."},{id:"pandaren", why:"Obě frakce – dvojnásobné jídlo."},{id:"orc", why:"Horda – silnější pet a Blood Fury."},{id:"nightelf", why:"Aliance – Shadowmeld a bonus Haste/Crit."}],
   mplus:["Wild Thrash na každý pack – drž Beast Cleave.","Binding Shot na utíkající nepřátele.","Counter Shot na nebezpečná kouzla.","Pet tankuje v solo obsahu, ve skupině dej petovi Passive/Assist."],
   solo:["Pet tankuje – ty střílíš a hýbeš se.","Mend Pet a Exhilaration ti pomůžou přežít."],
@@ -1428,7 +1435,7 @@ GUIDES["demonhunter/havoc"] = {
   },
   heroNote:{ "Fel-Scarred":"Doporučeno pro raid i Mythic+ – silnější burst a cleave.", "Aldrachi Reaver":"Alternativa – Reaver's Glaive a Rending Strike." },
   builds:[
-    {name:"Single target", hero:"Fel-Scarred", rec:true, str:"CEkAAAAAAAAAAAAAAAAAAAAAAYAzMz2MmZmxMzkxMDAAAAAAY2MmtZYmBmxyMzYZm5BmZWmZWGjB2mFzYY200wMjhNAAAAAAAAmZwAAAAwA"},
+    {name:"Single target", hero:"Fel-Scarred", rec:true, str:"CEkAAAAAAAAAAAAAAAAAAAAAAYAzMz2MmZmxMzkxMDAAAAAAY2MmtZYmxyMzYZm5BmZWmZWGjB2mFzYY200wMjhNAAAAAAAAmZwAAAAwA"},
     {name:"Raid cleave", hero:"Fel-Scarred", str:"CEkAAAAAAAAAAAAAAAAAAAAAAYmZGzMz2MmZmxMzkxMDAAAAAAY2MmtZYmBPwMWmZegZYmxYWGYbWMjhZTTjZmxwGAAAAAAAAzMYAAAAYA"},
     {name:"Mythic+", hero:"Fel-Scarred", rec:true, str:"CEkAAAAAAAAAAAAAAAAAAAAAAYmZGzMz2MmZmxMzkxMDAAAAAAY2MmtZYmBmxyMzDMDzMGzyAbziZMMbaaMzMG2AAAAGAAAAzMYAAAAYA"},
     {name:"Raid", hero:"Aldrachi Reaver", str:"CEkAAAAAAAAAAAAAAAAAAAAAAYgZmZ2mxMzMmZmMmZAAAAAAAzmxsNDzMz2MzYZmxMWmZYmlZ2mBDjlNmkxMjhFAAAAAAAwMDwAAAAwA"},
@@ -1485,7 +1492,7 @@ GUIDES["paladin/protection"] = {
   ],
   stats:["Item Level","Haste","Critical Strike","Versatility","Mastery"], statNote:"Pro tanka je nejdůležitější item level. Haste = víc Holy Power a obrany.",
   gear:["Vždycky nejdřív vyšší item level.","Zbraň: jednoruční zbraň + štít se Strength.","Zbroj: Plate.","Enchantuj vše a dávej gemy do socketů."],
-  consumables:[CONS.haste, CONS.feast, CONS.oil, CONS.rune, CONS.reck, CONS.heal],
+  consumables:[CONS.haste, CONS.feast, {...CONS.oil, when:"Jen s hero talenty Templar", cz:"Olej jen pro Templar. S Lightsmith (doporučené buildy) místo oleje použij talent Rite of Sanctification – posílí zbraň světlem."}, CONS.rune, CONS.reck, CONS.heal],
   races:[{id:"dwarf", why:"Stoneform – odstraní škodlivé efekty."},{id:"darkiron", why:"Fireblood – odstraní škodlivé efekty a dá stat."}],
   mplus:["Avenger's Shield na začátek každého pullu – přeruší víc nepřátel.","Shield of the Righteous drž aktivní, hlavně při fyzickém poškození.","Ardent Defender a Guardian of Ancient Kings střídej na velké packy.","Stůj tak, aby nepřátelé byli otočení od skupiny."],
   solo:["Word of Glory tě vyléčí – na solo obsah ideální.","Pull víc nepřátel najednou, Consecration a Avenger's Shield je zvládnou."],
@@ -1547,7 +1554,7 @@ GUIDES["warlock/destruction"] = {
 };
 
 /* doporučené rasy i pro Frost Mage (Method) */
-GUIDES["mage/frost"].races = [{id:"dwarf", why:"Stoneform – odstraní škodlivé efekty, výborný pro Mythic+."},{id:"nightelf", why:"Shadowmeld – zruší aggro a vyhne se některým mechanikám."}];
+GUIDES["mage/frost"].races = [{id:"mechagnome", why:"Nejvyšší DPS v raidu (doporučení Method)."},{id:"pandaren", why:"Nejvyšší DPS v raidu – dvojnásobné jídlo."},{id:"dwarf", why:"Stoneform – odstraní škodlivé efekty, výborný pro Mythic+."},{id:"nightelf", why:"Shadowmeld – zruší aggro a vyhne se některým mechanikám."}];
 ["arcane","fire"].forEach(s => { const sp = CLASSES.find(c=>c.id==="mage").specs.find(x=>x.id===s); sp.full = true; });
 [["hunter","beast-mastery"],["demonhunter","havoc"],["paladin","protection"],["warlock","destruction"]].forEach(([c,s]) => { CLASSES.find(x=>x.id===c).specs.find(x=>x.id===s).full = true; });
 
@@ -2049,7 +2056,7 @@ GUIDES["warrior/fury"] = {
   gear:["Vždycky nejdřív vyšší item level.","Zbraně: dvě obouruční (Titan's Grip) nebo dvě jednoruční se Strength.","Zbroj: Plate.","Olej dej na obě zbraně."],
   consumables:[CONS.haste, CONS.parade, CONS.oil, CONS.rune, CONS.light, CONS.heal],
   races:[{id:"goblin", why:"Horda – Time is Money (Haste)."},{id:"troll", why:"Horda – Berserking do Recklessness."},{id:"voidelf", why:"Aliance – Entropic Embrace a Spatial Rift."},{id:"mechagnome", why:"Aliance – Combat Analysis."}],
-  bis:[B("head",251126,"Greathelm of Temptation","Murder Row (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",251138,"Cinderfury Shoulderguards","Murder Row (Catalyst)"),B("back",251190,"Bloodthorn Burnous","The Blinding Vale"),B("chest",193753,"Breastplate of Soaring Terror","Ruby Life Pools (Catalyst)"),B("wrist",237834,"Spellbreaker's Bracers","Crafted"),B("hands",159413,"Gauntlets of the Avian Sentinel","King's Rest (Catalyst)"),B("waist",159418,"Girdle of Pestilent Purification","King's Rest"),B("legs",271878,"Chausses of Unbound Rancor","Ula'tek"),B("feet",268260,"Scaled Fiend's Warboots","Vashnik the Malignant"),B("ring1",252258,"Sickening Signet of Atroxus","Voidscar Arena"),B("ring2",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("trinket1",270173,"Zul'jin's Guillotine Technique","The Coiled Altar"),B("trinket2",270175,"Voracious Heart of Ula'tek","Ula'tek"),B("main",268213,"Maze-Roa, Warlord's Fury","The Coiled Altar"),B("off",237846,"Blood Knight's Warblade","Crafted")],
+  bis:[B("head",281239,"Corroded Hulk's Skullcap","Kith'ix (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",251138,"Cinderfury Shoulderguards","Murder Row (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",268222,"Reckless Spirit Breastplate","The Coiled Altar (Catalyst)"),B("wrist",237834,"Spellbreaker's Bracers","Crafted"),B("hands",159413,"Gauntlets of the Avian Sentinel","King's Rest (Catalyst)"),B("waist",268259,"Girdle of Toxic Regret","The Coiled Altar"),B("legs",271878,"Chausses of Unbound Rancor","Ula'tek"),B("feet",237828,"Spellbreaker's March","Crafted"),B("ring1",252258,"Sickening Signet of Atroxus","Voidscar Arena"),B("ring2",281029,"Band of the Swarmcaller","Kith'ix"),B("trinket1",270173,"Zul'jin's Guillotine Technique","The Coiled Altar"),B("trinket2",270175,"Voracious Heart of Ula'tek","Ula'tek"),B("main",268213,"Maze-Roa, Warlord's Fury","The Coiled Altar"),B("off",280799,"Lu'selama, Light's Justice","Kith'ix")],
   mplus:["Whirlwind na začátku každého packu.","Pummel na nebezpečná kouzla.","Enraged Regeneration na velké poškození.","Heroic Leap na mechaniky."],
   solo:["Bloodthirst tě léčí – na solo obsah ideální.","Charge k dalšímu nepříteli, Whirlwind na skupinky."],
   pvp:["Velký burst s Recklessness.","Na PvP se víc hraje Arms – podrobnosti na Icy Veins."],
@@ -2102,7 +2109,7 @@ GUIDES["paladin/retribution"] = {
   gear:["Vždycky nejdřív vyšší item level.","Zbraň: obouruční se Strength.","Zbroj: Plate."],
   consumables:[CONS.mastery, CONS.roast, CONS.oil, CONS.rune, CONS.reck, CONS.heal],
   races:[{id:"dwarf", why:"Aliance – Stoneform odstraní i krvácení."},{id:"human", why:"Aliance – Will to Survive."},{id:"tauren", why:"Horda – Brawn a War Stomp."},{id:"bloodelf", why:"Horda – Arcane Torrent."}],
-  bis:[B("head",271465,"Warhelm of the Consecrated Flame","Nek'zali the Soulcoiler (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",271463,"Pauldrons of the Consecrated Flame","Murder Row (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",271468,"Bulwark of the Consecrated Flame","The Coiled Altar (Catalyst)"),B("wrist",237834,"Spellbreaker's Bracers","Crafted"),B("hands",271466,"Gauntlets of the Consecrated Flame","Den of Nalorakk (Catalyst)"),B("waist",268259,"Girdle of Toxic Regret","The Coiled Altar"),B("legs",271464,"Greaves of the Consecrated Flame","Ula'tek (Catalyst)"),B("feet",268260,"Scaled Fiend's Warboots","Vashnik the Malignant"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",251513,"Loa Worshiper's Band","Crafted"),B("trinket1",270175,"Voracious Heart of Ula'tek","Ula'tek"),B("trinket2",270173,"Zul'jin's Guillotine Technique","The Coiled Altar"),B("main",268213,"Maze-Roa, Warlord's Fury","The Coiled Altar")],
+  bis:[B("head",271465,"Warhelm of the Consecrated Flame","Nek'zali the Soulcoiler (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",271463,"Pauldrons of the Consecrated Flame","Murder Row (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",271468,"Bulwark of the Consecrated Flame","The Coiled Altar (Catalyst)"),B("wrist",237834,"Spellbreaker's Bracers","Crafted"),B("hands",271466,"Gauntlets of the Consecrated Flame","Den of Nalorakk (Catalyst)"),B("waist",268259,"Girdle of Toxic Regret","The Coiled Altar"),B("legs",271464,"Greaves of the Consecrated Flame","Ula'tek (Catalyst)"),B("feet",268260,"Scaled Fiend's Warboots","Vashnik the Malignant"),B("ring1",281029,"Band of the Swarmcaller","Kith'ix"),B("ring2",251513,"Loa Worshiper's Band","Crafted"),B("trinket1",270175,"Voracious Heart of Ula'tek","Ula'tek"),B("trinket2",270173,"Zul'jin's Guillotine Technique","The Coiled Altar"),B("main",268213,"Maze-Roa, Warlord's Fury","The Coiled Altar")],
   mplus:["Divine Storm na 2+ nepřátele.","Wake of Ashes a Divine Toll na packy.","Rebuke na nebezpečná kouzla.","Blessing of Freedom a Protection pomůžou spoluhráčům."],
   solo:["Word of Glory tě vyléčí mezi pully.","Divine Storm na skupinky."],
   pvp:["Silný burst s Avenging Wrath.","Hodně užitečných požehnání pro tým."],
@@ -2157,7 +2164,7 @@ GUIDES["priest/shadow"] = {
   gear:["Vždycky nejdřív vyšší item level.","Zbraň: hůl, nebo jednoruční + off-hand s Intellectem.","Zbroj: Cloth (látka)."],
   consumables:[CONS.haste, CONS.feast, CONS.oil, CONS.rune, CONS.reck, CONS.heal],
   races:[{id:"goblin", why:"Rocket Jump – mobilita v raidu."},{id:"dracthyr", why:"Glide – skvělý pohyb."},{id:"voidelf", why:"Spatial Rift."},{id:"nightelf", why:"Shadowmeld v Mythic+."},{id:"dwarf", why:"Stoneform v Mythic+."}],
-  bis:[B("head",271555,"Cosmic Penitent's Truesight","Tier set / Catalyst"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",239045,"Mantle of Ceremonial Ascension","Kings' Rest"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",271558,"Cosmic Penitent's Eclipsing Robes","Tier set / Catalyst"),B("wrist",239648,"Martyr's Bindings","Crafted"),B("hands",271556,"Cosmic Penitent's Celestial Grips","Tier set / Catalyst"),B("waist",239649,"Martyr's Waistwrap","Crafted"),B("legs",271554,"Enveloping Legwraps of the Cosmic Penitent","Tier set / Catalyst"),B("feet",268255,"Cackling Soultreads","The Coiled Altar"),B("ring1",252258,"Sickening Signet of Atroxus","Voidscar Arena"),B("ring2",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("trinket1",270167,"Wavecaller's Seastone","Nymrissa Wavecaller"),B("trinket2",250215,"Freightrunner's Flask","Murder Row"),B("main",271092,"Jan'thrazet, the Soul Fang","Ula'tek"),B("off",268197,"Spine of the Hissing Abyss","Entombed Sentinels")],
+  bis:[B("head",271555,"Cosmic Penitent's Truesight","Tier set / Catalyst"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",239045,"Mantle of Ceremonial Ascension","Kings' Rest"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",271558,"Cosmic Penitent's Eclipsing Robes","Tier set / Catalyst"),B("wrist",239648,"Martyr's Bindings","Crafted"),B("hands",271556,"Cosmic Penitent's Celestial Grips","Tier set / Catalyst"),B("waist",239649,"Martyr's Waistwrap","Crafted"),B("legs",271554,"Enveloping Legwraps of the Cosmic Penitent","Tier set / Catalyst"),B("feet",268255,"Cackling Soultreads","The Coiled Altar"),B("ring1",281029,"Band of the Swarmcaller","Kith'ix"),B("ring2",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("trinket1",281215,"Twisted Horror's Tendril","Kith'ix"),B("trinket2",250215,"Freightrunner's Flask","Murder Row"),B("main",271092,"Jan'thrazet, the Soul Fang","Ula'tek"),B("off",268197,"Spine of the Hissing Abyss","Entombed Sentinels")],
   mplus:["Tentacle Slam na balík – rychle nahodí Vampiric Touch.","Silence na nebezpečná kouzla.","Mass Dispel a Purify Disease pomůžou skupině.","Dispersion na smrtelné mechaniky."],
   solo:["DoTy tě léčí – Vampiric Touch a Madness.","Power Word: Shield před pullem."],
   pvp:["Silný tlak DoTy a Psychic Scream.","Dispersion na přežití."],
@@ -2200,8 +2207,8 @@ GUIDES["druid/restoration"] = {
   rotNote:"Healer nemá pevnou rotaci – toto je zjednodušená priorita podle Method.gg. Trenažér ukáže zdraví skupiny.",
   heroNote:{ Wildstalker:"Doporučeno pro raid i Mythic+.", "Keeper of the Grove":"Alternativa." },
   builds:[
-    {name:"Raid", hero:"Wildstalker", rec:true, str:"CkGAAAAAAAAAAAAAAAAAAAAAAYMmZZmZMzMmthZwsZsNmBAAAAAAAAAALDa2MjpZGDjZZmZmZYYGAAAAAAAAAABAAMbzs0sNzmNGzMwMANDAwMDADA"},
-    {name:"Mythic+", hero:"Wildstalker", rec:true, str:"CkGAAAAAAAAAAAAAAAAAAAAAAMMmZZMjZmxsNMDmFjNbzAAAAAAAAAAglBNbzw0MjBmFzMzMLzwDMAAAAAMAAzAAQAAAz2MbNbzsYjZmBmZWANDAwMDADA"},
+    {name:"Raid", hero:"Wildstalker", rec:true, str:"CkGAAAAAAAAAAAAAAAAAAAAAAYMmZZmZMzMmthHYYmNjtxMAAAAAAAAAAYZQzmZMNzYYMLzMzMDDzAAAAAAAAAAIAAgZbmlmtZ2sxYmBmBoZAAmZAYA"},
+    {name:"Mythic+", hero:"Wildstalker", rec:true, str:"CkGAAAAAAAAAAAAAAAAAAAAAAMMmZZMjZmxsN8ADzsYsZbGAAAAAAAAAAsMoZbGmmZMwsYmZmZZGegBAAAAgBAYGAACAAY2mZrZbmFbMzMwMzCoZAAmZAYA"},
     {name:"Raid", hero:"Keeper of the Grove", str:"CkGAAAAAAAAAAAAAAAAAAAAAAMjxMbzMjZmxsN8AzYGGbMDAAAAAAAAAAWG0sZGTzMGGzyMzMzwwMAAAAAAAAw2yYDTzMLDAAQALMmZwMDQzAgZGAwA"},
     {name:"Mythic+", hero:"Keeper of the Grove", str:"CkGAAAAAAAAAAAAAAAAAAAAAAMMmZZMjZmxsN8AMzsYsYbGAAAAAAAAAAsYoZbGmmBwsYmZmZxwDMAAAAAMAAzA22GLYamZZAAACYhZmZGmZ2ANDAmZAADA"},
   ],
@@ -2261,7 +2268,7 @@ GUIDES["paladin/holy"] = {
   gear:["Vždycky nejdřív vyšší item level.","Zbraň: jednoruční zbraň + štít/off-hand s Intellectem.","Zbroj: Plate."],
   consumables:[CONS.haste, CONS.parade, CONS.oil, CONS.mana, CONS.heal],
   races:[{id:"dwarf", why:"Aliance – Stoneform jako extra obrana."},{id:"bloodelf", why:"Horda – Arcane Torrent dá Holy Power."}],
-  bis:[B("head",251126,"Greathelm of Temptation","Murder Row (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",251138,"Cinderfury Shoulderguards","Murder Row (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",268222,"Reckless Spirit Breastplate","The Coiled Altar (Catalyst)"),B("wrist",268239,"Shellbound Bracers","The Lost Explorers"),B("hands",159413,"Gauntlets of the Avian Sentinel","King's Rest (Catalyst)"),B("waist",268259,"Girdle of Toxic Regret","The Coiled Altar"),B("legs",271878,"Chausses of Unbound Rancor","Ula'tek"),B("feet",268260,"Scaled Fiend's Warboots","Vashnik the Malignant"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",252258,"Sickening Signet of Atroxus","Voidscar Arena"),B("trinket1",270162,"Soulcoiler Ritual Vessel","Nek'zali the Soulcoiler"),B("trinket2",270164,"Gebbo's Bottomless Bag","The Lost Explorers"),B("main",268211,"Baleful Hexblade","The Coiled Altar"),B("off",268262,"Bubblefin Splash Guard","The Tidebound Grotto")],
+  bis:[B("head",281239,"Corroded Hulk's Skullcap","Kith'ix (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",251138,"Cinderfury Shoulderguards","Murder Row (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",268222,"Reckless Spirit Breastplate","The Coiled Altar (Catalyst)"),B("wrist",268239,"Shellbound Bracers","The Lost Explorers"),B("hands",159413,"Gauntlets of the Avian Sentinel","King's Rest (Catalyst)"),B("waist",268259,"Girdle of Toxic Regret","The Coiled Altar"),B("legs",271878,"Chausses of Unbound Rancor","Ula'tek"),B("feet",268260,"Scaled Fiend's Warboots","Vashnik the Malignant"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",281029,"Band of the Swarmcaller","Kith'ix"),B("trinket1",270162,"Soulcoiler Ritual Vessel","Nek'zali the Soulcoiler"),B("trinket2",270164,"Gebbo's Bottomless Bag","The Lost Explorers"),B("main",268211,"Baleful Hexblade","The Coiled Altar"),B("off",268262,"Bubblefin Splash Guard","The Tidebound Grotto")],
   mplus:["Beacon of Faith na tanka a sebe.","Cleanse na debuffy.","Blessing of Sacrifice a Lay on Hands zachrání spoluhráče.","Stůj bezpečně – vše léčíš na dálku."],
   solo:["Na levelování zvaž Retribution – Holy je pomalejší.","Holy Shock a Judgment dávají i poškození."],
   pvp:["Hodně užitečných kouzel – freedom, stun, imunita.","Divine Shield na přežití."],
@@ -2323,12 +2330,12 @@ GUIDES["deathknight/blood"] = {
 };
 
 /* BiS pro průvodce z vlny 0 (Method.gg) */
-GUIDES["mage/arcane"].bis = [B("head",271874,"Venomkeeper's Horrific Cowl","Ula'tek"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",271562,"Primal Leywarden's Manaflux","The Lost Explorers"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",271567,"Crest of the Primal Leywarden","Vashnik the Malignant"),B("wrist",239648,"Martyr's Bindings","Crafted"),B("hands",271565,"Primal Leywarden's Manashapers","Entombed Sentinels"),B("waist",268257,"Caustic Chain-Wrapped Sash","Sszorak"),B("legs",271563,"Primal Leywarden's Tailored Legwraps","Sszorak"),B("feet",268255,"Cackling Soultreads","The Coiled Altar"),B("ring1",268266,"Alluring Bubbleband","Nymrissa Wavecaller"),B("ring2",251148,"Pilfered Precious Band","Den of Nalorakk"),B("trinket1",250215,"Freightrunner's Flask","Murder Row"),B("trinket2",270164,"Gebbo's Bottomless Bag","The Lost Explorers"),B("main",271092,"Jan'thrazet, the Soul Fang","Ula'tek"),B("off",245769,"Aln'hara Lantern","Crafted")];
+GUIDES["mage/arcane"].bis = [B("head",271874,"Venomkeeper's Horrific Cowl","Ula'tek"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",271562,"Primal Leywarden's Manaflux","The Lost Explorers"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",271567,"Crest of the Primal Leywarden","Vashnik the Malignant"),B("wrist",239648,"Martyr's Bindings","Crafted"),B("hands",271565,"Primal Leywarden's Manashapers","Entombed Sentinels"),B("waist",268257,"Caustic Chain-Wrapped Sash","Sszorak"),B("legs",281235,"Voidweaver's Leggings","Kith'ix"),B("feet",268255,"Cackling Soultreads","The Coiled Altar"),B("ring1",281029,"Band of the Swarmcaller","Kith'ix"),B("ring2",251148,"Pilfered Precious Band","Den of Nalorakk"),B("trinket1",250215,"Freightrunner's Flask","Murder Row"),B("trinket2",281215,"Twisted Horror's Tendril","Kith'ix"),B("main",271092,"Jan'thrazet, the Soul Fang","Ula'tek"),B("off",245769,"Aln'hara Lantern","Crafted")];
 GUIDES["mage/fire"].bis = [B("head",271874,"Venomkeeper's Horrific Cowl","Ula'tek"),B("neck",251142,"Pendant of Malefic Fury","Murder Row"),B("shoulder",268241,"Ornaments of the Eternal Coil","The Twin Fangs"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",273785,"Primordial Robe of Rites","Altar of Fangs"),B("wrist",239648,"Martyr's Bindings","Crafted"),B("hands",268243,"Grasps of the Eternal Shadow","The Coiled Altar"),B("waist",268257,"Caustic Chain-Wrapped Sash","Sszorak"),B("legs",268236,"Initiate's Sacrificial Tights","Nek'zali the Soulcoiler"),B("feet",268255,"Cackling Soultreads","The Coiled Altar"),B("ring1",268266,"Alluring Bubbleband","Nymrissa Wavecaller"),B("ring2",159459,"Ritual Binder's Ring","King's Rest"),B("trinket1",273796,"Vile Vial of Volatile Venom","Altar of Fangs"),B("trinket2",270164,"Gebbo's Bottomless Bag","The Lost Explorers"),B("main",271092,"Jan'thrazet, the Soul Fang","Ula'tek"),B("off",245769,"Aln'hara Lantern","Crafted")];
-GUIDES["hunter/beast-mastery"].bis = [B("head",251220,"Voidscarred Crown","Voidscar Arena (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",268231,"Soulslither Spaulders","The Coiled Altar (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",271876,"Awoken Dreadfang Cuirass","Ula'tek (Catalyst)"),B("wrist",244584,"Farstrider's Plated Bracers","Crafted"),B("hands",160213,"Sepulchral Construct's Gloves","King's Rest (Catalyst)"),B("waist",244581,"Farstrider's Trophy Belt","Crafted"),B("legs",268237,"Cuisses of the Uncoiled Union","The Coiled Altar (Catalyst)"),B("feet",268233,"Ferocious Scaleboots","Sszorak"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",252258,"Sickening Signet of Atroxus","Voidscar Arena"),B("trinket1",270168,"Font of Venomous Rage","Ula'tek"),B("trinket2",270175,"Voracious Heart of Ula'tek","Ula'tek"),B("main",268207,"Caustic Repose Greatbow","Ula'tek")];
-GUIDES["demonhunter/havoc"].bis = [B("head",271875,"Gaze of the Coiled Watcher","Ula'tek (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",268246,"Frothing Venom Spaulders","Vashnik the Malignant (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",239048,"Vest of Reverent Adoration","Kings' Rest (Catalyst)"),B("wrist",244576,"Silvermoon Agent's Deflectors","Crafted"),B("hands",271538,"Abyssal Doomhound's Studded Gauntlets","Entombed Sentinels"),B("waist",268256,"Sash of the Forlorn Vessel","The Coiled Altar"),B("legs",268225,"Coiled Hex Legguards","The Coiled Altar (Catalyst)"),B("feet",159327,"Sand-Shined Snakeskin Sandals","Temple of Sethraliss"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",251136,"Signet of Snarling Servitude","Murder Row"),B("trinket1",270175,"Voracious Heart of Ula'tek","Ula'tek"),B("trinket2",270173,"Zul'jin's Guillotine Technique","The Coiled Altar"),B("main",268209,"Aman'muso, Warlord's Vengeance","The Coiled Altar"),B("off",237840,"Spellbreaker's Warglaive","Crafted")];
-GUIDES["paladin/protection"].bis = [B("head",268229,"Skullguard of the Risen Sacrifice","Nek'zali the Soulcoiler"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",239037,"C'thraxxi Binders Pauldrons","Temple of Sethraliss (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",268222,"Reckless Spirit Breastplate","The Coiled Altar (Catalyst)"),B("wrist",159409,"Embalmer's Steadying Bracers","Kings' Rest"),B("hands",268220,"Scaleplate Strangulators","The Twin Fangs (Catalyst)"),B("waist",268259,"Girdle of Toxic Regret","The Coiled Altar"),B("legs",271878,"Chausses of Unbound Rancor","Ula'tek (Catalyst)"),B("feet",268245,"Entombed Cultist's Sabatons","Nek'zali the Soulcoiler"),B("ring1",268252,"Apex Brute's Claw Ring","Sszorak"),B("ring2",273792,"Band of the Amani Warlord","Altar of Fangs"),B("trinket1",270165,"Keeper's Seething Core","Entombed Sentinels"),B("trinket2",270173,"Zul'jin's Guillotine Technique","The Coiled Altar"),B("main",268209,"Aman'muso, Warlord's Vengeance","The Coiled Altar"),B("off",268196,"Venom-Slashed Scuteward","The Lost Explorers")];
-GUIDES["warlock/destruction"].bis = [B("head",271874,"Venomkeeper's Horrific Cowl","Ula'tek (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",271544,"Spires of the Damned Necrolyte","The Lost Explorers"),B("back",239656,"Adherent's Silken Shroud","Tailoring"),B("chest",268221,"Tidebound Sorceress's Robes","Nymrissa Wavecaller"),B("wrist",239648,"Martyr's Bindings","Tailoring"),B("hands",271547,"Damned Necrolyte's Charred Grasps","Entombed Sentinels"),B("waist",271543,"Damned Necrolyte's Clanging Cinch","Sszorak (Catalyst)"),B("legs",271545,"Damned Necrolyte's Leg Bindings","Sszorak"),B("feet",268255,"Cackling Soultreads","The Coiled Altar"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",158366,"Charged Sandstone Band","Temple of Sethraliss"),B("trinket1",270164,"Gebbo's Bottomless Bag","The Lost Explorers"),B("trinket2",270167,"Wavecaller's Seastone","Nymrissa Wavecaller"),B("main",271092,"Jan'thrazet, the Soul Fang","Ula'tek"),B("off",268263,"Frostscale's Mystic Frond","Nymrissa Wavecaller")];
+GUIDES["hunter/beast-mastery"].bis = [B("head",251220,"Voidscarred Crown","Voidscar Arena (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",268231,"Soulslither Spaulders","The Coiled Altar (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",271876,"Awoken Dreadfang Cuirass","Ula'tek (Catalyst)"),B("wrist",244584,"Farstrider's Plated Bracers","Crafted"),B("hands",281238,"Aberrant Commander's Gauntlets","Kith'ix (Catalyst)"),B("waist",244581,"Farstrider's Trophy Belt","Crafted"),B("legs",268237,"Cuisses of the Uncoiled Union","The Coiled Altar (Catalyst)"),B("feet",268233,"Ferocious Scaleboots","Sszorak"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",281029,"Band of the Swarmcaller","Kith'ix"),B("trinket1",281215,"Twisted Horror's Tendril","Kith'ix"),B("trinket2",270175,"Voracious Heart of Ula'tek","Ula'tek"),B("main",268207,"Caustic Repose Greatbow","Ula'tek")];
+GUIDES["demonhunter/havoc"].bis = [B("head",271875,"Gaze of the Coiled Watcher","Ula'tek (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",268246,"Frothing Venom Spaulders","Vashnik the Malignant (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",281236,"Chestwrap of Palpable Terror","Kith'ix"),B("wrist",244576,"Silvermoon Agent's Deflectors","Crafted"),B("hands",271538,"Abyssal Doomhound's Studded Gauntlets","Entombed Sentinels"),B("waist",268256,"Sash of the Forlorn Vessel","The Coiled Altar"),B("legs",268225,"Coiled Hex Legguards","The Coiled Altar (Catalyst)"),B("feet",159327,"Sand-Shined Snakeskin Sandals","Temple of Sethraliss"),B("ring1",268249,"Vile Alchemist's Band","Vashnik the Malignant"),B("ring2",251136,"Signet of Snarling Servitude","Murder Row"),B("trinket1",270175,"Voracious Heart of Ula'tek","Ula'tek"),B("trinket2",270173,"Zul'jin's Guillotine Technique","The Coiled Altar"),B("main",268209,"Aman'muso, Warlord's Vengeance","The Coiled Altar"),B("off",237840,"Spellbreaker's Warglaive","Crafted")];
+GUIDES["paladin/protection"].bis = [B("head",281239,"Corroded Hulk's Skullcap","Kith'ix"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",239037,"C'thraxxi Binders Pauldrons","Temple of Sethraliss (Catalyst)"),B("back",268253,"Silken Voodoo Drape","The Coiled Altar"),B("chest",268222,"Reckless Spirit Breastplate","The Coiled Altar (Catalyst)"),B("wrist",159409,"Embalmer's Steadying Bracers","Kings' Rest"),B("hands",268220,"Scaleplate Strangulators","The Twin Fangs (Catalyst)"),B("waist",268259,"Girdle of Toxic Regret","The Coiled Altar"),B("legs",271878,"Chausses of Unbound Rancor","Ula'tek (Catalyst)"),B("feet",268245,"Entombed Cultist's Sabatons","Nek'zali the Soulcoiler"),B("ring1",281029,"Band of the Swarmcaller","Kith'ix"),B("ring2",273792,"Band of the Amani Warlord","Altar of Fangs"),B("trinket1",281215,"Twisted Horror's Tendril","Kith'ix"),B("trinket2",270173,"Zul'jin's Guillotine Technique","The Coiled Altar"),B("main",268209,"Aman'muso, Warlord's Vengeance","The Coiled Altar"),B("off",268196,"Venom-Slashed Scuteward","The Lost Explorers")];
+GUIDES["warlock/destruction"].bis = [B("head",271874,"Venomkeeper's Horrific Cowl","Ula'tek (Catalyst)"),B("neck",268265,"Aqirbane Reliquary","Ula'tek"),B("shoulder",271544,"Spires of the Damned Necrolyte","The Lost Explorers"),B("back",239656,"Adherent's Silken Shroud","Tailoring"),B("chest",268221,"Tidebound Sorceress's Robes","Nymrissa Wavecaller"),B("wrist",239648,"Martyr's Bindings","Tailoring"),B("hands",271547,"Damned Necrolyte's Charred Grasps","Entombed Sentinels"),B("waist",271543,"Damned Necrolyte's Clanging Cinch","Sszorak (Catalyst)"),B("legs",281235,"Voidweaver's Leggings","Kith'ix"),B("feet",268255,"Cackling Soultreads","The Coiled Altar"),B("ring1",281029,"Band of the Swarmcaller","Kith'ix"),B("ring2",268252,"Apex Brute's Claw Ring","Sszorak"),B("trinket1",270164,"Gebbo's Bottomless Bag","The Lost Explorers"),B("trinket2",281215,"Twisted Horror's Tendril","Kith'ix"),B("main",271092,"Jan'thrazet, the Soul Fang","Ula'tek"),B("off",268263,"Frostscale's Mystic Frond","Nymrissa Wavecaller")];
 
 [["warrior","fury"],["paladin","retribution"],["priest","shadow"],["druid","restoration"],["paladin","holy"],["deathknight","blood"]].forEach(([c,s]) => { CLASSES.find(x=>x.id===c).specs.find(x=>x.id===s).full = true; });
 
@@ -2699,8 +2706,142 @@ const store = {
 };
 $("#f-patch").textContent = PATCH; $("#f-upd").textContent = UPDATED;
 
+/* ---------- PvP GEAR (Season 2, patch 12.1.5) ----------
+   Zdroje: Skill-Capped (12.1), Icy Veins PvP + Battleground Blitz guidy, Murlok.io (data top hráčů v RBG/Blitz),
+   Blizzard hotfixy 20. 10. 2026, wow-tracker / expcarry (PvP item level). Ověřeno 8. 11. 2026. */
+const PVP_GEAR = {
+  why:[
+    "PvE gear (raid, Mythic+) v battlegroundech nedostává žádný PvP bonus k item levelu. Podle některých zdrojů se navíc stahuje dolů.",
+    "PvP gear má v PvP vyšší item level: Honor gear (Venomous Aspirant) 331, War Mode gear (Venomous Warmonger) 331 a Conquest gear (Venomous Gladiator) 344. Mimo PvP je slabší.",
+    "Dva PvP trinkety najednou zapnou Gladiator's Distinction: DPS a tanci +20 % hlavního statu a +5 % Stamina, healeři +5 % hlavního statu a +10 % Stamina. Bez nich v BG přicházíš o obrovský kus síly.",
+  ],
+  steps:[
+    ["Questy Training Grounds (zdarma)","V Silvermoonu u Archmage Aethas Sunstriker začni questy „Week 1 of 3: Gladiator's Distinction“. Hned dostaneš 2 PvP trinkety (331 v PvP) a na konci vybereš Necklace nebo Ring of the Combat Novice."],
+    ["Honor gear","Za Honor z battlegroundů kup Venomous Aspirant gear u Captain Dawnrunner (PvP centrum v Silvermoonu). Nejdřív velké sloty: hrudník, nohy a hlava. Celá sada stojí asi 10 850 Honoru, maximum je 15 000 Honoru."],
+    ["War Mode a Bloody Tokens","Zapni War Mode (Silvermoon, Stormwind, Orgrimmar). Za Bloody Tokens kup u Knight-Lord Bloodvalor Venomous Warmonger gear (331 v PvP). Ber jen kusy se staty lepšími než u Honor verze."],
+    ["Crafted gear s Heraldry","Výrobek s Venomous Aspirant's Heraldry (175 Honoru, 331) nebo Venomous Gladiator's Heraldry (344) dostane PvP item level. Bez Heraldry ho nedostane. Leták Artisan's Consortium Flyer padá za výhry ve Skirmish a v random BG. Spustí quest „Calling All Combatants!“, který dá 9× Gladiator's Heraldry."],
+    ["Conquest gear","Conquest dostaneš z rated režimů (Solo Shuffle, Blitz, arény, rated BG) a z týdenních questů. Gear kupuješ u Irissa Bloodstar. Od 20. 10. 2026 Conquest nemá týdenní limit a buff Spoils of War dává +50 % Conquestu a +40 % Honoru."],
+    ["Zbraň a tier set","Za 2 500 získaného Conquestu dostaneš achievement a 2 tokeny na Venomous Gladiator's zbraň zdarma. Conquest kusy (hlava, ramena, hrudník, ruce, nohy) převedeš v Catalystu v Silvermoonu na tier set."],
+  ],
+  vendors:[
+    ["Captain Dawnrunner","Honor gear, PvP trinkety, Aspirant's Heraldry"],
+    ["Irissa Bloodstar","Conquest gear, Gladiator's Heraldry, token na zbraň"],
+    ["Knight-Lord Bloodvalor","War Mode gear za Bloody Tokens"],
+    ["Zerella","Týdenní PvP questy (údaj ze Season 1)"],
+  ],
+  extras:[
+    "Gem Heliotrope: casteři a healeři Cognitive Heliotrope (ochrana proti přerušení), melee Enduring Heliotrope (menší dopad CC).",
+    "Embellishment: Arcanoweave Lining je nejčastější volba u všech speců. Healeři hrají i Blessed Pango Charm.",
+    "Staty na crafted kusech určuje Missive: Aurora = Versatility + Haste, Harmonious = Versatility + Mastery, Quickblade = Versatility + Crit.",
+    "PvP trinkety: Medallion (zbaví tě omráčení a dalších CC, lidé mají místo něj Emblem), Insignia of Alacrity (pasivní proc) a Badge of Ferocity (burst na použití). Honor verze se jmenuje Venomous Aspirant's, Conquest verze Venomous Gladiator's.",
+  ],
+  srcs:[
+    ["Skill-Capped – jak získat PvP gear","https://www.skill-capped.com/wowarticles/general/how-to-get-bis-pvp-gear/"],
+    ["Blizzard – Season 2 spuštěna","https://news.blizzard.com/en-gb/article/24294369/midnight-season-2-is-now-live"],
+    ["Warcraft Wiki – Gladiator's Distinction","https://warcraft.wiki.gg/wiki/Gladiator's_Distinction"],
+  ],
+};
+const PVP_TRINK = "Venomous Gladiator's Medallion (lidé: Emblem) + Venomous Gladiator's Insignia of Alacrity. Na začátek stačí Aspirant verze za Honor.";
+const PVP = (o) => Object.assign({trink:PVP_TRINK, emb:"Arcanoweave Lining"}, o);
+const SC = (p) => `https://www.skill-capped.com/wowarticles/guides/${p}/gearing/`;
+const IVB = (p) => `https://www.icy-veins.com/wow/${p}-battleground-blitz-pvp-guide`;
+const MUR = (p) => `https://murlok.io/${p}`;
+
+GUIDES["mage/frost"].pvpGear = PVP({
+  stats:["Intellect","Haste","Versatility","Mastery","Critical Strike"],
+  statNote:"Icy Veins (12.1.5) i Skill-Capped: Haste je nejlepší sekundární stat. Top hráči v RBG mají víc Versatility.",
+  hero:"Spellslinger", talents:["Snowdrift","Overpowered Barrier","Ice Wall","(alternativa: Concentrated Coolness)"],
+  tips:["Cold Snap obnoví Ice Block, takže máš vlastně dva.","Ice Barrier si šetři, až po tobě půjdou. Nahozený dopředu ti ho shodí dispelem nebo Spellstealem.","Ice Wall odřízne healera nebo nosiče vlajky. Kituj přes Cone of Cold, Frost Nova a Shimmer."],
+  src:[["Icy Veins – PvP staty","https://www.icy-veins.com/wow/frost-mage-pvp-stat-priority-gear-and-trinkets"],["Icy Veins – Blitz",IVB("frost-mage")],["Murlok – RBG",MUR("mage/frost/rbg")]],
+});
+GUIDES["mage/arcane"].pvpGear = PVP({
+  stats:["Intellect","Haste","Versatility","Mastery","Critical Strike"],
+  statNote:"Icy Veins (12.1.5). Top hráči v RBG dávají víc Versatility.",
+  hero:"Spellslinger nebo Sunfury (hrají se obě skoro stejně často)", talents:["Chrono Shift","Overpowered Barrier","Ice Wall nebo Improved Mass Invisibility"],
+  tips:["Prismatic Barrier je silný proti týmům casterů.","Na mapách s vlajkou pomáhej zabít nepřátelského nosiče – Frost Nova a Ice Nova. Blast Wave shazuje nepřátele z vyvýšených míst.","Polymorph trvá v PvP 6 s, zabrání základny 4 s. Zpolymorfuj obránce a zaber ji."],
+  src:[["Icy Veins – PvP staty","https://www.icy-veins.com/wow/arcane-mage-pvp-stat-priority-gear-and-trinkets"],["Icy Veins – Blitz",IVB("arcane-mage")],["Murlok – RBG",MUR("mage/arcane/rbg")]],
+});
+GUIDES["mage/fire"].pvpGear = PVP({
+  stats:["Intellect","Versatility","Haste","Mastery","Critical Strike"],
+  statNote:"Podle dat top hráčů v Season 2 (Murlok, ArenaCoach). PvP stránka Icy Veins je ještě z 12.0.5 a dává Haste před Versatility.",
+  hero:"Sunfury", talents:["Master Shepherd","Overpowered Barrier","Ice Wall nebo Improved Mass Invisibility"],
+  tips:["Obrana: Ice Block, Cauterize (druhý život, 5 min), Blazing Barrier pořád nahozený a Alter Time (dá se purgnout).","Ice Wall chrání vašeho nosiče vlajky.","V Temple of Kotmogu drž 2–3 orby a kituj kolem středu."],
+  src:[["Murlok – RBG",MUR("mage/fire/rbg")],["Icy Veins – Blitz",IVB("fire-mage")]],
+});
+GUIDES["hunter/beast-mastery"].pvpGear = PVP({
+  stats:["Agility","Versatility","Mastery","Haste","Critical Strike"],
+  statNote:"Versatility zhruba do 24 %, pak Mastery (Icy Veins 12.1.5, Skill-Capped).",
+  hero:"Pack Leader", talents:["Survival Tactics (povinně)","Kindred Beasts","Scatter Shot nebo Chimaeral Sting"],
+  tips:["Obrana v tomto pořadí: první nabití Survival of the Fittest hned, jak tě začnou bít, pak Exhilaration, Feign Death (shodí i vlajku) a nakonec Aspect of the Turtle.","Vlajku nenos. S vlajkou nejde Feign Death ani Turtle, předej ji odolnějšímu spoluhráči.","Pet: Whiptail (dává Mortal Strike). Kindred Beasts se nestackuje s Heroismem, počkej, až Heroism skončí."],
+  src:[["Icy Veins – PvP staty","https://www.icy-veins.com/wow/beast-mastery-hunter-pvp-stat-priority-gear-and-trinkets"],["Icy Veins – Blitz",IVB("beast-mastery-hunter")],["Skill-Capped – gear",SC("beast-mastery-hunter-pvp-guide")]],
+});
+GUIDES["demonhunter/havoc"].pvpGear = PVP({
+  stats:["Agility","Versatility","Mastery","Haste","Critical Strike"],
+  statNote:"Icy Veins (12.1.5) i Skill-Capped (12.1).",
+  hero:"Fel-Scarred (data top hráčů) nebo Aldrachi Reaver (build Icy Veins níže)", talents:["Glimpse","Detainment","Blood Moon"],
+  build:{name:"Battleground Blitz – Aldrachi Reaver (Icy Veins)", str:"CEkAAAAAAAAAAAAAAAAAAAAAAYGMzMDjxMjZmJDzAAAAAAAmFjZbmZmZmtZmZWmtxMWGMjtZWmBDjlNmwMzMmxCAAAAAAAYmBYAAAAYA"},
+  tips:["Blur je hlavní obrana (1 min). Darkness dej spoluhráči, na kterého jdou.","Drž se u nepřátelského healera, ale nevyplýtvej na cestu všechnu mobilitu.","Chaos Nova, Imprison a Sigil of Misery použij na healery brzy. Vengeful Retreat je tvůj únik."],
+  src:[["Icy Veins – PvP staty","https://www.icy-veins.com/wow/havoc-demon-hunter-pvp-stat-priority-gear-and-trinkets"],["Icy Veins – Blitz",IVB("havoc-demon-hunter")],["Murlok – RBG",MUR("demon-hunter/havoc/rbg")]],
+});
+GUIDES["paladin/protection"].pvpGear = PVP({
+  stats:["Strength","Versatility","Mastery","Haste","Critical Strike"],
+  statNote:"Pro Protection Paladina žádný psaný PvP guide není. Pořadí je z dat top hráčů v RBG (Murlok).",
+  hero:"Templar (Lightsmith hraje menšina)", talents:[],
+  tips:["Tank je v BG ideální nosič vlajky. Nos ji a drž se u healera.","Holy Paladin s Blessing of Freedom a Sacrifice je pro nosiče nejlepší parťák."],
+  src:[["Murlok – RBG",MUR("paladin/protection/rbg")],["ArenaCoach – Blitz","https://arenacoach.gg/builds/protection-paladin/blitz"]],
+});
+GUIDES["warlock/destruction"].pvpGear = PVP({
+  stats:["Intellect","Haste","Versatility","Mastery","Critical Strike"],
+  statNote:"Skill-Capped (12.1). Top hráči v RBG dávají víc Versatility.",
+  hero:"Hellcaller", talents:["Fel Fissure","Nether Ward","Gateway Mastery"],
+  tips:["Mobilita je slabá. Nikdy nebraň základnu sám a nenos vlajku (výjimka: Temple of Kotmogu).","Demonic Circle dej daleko dozadu. Healthstone jde v boji použít 3×, Soulburn ho posílí. Curse of Exhaustion zpomalí pronásledovatele.","Začni Cataclysmem (rozhodí Wither), pak Chaos Bolt nebo Soul Fire do důležitých cílů a nosičů vlajky. Tipy jsou ze starší verze guidu."],
+  src:[["Skill-Capped – gear",SC("destruction-warlock-pvp-guide")],["Murlok – RBG",MUR("warlock/destruction/rbg")],["Icy Veins – Blitz",IVB("destruction-warlock")]],
+});
+GUIDES["warrior/fury"].pvpGear = PVP({
+  stats:["Strength","Versatility","Mastery","Haste","Critical Strike"],
+  statNote:"Skill-Capped (12.1) i data top hráčů v Blitz.",
+  hero:"Mountain Thane", talents:["Slaughterhouse","Enduring Rage","Disarm","Death Wish"],
+  tips:["Fury je sám slabý. Drž se týmu a chraň healery: Intervene, Disarm, Shockwave, Storm Bolt. Hlavní obrana: Enraged Regeneration a Rallying Cry.","Vlajku nos jen bez tanka nebo druida, a to v Defensive Stance. Mapu přeskoč Heroic Leapem.","V Temple of Kotmogu dávej Odyn's Fury na nosiče orbů, sám orby nedrž."],
+  src:[["Skill-Capped – gear",SC("fury-warrior-pvp-guide")],["Icy Veins – Blitz",IVB("fury-warrior")],["Murlok – Blitz",MUR("warrior/fury/blitz")]],
+});
+GUIDES["paladin/retribution"].pvpGear = PVP({
+  stats:["Strength","Versatility","Mastery","Haste","Critical Strike"],
+  statNote:"Skill-Capped (12.1) i data top hráčů v Blitz.",
+  hero:"Herald of the Sun", talents:["Blessing of Sanctuary","Hallowed Ground","Searing Glare","Blessing of Spellwarding"],
+  tips:["Vlajku nenos. S vlajkou nebo orbem na sebe nedáš Divine Shield, Blessing of Protection ani Spellwarding.","Obrana: Divine Shield, Lay on Hands, Shield of Vengeance, Blessing of Freedom, Divine Steed. Divine Protection dává v PvP jen 10 %.","V týmovém boji nepoužívej Blinding Light, rozbije DoTy spoluhráčů."],
+  src:[["Skill-Capped – gear",SC("retribution-paladin-pvp-guide")],["Murlok – Blitz",MUR("paladin/retribution/blitz")],["Icy Veins – Blitz",IVB("retribution-paladin")]],
+});
+GUIDES["priest/shadow"].pvpGear = PVP({
+  stats:["Intellect","Haste","Versatility","Mastery","Critical Strike"],
+  statNote:"Icy Veins Blitz (12.1.5) i Skill-Capped. Pozor: v PvP je doporučený Voidweaver, ne Archon jako v PvE.",
+  hero:"Voidweaver", talents:["Driven to Madness","Phase Shift","Psyfiend"],
+  tips:["Dispersion je hlavní obrana (−60 % poškození, nejde tě zpomalit). Přidej Desperate Prayer, Power Word: Shield a Vampiric Embrace pro tým.","Psychic Scream na nepřátelského healera, nosiče vlajky zpomal přes Void Torrent nebo Mind Flay.","Power Infusion dej spoluhráči."],
+  src:[["Icy Veins – Blitz",IVB("shadow-priest")],["Skill-Capped – gear",SC("shadow-priest-pvp-guide")],["Murlok – Blitz",MUR("priest/shadow/blitz")]],
+});
+GUIDES["druid/restoration"].pvpGear = PVP({
+  stats:["Intellect","Mastery","Versatility","Haste","Critical Strike"],
+  statNote:"Skill-Capped (12.1). V battlegroundech dávají top hráči víc Versatility než v aréně.",
+  hero:"Keeper of the Grove v BG (v aréně Wildstalker)", talents:["Early Spring","Forest Guardian","Call of Ohn'ahra"], emb:"Blessed Pango Charm nebo Arcanoweave Lining",
+  tips:["Když po tobě jdou, nahoď si HoTy a přepni do Bear Form s Frenzied Regeneration.","Proti melee Ursol's Vortex + Dash. Změna podoby zruší root.","Na mapách s vlajkou většinou chráníš vlastního nosiče. Tipy jsou ze starší verze guidu."],
+  src:[["Skill-Capped – gear",SC("restoration-druid-pvp-guide")],["Murlok – Blitz",MUR("druid/restoration/blitz")],["Icy Veins – Blitz",IVB("restoration-druid")]],
+});
+GUIDES["paladin/holy"].pvpGear = PVP({
+  stats:["Intellect","Versatility","Mastery","Haste","Critical Strike"],
+  statNote:"Icy Veins Blitz (12.1). Skill-Capped dává Mastery před Versatility.",
+  hero:"Lightsmith (Herald of the Sun je těsně za ním)", talents:["Searing Glare","Divine Vision","Blessing of Spellwarding","Ultimate Sacrifice"], emb:"Arcanoweave Lining nebo Blessed Pango Charm",
+  tips:["Divine Shield je hlavní cooldown. Divine Protection jde použít i v omráčení (jen na sebe).","Blessing of Sacrifice, Blessing of Protection a Lay on Hands střídej mezi spoluhráči.","Na mapách s vlajkou podporuj tanka, který ji nese: Ultimate Sacrifice, Blessing of Freedom a Consecration (odhalí stealth)."],
+  src:[["Icy Veins – Blitz",IVB("holy-paladin")],["Skill-Capped – gear",SC("holy-paladin-pvp-guide")],["Murlok – Blitz",MUR("paladin/holy/blitz")]],
+});
+GUIDES["deathknight/blood"].pvpGear = PVP({
+  stats:["Strength","Versatility","Haste","Mastery","Critical Strike"],
+  statNote:"Pro Blood DK žádný psaný PvP guide není. Pořadí je z dat top hráčů v Blitz (Murlok).",
+  hero:"San'layn (Deathbringer hraje menšina)", talents:["Last Dance","Decomposing Aura","Spellwarden"],
+  tips:["Tank je v BG ideální nosič vlajky. Nos ji a drž se u healera, ideálně u Holy Paladina s Blessing of Freedom."],
+  src:[["Murlok – Blitz",MUR("death-knight/blood/blitz")]],
+});
+
 /* ---------- STAV ---------- */
-const S = { screen:"home", race:null, cls:null, spec:null, faction:"all", tab:"overview", hero:null, rotMode:"st" };
+const S = { screen:"home", race:null, cls:null, spec:null, faction:"all", tab:"overview", hero:null, rotMode:"st", gearMode: store.get("gearMode","pve")==="pvp"?"pvp":"pve" };
 const raceById = id => RACES.find(r => r.id===id);
 const clsById = id => CLASSES.find(c => c.id===id);
 const specOf = (c, id) => c && c.specs.find(s => s.id===id);
@@ -3009,7 +3150,8 @@ function fullTab(c,s,r,g){
       <div class="btns"><a class="btn primary" href="${CALC(b.str)}" target="_blank" rel="noopener">Zobrazit strom ↗</a><button class="btn" data-copy="b${i}">Kopírovat řetězec</button></div></div>`).join("")}
     <h4>Import do hry</h4><ol class="prio"><li>Ve hře zmáčkni N (talenty).</li><li>Dole klikni na Import.</li><li>Vlož řetězec a ulož jako nový loadout.</li></ol>
     <p class="note">Buildy: Method.gg, patch 12.1. Po každém patchi je ověř.</p></div>`;
-  case "gear": return `${g.gearItems ? gearDoll(g) : g.bis ? bisDoll(g) : ""}<div class="cols">
+  case "gear": if (g.pvpGear && S.gearMode==="pvp") return gearSwitch(g)+pvpGearView(g);
+    return `${gearSwitch(g)}${g.gearItems ? gearDoll(g) : g.bis ? bisDoll(g) : ""}<div class="cols">
       <div class="box"><h3>Priorita statů</h3><div class="statbar">${g.stats.map((st,i)=>`<div><span>${i+1}. ${esc(st)}</span><span class="bar"><i style="width:${100-i*16}%"></i></span></div>`).join("")}</div><p class="note">${esc(g.statNote)}</p></div>
       <div class="box"><h3>Gear a zbraň</h3><ul class="clean">${g.gear.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
         <div class="btns"><a class="btn" href="https://www.raidbots.com" target="_blank" rel="noopener">Raidbots sim ↗</a><a class="btn" href="${L.bis}" target="_blank" rel="noopener">Best in slot ↗</a></div></div></div>`;
@@ -3049,6 +3191,39 @@ function slotBtn(it){
   return `<button class="slot tt" data-tt="item" data-item="${it.slot}" aria-label="${esc(it.cz)}: ${esc(it.n)} – podrobnosti">
     ${gicon(it.ic, it.cz.slice(0,2), "q4")}
     <span><span class="ss">${esc(it.cz)}</span><br><span class="sn">${esc(it.n)}</span><br><span class="il">ilvl ${it.ilvl}${it.tier?" · tier":""}${it.crafted?" · crafted":""}</span></span></button>`;
+}
+
+/* ---------- PvE / PvP přepínač gearu ---------- */
+function gearSwitch(g){
+  if (!g.pvpGear) return "";
+  const m = S.gearMode;
+  return `<div class="gearsw"><div class="seg" role="group" aria-label="Typ gearu"><button class="${m==="pve"?"on":""}" data-gearmode="pve" aria-pressed="${m==="pve"}">PvE · raid a Mythic+</button><button class="${m==="pvp"?"on":""}" data-gearmode="pvp" aria-pressed="${m==="pvp"}">PvP · battlegroundy</button></div>
+    ${m==="pve"?`<span class="note" style="margin:0">Hraješ battlegroundy? Přepni na <b>PvP</b>, PvE gear tam nedostává bonus.</span>`:""}</div>`;
+}
+function pvpGearView(g){
+  const p = g.pvpGear, G = PVP_GEAR;
+  const ul = a => `<ul class="clean">${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  const srcBtns = a => `<div class="btns">${a.map(([t,u])=>`<a class="btn" href="${u}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join("")}</div>`;
+  return `<div class="box pvpwhy"><h3>Proč ti v battlegroundech nestačí PvE gear</h3>${ul(G.why)}</div>
+    <div class="cols">
+      <div class="box"><h3>PvP priorita statů</h3><div class="statbar">${p.stats.map((st,i)=>`<div><span>${i+1}. ${esc(st)}</span><span class="bar"><i style="width:${100-i*16}%"></i></span></div>`).join("")}</div><p class="note">${esc(p.statNote)}</p></div>
+      <div class="box"><h3>Co si nasadit</h3><table class="t"><tbody>
+        <tr><td>Hero talenty v BG</td><td>${esc(p.hero)}</td></tr>
+        <tr><td>Trinkety</td><td>${esc(p.trink)}</td></tr>
+        <tr><td>Embellishment</td><td>${esc(p.emb)}</td></tr>
+        ${p.talents.length?`<tr><td>PvP talenty</td><td>${esc(p.talents.join(", "))}</td></tr>`:""}
+      </tbody></table></div>
+    </div>
+    ${p.build?`<div class="box"><h3>Talenty pro battlegroundy</h3><div class="build"><div class="row"><b>${esc(p.build.name)}</b></div><code id="pvpb">${esc(p.build.str)}</code>
+      <div class="btns"><a class="btn primary" href="${CALC(p.build.str)}" target="_blank" rel="noopener">Zobrazit strom ↗</a><button class="btn" data-copy="pvpb">Kopírovat řetězec</button></div></div></div>`:""}
+    <div class="box"><h3>Jak se ogearovat na PvP od nuly</h3><ol class="prio">${G.steps.map(([t,d])=>`<li><div><b>${esc(t)}</b><div class="note" style="margin:2px 0 0;color:#d3ccba">${esc(d)}</div></div></li>`).join("")}</ol></div>
+    <div class="cols">
+      <div class="box"><h3>Kde nakoupit (PvP centrum v Silvermoonu)</h3><table class="t"><tbody>${G.vendors.map(([a,b])=>`<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("")}</tbody></table></div>
+      <div class="box"><h3>Tipy pro tvůj spec v BG</h3>${ul(p.tips)}</div>
+    </div>
+    <div class="box"><h3>Gemy, embellishmenty a staty na craftu</h3>${ul(G.extras)}
+      <p class="note">PvP data jsou pro Season 2 (patch 12.1.5), ověřeno 8. 11. 2026. Ceny a jména NPC se během sezóny můžou změnit, ve hře si je zkontroluj.</p>
+      <h4>Zdroje</h4>${srcBtns([...p.src, ...G.srcs])}</div>`;
 }
 function gearDoll(g){
   const by = k => g.gearItems.find(i=>i.slot===k);
@@ -3193,6 +3368,7 @@ document.addEventListener("click", e => {
   if (d.tab){ S.tab=d.tab; render(); return; }
   if (d.hero){ S.hero=d.hero; render(); return; }
   if (d.rot){ S.rotMode=d.rot; render(); return; }
+  if (d.gearmode){ S.gearMode=d.gearmode==="pvp"?"pvp":"pve"; store.set("gearMode",S.gearMode); render(); return; }
   if (d.copy){ const txt=$("#"+d.copy).textContent; (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>{t.textContent="Zkopírováno ✓";setTimeout(()=>t.textContent="Kopírovat řetězec",1800);}).catch(()=>{const r=document.createRange();r.selectNodeContents($("#"+d.copy));const s=getSelection();s.removeAllRanges();s.addRange(r);}); return; }
   if (d.vid){ const box=t.parentElement; box.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${d.vid}?autoplay=1&rel=0" title="YouTube video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`; return; }
 });
