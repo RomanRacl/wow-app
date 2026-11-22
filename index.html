@@ -174,6 +174,13 @@ ol.prio li::before{content:counter(p);flex:none;width:26px;height:26px;border-ra
 @media (max-width:420px){.gearsw .seg{display:flex;width:100%}.gearsw .seg button{flex:1;padding:8px 6px;font-size:12.5px}}
 .box.pvpwhy{border-color:rgba(224,91,77,.45);background:linear-gradient(120deg,rgba(224,91,77,.12),var(--panel))}
 .box.pvpwhy h3{color:#f0a196}
+.box.cheat{border-color:rgba(var(--accent-rgb),.5);background:linear-gradient(120deg,rgba(var(--accent-rgb),.12),var(--panel))}
+.box.cheat h3{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cheat-gold{padding:10px 14px;border-radius:10px;background:rgba(0,0,0,.25);border-left:3px solid var(--gold-2);margin:4px 0 14px;font-size:14px}
+.cheat-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.cheat-grid h4{margin:0 0 8px}
+.t.cheat-t td:first-child{white-space:nowrap;color:var(--gold-2);font-weight:600}
+@media (max-width:420px){.t.cheat-t td:first-child{white-space:normal}}
 .controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 
 /* kouzla */
@@ -466,7 +473,7 @@ footer a{color:var(--muted)}
    ============================================================ */
 
 const PATCH = "12.1.5 (Midnight, Season 2)";
-const UPDATED = "8. 11. 2026";
+const UPDATED = "22. 11. 2026";
 
 /* ---------- RASY ---------- */
 const RACES = [
@@ -2754,6 +2761,60 @@ GUIDES["mage/frost"].pvpGear = PVP({
   tips:["Cold Snap obnoví Ice Block, takže máš vlastně dva.","Ice Barrier si šetři, až po tobě půjdou. Nahozený dopředu ti ho shodí dispelem nebo Spellstealem.","Ice Wall odřízne healera nebo nosiče vlajky. Kituj přes Cone of Cold, Frost Nova a Shimmer."],
   src:[["Icy Veins – PvP staty","https://www.icy-veins.com/wow/frost-mage-pvp-stat-priority-gear-and-trinkets"],["Icy Veins – Blitz",IVB("frost-mage")],["Murlok – RBG",MUR("mage/frost/rbg")]],
 });
+GUIDES["mage/frost"].pvpGear.cheat = {
+  golden:"Nestůj na místě. Kouzli z dálky (30–40 m) a když se k tobě někdo přiblíží, nejdřív se braň a utíkej, damage až potom.",
+  before:[
+    "Arcane Intellect na sebe i tým.",
+    "Conjure Refreshment – jídlo pro tým (v přípravné fázi, než se otevřou brány).",
+    "Dva PvP trinkety na sobě = Gladiator's Distinction (+20 % Intellectu v PvP).",
+    "Zapnutý PvP build talentů (ne Starter Build) a správné PvP talenty.",
+    "Medallion a Ice Block na klávesách, ne jen na myši."
+  ],
+  talents:[
+    ["1. slot","Overpowered Barrier","Ice Wall"],
+    ["2. slot","Improved Mass Invisibility","Snowdrift"],
+    ["3. slot","Snowdrift (Solo Shuffle: Master Shepherd)","Overpowered Barrier"]
+  ],
+  talentNote:"Zdroj: Murlok.io (top 50 hráčů, 3v3 a Blitz, 22. 11. 2026) a Skill-Capped. Improved Mass Invisibility potřebuje v class stromu naučené Mass Invisibility. Frost Bomb a Concentrated Coolness top hráči skoro nepoužívají.",
+  dmg:[
+    "Flurry – když svítí (Brain Freeze).",
+    "Ice Lance – když svítí (Fingers of Frost), při 2 stacích hned.",
+    "Frozen Orb – kdykoli je připravený.",
+    "Glacial Spike – kdykoli je připravený.",
+    "Ice Lance – když má cíl 6+ stacků Freezing.",
+    "Ray of Frost – hlavní cooldown, nejlépe když je healer v CC.",
+    "Frostbolt – výplň, když nic nesvítí."
+  ],
+  def:[
+    ["Někdo jde po tobě","Ice Barrier a odběhni. Proti melee Frost Nova + Blink/Shimmer."],
+    ["Kolem 60 % HP","Alter Time (2. stisk tě vrátí) nebo Mirror Image."],
+    ["Pod 40 % HP","Ice Block – máš 2 nabití, nešetři ho. Cold Snap ho obnoví."],
+    ["Stun + velký damage","PvP trinket (Medallion)."],
+    ["Nemáš Ice Block","Healthstone nebo Healing Potion."]
+  ],
+  cc:[
+    "Polymorph na healera, když tvůj tým útočí – pak burst.",
+    "Counterspell na healera, když léčí nepřítele s nízkými životy.",
+    "Frost Nova a Cone of Cold na melee, které tě honí.",
+    "Spellsteal – ukradni nepříteli štít nebo zrychlení.",
+    "Ice Wall (BG) – odřízni healera nebo nosiče vlajky.",
+    "Burst = Frozen Orb → Glacial Spike → Ray of Frost, mezi tím Ice Lance, když svítí."
+  ],
+  items:[
+    "Medallion (Human: Emblem) zbaví tě stunu, fearu i polymorphu. Šetři ho na chvíli, kdy tě zastaví a zároveň mlátí.",
+    "Insignia of Alacrity je pasivní – nic nemačkáš.",
+    "Medallion si přetáhni z postavy (C) na lištu, třeba na Shift + F.",
+    "Procky (Brain Freeze, Fingers of Frost) nehledej v buffech – sleduj, co svítí na liště.",
+    "Freezing stacky vidíš pod rámečkem cíle. Jídlo se dá jíst jen mimo boj."
+  ],
+  mistakes:[
+    "Stát na místě a castovat, když po tobě jde melee.",
+    "Šetřit Ice Block tak dlouho, až umřeš.",
+    "Ice Barrier nahozený dopředu – nepřítel ti ho shodí dispelem nebo Spellstealem.",
+    "Mít Ice Cold místo Ice Blocku (Starter Build ho tam dává)."
+  ],
+  note:"Pořadí damage: Method.gg (patch 12.1.5). Obrana a kontrola jsou obecné PvP zásady pro Frost Maga."
+};
 GUIDES["mage/arcane"].pvpGear = PVP({
   stats:["Intellect","Haste","Versatility","Mastery","Critical Strike"],
   statNote:"Icy Veins (12.1.5). Top hráči v RBG dávají víc Versatility.",
@@ -3200,11 +3261,28 @@ function gearSwitch(g){
   return `<div class="gearsw"><div class="seg" role="group" aria-label="Typ gearu"><button class="${m==="pve"?"on":""}" data-gearmode="pve" aria-pressed="${m==="pve"}">PvE · raid a Mythic+</button><button class="${m==="pvp"?"on":""}" data-gearmode="pvp" aria-pressed="${m==="pvp"}">PvP · battlegroundy</button></div>
     ${m==="pve"?`<span class="note" style="margin:0">Hraješ battlegroundy? Přepni na <b>PvP</b>, PvE gear tam nedostává bonus.</span>`:""}</div>`;
 }
+function pvpCheat(c){
+  if (!c) return "";
+  const ul = a => `<ul class="clean">${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  const tbl = rows => `<table class="t cheat-t"><tbody>${rows.map(([a,b])=>`<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("")}</tbody></table>`;
+  return `<div class="box cheat"><h3>Tahák do arén a battlegroundů <span class="tag new">PvP</span></h3>
+    <div class="cheat-gold"><b>Zlaté pravidlo:</b> ${esc(c.golden)}</div>
+    <div class="cheat-grid">
+      <div><h4>Před každým zápasem</h4><ol class="prio">${c.before.map(x=>`<li>${esc(x)}</li>`).join("")}</ol></div>
+      <div><h4>PvP talenty</h4><table class="t cheat-t"><thead><tr><td></td><td>Arény</td><td>Battlegroundy</td></tr></thead><tbody>${c.talents.map(([a,b,d])=>`<tr><td>${esc(a)}</td><td>${esc(b)}</td><td>${esc(d)}</td></tr>`).join("")}</tbody></table><p class="note">${esc(c.talentNote)}</p></div>
+      <div><h4>Damage – mačkej shora dolů</h4><ol class="prio">${c.dmg.map(x=>`<li>${esc(x)}</li>`).join("")}</ol></div>
+      <div><h4>Obrana podle životů</h4>${tbl(c.def)}</div>
+      <div><h4>Kontrola nepřátel a burst</h4>${ul(c.cc)}</div>
+      <div><h4>Trinkety a buffy</h4>${ul(c.items)}</div>
+    </div>
+    <h4>Časté chyby</h4><ul class="clean bad">${c.mistakes.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+    <p class="note">${esc(c.note)}</p></div>`;
+}
 function pvpGearView(g){
   const p = g.pvpGear, G = PVP_GEAR;
   const ul = a => `<ul class="clean">${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
   const srcBtns = a => `<div class="btns">${a.map(([t,u])=>`<a class="btn" href="${u}" target="_blank" rel="noopener">${esc(t)} ↗</a>`).join("")}</div>`;
-  return `<div class="box pvpwhy"><h3>Proč ti v battlegroundech nestačí PvE gear</h3>${ul(G.why)}</div>
+  return `${pvpCheat(p.cheat)}<div class="box pvpwhy"><h3>Proč ti v battlegroundech nestačí PvE gear</h3>${ul(G.why)}</div>
     <div class="cols">
       <div class="box"><h3>PvP priorita statů</h3><div class="statbar">${p.stats.map((st,i)=>`<div><span>${i+1}. ${esc(st)}</span><span class="bar"><i style="width:${100-i*16}%"></i></span></div>`).join("")}</div><p class="note">${esc(p.statNote)}</p></div>
       <div class="box"><h3>Co si nasadit</h3><table class="t"><tbody>
