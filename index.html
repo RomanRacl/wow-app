@@ -180,6 +180,9 @@ ol.prio li::before{content:counter(p);flex:none;width:26px;height:26px;border-ra
 .cheat-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
 .cheat-grid h4{margin:0 0 8px}
 .t.cheat-t td:first-child{white-space:nowrap;color:var(--gold-2);font-weight:600}
+.macro{padding:12px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+.macro pre{margin:8px 0;font:12.5px/1.55 ui-monospace,Menlo,monospace;color:#bfe9f5;background:rgba(0,0,0,.45);padding:10px;border-radius:8px;white-space:pre;overflow-x:auto;user-select:all}
+.macro .k{font-size:12px;color:var(--muted)}
 @media (max-width:420px){.t.cheat-t td:first-child{white-space:normal}}
 .controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 
@@ -2813,7 +2816,40 @@ GUIDES["mage/frost"].pvpGear.cheat = {
     "Ice Barrier nahozený dopředu – nepřítel ti ho shodí dispelem nebo Spellstealem.",
     "Mít Ice Cold místo Ice Blocku (Starter Build ho tam dává)."
   ],
-  note:"Pořadí damage: Method.gg (patch 12.1.5). Obrana a kontrola jsou obecné PvP zásady pro Frost Maga."
+  macroNote:"Healera si nastav jako focus: klikni na něj a napiš do chatu /focus. Makra vytvoříš přes /macro → New. Když focus nemáš, kouzlo půjde na tvůj normální cíl.",
+  macros:[
+    {n:"Polymorph na focus", key:"Shift + X", code:"#showtooltip Polymorph\n/cast [@focus,exists,harm,nodead][] Polymorph"},
+    {n:"Counterspell na focus", key:"Shift + C", code:"#showtooltip Counterspell\n/cast [@focus,exists,harm,nodead][] Counterspell"},
+    {n:"Spellsteal na focus", key:"Shift + E", code:"#showtooltip Spellsteal\n/cast [@focus,exists,harm,nodead][] Spellsteal"}
+  ],
+  addons:[
+    ["sArena Reloaded","Rámečky nepřátel v aréně – co castují a jestli použili trinket."],
+    ["MiniCC","Upozorní, když je tvůj healer v CC. Nahrazuje BigDebuffs a OmniBar."],
+    ["BetterBlizzPlates","Lepší jmenovky nad nepřáteli, ukazují i CC."],
+    ["BattleGroundEnemies Fixed","Seznam nepřátel v battlegroundech."],
+    ["Details!","Po zápase uvidíš svůj damage a kdo tě zabil."],
+    ["Cooldown Manager (ve hře)","Zabudovaný – ukáže tvoje cooldowny a procky. Zapni v Esc → Options."]
+  ],
+  addonNote:"Zdroj: Skill-Capped (Midnight Season 2). V Midnightu Blizzard omezil, co smí addony číst z boje – WeakAuras, OmniBar a BigDebuffs už nefungují nebo jen napůl. Instaluj přes CurseForge a u každého ověř, že má verzi pro Midnight.",
+  los:[
+    "Když tě nepřátelé tlačí, schovej se za sloup – casteři na tebe přes něj nedosáhnou.",
+    "Healera ale nesmíš ztratit z dohledu, jinak tě nedoléčí.",
+    "Kouzli zpoza rohu sloupu: krok ven, cast, krok zpět.",
+    "V battlegroundech nestůj uprostřed bitvy – drž se na okraji u svých healerů."
+  ],
+  afterLoss:[
+    "Kdo mě zabil a čím? (Details!)",
+    "Měl jsem ještě Ice Block nebo trinket, když jsem umřel?",
+    "Stál jsem na očích bez sloupu?"
+  ],
+  practice:[
+    "Duely s kamarádem nebo před Silvermoonem – obrana proti jednomu nepříteli.",
+    "Skirmish (aréna bez ratingu) – klidně zkoušej nové věci.",
+    "Tréninková figurína – sleduj, co svítí, a hned to mačkej.",
+    "Videa top Frost Magů (jména najdeš na Murlok.io) – kdy mačkají Ice Block a jak stojí za sloupy.",
+    "Postupně měň PvE věci za PvP gear za Honor (Captain Dawnrunner, Silvermoon)."
+  ],
+  note:"Pořadí damage: Method.gg (patch 12.1.5). Addony: Skill-Capped. Obrana, kontrola a hra za sloupy jsou obecné PvP zásady pro Frost Maga."
 };
 GUIDES["mage/arcane"].pvpGear = PVP({
   stats:["Intellect","Haste","Versatility","Mastery","Critical Strike"],
@@ -3275,6 +3311,9 @@ function pvpCheat(c){
       <div><h4>Kontrola nepřátel a burst</h4>${ul(c.cc)}</div>
       <div><h4>Trinkety a buffy</h4>${ul(c.items)}</div>
     </div>
+    ${c.macros?`<h4>Focus makra</h4><p class="note" style="margin:-2px 0 10px">${esc(c.macroNote)}</p><div class="cheat-grid">${c.macros.map((m,i)=>`<div class="macro"><b>${esc(m.n)}</b> <span class="k">· klávesa ${esc(m.key)}</span><pre id="mc${i}">${esc(m.code)}</pre><button class="btn" data-copy="mc${i}">Kopírovat makro</button></div>`).join("")}</div>`:""}
+    ${c.addons?`<h4>Addony, které v Midnightu fungují</h4>${tbl(c.addons)}<p class="note">${esc(c.addonNote)}</p>`:""}
+    ${c.los?`<div class="cheat-grid"><div><h4>Hra za sloupy</h4>${ul(c.los)}</div><div><h4>Po každé prohře se zeptej</h4><ol class="prio">${c.afterLoss.map(x=>`<li>${esc(x)}</li>`).join("")}</ol></div><div><h4>Jak trénovat</h4>${ul(c.practice)}</div></div>`:""}
     <h4>Časté chyby</h4><ul class="clean bad">${c.mistakes.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
     <p class="note">${esc(c.note)}</p></div>`;
 }
@@ -3447,7 +3486,7 @@ document.addEventListener("click", e => {
   if (d.hero){ S.hero=d.hero; render(); return; }
   if (d.rot){ S.rotMode=d.rot; render(); return; }
   if (d.gearmode){ S.gearMode=d.gearmode==="pvp"?"pvp":"pve"; store.set("gearMode",S.gearMode); render(); return; }
-  if (d.copy){ const txt=$("#"+d.copy).textContent; (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>{t.textContent="Zkopírováno ✓";setTimeout(()=>t.textContent="Kopírovat řetězec",1800);}).catch(()=>{const r=document.createRange();r.selectNodeContents($("#"+d.copy));const s=getSelection();s.removeAllRanges();s.addRange(r);}); return; }
+  if (d.copy){ const txt=$("#"+d.copy).textContent; (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>{const lbl=t.dataset.lbl||t.textContent;t.dataset.lbl=lbl;t.textContent="Zkopírováno ✓";setTimeout(()=>t.textContent=lbl,1800);}).catch(()=>{const r=document.createRange();r.selectNodeContents($("#"+d.copy));const s=getSelection();s.removeAllRanges();s.addRange(r);}); return; }
   if (d.vid){ const box=t.parentElement; box.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${d.vid}?autoplay=1&rel=0" title="YouTube video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`; return; }
 });
 window.addEventListener("hashchange", () => { fromHash(); render(); });
